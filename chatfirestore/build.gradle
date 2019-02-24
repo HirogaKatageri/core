@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
@@ -8,52 +8,49 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
-        applicationId "com.hirogakatageri.sandbox"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     //Android
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "androidx.core:core-ktx:$ktx_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_ext_version"
 
     //Firebase
     implementation "com.google.firebase:firebase-core:$firecore_version"
     implementation "com.google.firebase:firebase-firestore:$firestore_version"
 
-    //UI
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    implementation "androidx.cardview:cardview:$cardview_version"
-
     //Core
     implementation "com.google.code.gson:gson:$gson_version"
 
-    //FastAdapter
-    implementation "com.mikepenz:fastadapter:$fastadapter_version"
-    implementation "com.mikepenz:fastadapter-commons:$fastadapter_version"
-    implementation "com.mikepenz:fastadapter-extensions-expandable:$fastadapter_version"
-    implementation "com.mikepenz:fastadapter-extensions:$fastadapter_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation "androidx.test:runner:$testrunner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
 }

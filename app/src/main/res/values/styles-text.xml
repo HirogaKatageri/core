@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Chat-->
+    <style name="TextAppearance_Chat_Detail" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:textColor">@color/text_color_black_60</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="TextAppearance_Chat_Message" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/text_color_black_80</item>
+    </style>
+
+</resources>
