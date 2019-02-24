@@ -26,16 +26,26 @@ abstract class AbstractChatManager<C : AbstractChat> {
      * */
     open val timeZone: String = "GMT +8"
 
+
+    /**
+     * Generic Chat variable, must inherit Abstract Chat.
+     * */
     var _chat: C? = null
         ?: throw NullPointerException("Chat is not yet initialized, call createChat() to initialize chat.")
 
+
+    /**
+     * Creates channel collection in firestore.
+     * @param onSuccess Returns channel Id for your use.
+     * @param onFailure Returns exception for your use.
+     * */
     fun createChannel(
         onSuccess: (channelId: String) -> Unit,
         onFailure: (ex: Exception) -> Unit
     ) {
         val channelId = UUID.randomUUID().toString()
 
-        val document = ChatDocument(channelId)
+        val document = AbstractChatDocument(channelId)
 
         firestore.collection(collectionPath).document(channelId)
             .set(document)
@@ -47,6 +57,12 @@ abstract class AbstractChatManager<C : AbstractChat> {
             }
     }
 
+    /**
+     * Observes channel for any new chats.
+     * @param channelId The channel Id that leads to the channel you'll be observing.
+     * @param onSuccess Returns your generic object for your use, it should contain the data you need right?
+     * @param onFailure Returns an exception for your use, also tells you it failed.
+     * */
     inline fun <reified T> observeChannel(
         channelId: String,
         crossinline onSuccess: (T) -> Unit,
@@ -64,6 +80,13 @@ abstract class AbstractChatManager<C : AbstractChat> {
             }
     }
 
+    /**
+     * Sends a chat in the channel, preferably use this after creating a chat first.
+     * @see createChat
+     * @param channelId The channel Id.
+     * @param onSuccess Tells you if it succeeds.
+     * @param onFailure Returns an exception and also tells you if it fails.
+     * */
     fun sendChat(
         channelId: String,
         onSuccess: () -> Unit,
@@ -80,12 +103,20 @@ abstract class AbstractChatManager<C : AbstractChat> {
             }
     }
 
+    /**
+     * Initializes a chat message, automatically inserts time as well, depending on your timezone. Default is GMT+8
+     * @param chat The chat object. It's public... Good if you want to implement your own Chat Manager right?
+     * */
     fun createChat(chat: C): AbstractChatManager<C> {
         _chat = chat
         _chat?.time = Chat.getTimeInMillis(timeZone)
         return this
     }
 
+    /**
+     * The function that inserts your message into the chat, builder style.
+     * @param message It contains your message.
+     * */
     fun withMessage(message: String): AbstractChatManager<C> {
         _chat?.message = message
         return this

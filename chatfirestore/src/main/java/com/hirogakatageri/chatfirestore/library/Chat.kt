@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import java.util.*
 
 /**
- * Chat util class
+ * The chat utility class.
  * */
 class Chat {
 

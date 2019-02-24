@@ -29,7 +29,7 @@ abstract class AbstractChat(
     var message: String = ""
 
     /**
-     * Use this method to compile your data into a String to add into your Firestore Array
+     * Use this method to compile your object into a String to insert into your Firestore Array
      * */
     fun toJsonString(): String = Gson().toJson(this)
 
