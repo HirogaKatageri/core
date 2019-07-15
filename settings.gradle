@@ -1,1 +1,1 @@
-include ':app', ':chatfirestore', ':overlay'
+include ':app', ':chatfirestore', ':overlay', ':base', ':media'

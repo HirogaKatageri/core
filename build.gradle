@@ -1,60 +1,61 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
-    //Timber
-    ext.timber_version = '4.7.1'
-    ext.timberkt_version = '1.5.1'
+    ext {
+        //Dependency Injection
+        kodein_version = '6.3.3'
 
-    //Kotlin
-    ext.kotlin_version = '1.3.21'
-    ext.ktx_version = '1.0.1'
+        //Permission Handling
+        permission_dispatcher = '4.5.0'
 
-    //Android
-    ext.appcompat_version = '1.0.2'
-    ext.lifecycle_ext_version = '2.0.0'
+        //Kotlin
+        kotlin_version = '1.3.41'
+        ktx_version = '1.0.2'
 
-    //UI
-    ext.constraint_version = '1.1.3'
-    ext.material_version = '1.0.0'
-    ext.recyclerview_version = '1.0.0'
-    ext.cardview_version = '1.0.0'
-    ext.material_drawer_version = '6.1.0'
-    ext.glide_version = '4.8.0'
+        //Android
+        appcompat_version = '1.0.2'
+        lifecycle_ext_version = '2.0.0'
 
-    //Adapters
-    ext.fastadapter_version = '3.3.1'
+        //Timber
+        timberkt_version = '1.5.1'
 
-    //Kodein
-    ext.kodein_version = '6.1.0'
-    //Firebase
-    ext.google_services_version = '4.2.0'
-    ext.firecore_version = '16.0.7'
-    ext.fireauth_version = '16.1.0'
-    ext.firestore_version = '18.0.1'
-    ext.firestorage_version = '16.0.5'
+        //UI
+        constraint_version = '1.1.3'
+        material_version = '1.0.0'
+        recyclerview_version = '1.0.0'
+        cardview_version = '1.0.0'
+        material_drawer_version = '6.1.0'
+        glide_version = '4.8.0'
 
-    //Core
-    ext.gson_version = '2.8.5'
+        //Adapters
+        fastadapter_version = '3.3.1'
 
-    //Testing
-    ext.espresso_version = '3.1.0'
-    ext.robolectric_version = '4.0.2'
-    ext.junit_version = '4.12'
-    ext.testcore_version = '1.0.0'
-    ext.testrunner_version = '1.1.0'
-    ext.testrules_version = '1.1.0'
-    ext.testext_version = '1.0.0'
+        //Firebase
+        google_services_version = '4.2.0'
+        firecore_version = '17.0.1'
+        fireauth_version = '16.1.0'
+        firestore_version = '20.1.0'
+        firestorage_version = '16.0.5'
+
+        //Core
+        gson_version = '2.8.5'
+
+        //Testing
+        junit_version = '4.12'
+        espresso_core_version = '3.2.0'
+        robolectric_version = '4.3'
+        test_core_version = '1.0.0'
+        test_runner_version = '1.2.0'
+        test_rules_version = '1.1.0'
+        test_ext_version = '1.0.0'
+    }
 
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
@@ -62,7 +63,14 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url 'https://jitpack.io' }
+    }
+
+    ext {
+        compile_sdk_version = 28
+        build_tools_version = "28.0.3"
+        minimum_sdk_version = 21
+        target_sdk_version = 28
     }
 }
 

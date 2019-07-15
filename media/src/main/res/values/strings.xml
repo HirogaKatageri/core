@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">media</string>
+
+    <string name="capture">Capture</string>
+    <string name="request">Request</string>
+    <string name="preview">Preview</string>
+
+    <string name="msg_request_complete">Request Complete</string>
+    <string name="error_request_not_done">Press Request First</string>
+</resources>

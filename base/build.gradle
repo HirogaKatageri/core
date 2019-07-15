@@ -8,6 +8,8 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
 
     defaultConfig {
         minSdkVersion 21
@@ -15,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -26,9 +28,10 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 
 }
@@ -36,14 +39,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-
-    //Android
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.core:core-ktx:$ktx_version"
 
-    testImplementation 'junit:junit:4.12'
+    //Dependency Injection
+    api "org.kodein.di:kodein-di-generic-jvm:$kodein_version"
+    api "org.kodein.di:kodein-di-framework-android-x:$kodein_version"
+
+    //Permission Handling
+    api "org.permissionsdispatcher:permissionsdispatcher:${permission_dispatcher}"
+    kapt "org.permissionsdispatcher:permissionsdispatcher-processor:${permission_dispatcher}"
+
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
 }

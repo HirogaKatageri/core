@@ -1,21 +1,13 @@
 package com.hirogakatageri.sandbox
 
-import android.app.Application
-import androidx.fragment.app.Fragment
-import com.hirogakatageri.sandbox.ui.main.FeaturesFragment
+import com.hirogakatageri.base.KodeinApplication
 import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.generic.with
+import org.kodein.di.android.x.androidXModule
 
-class App : Application(), KodeinAware {
+class App : KodeinApplication() {
 
-    companion object {
-        const val FRAGMENTS = "fragments"
-        const val FEATURES = "features"
+    override val kodein by Kodein.lazy {
+        import(androidXModule(this@App))
     }
 
-    override val kodein: Kodein by Kodein.lazy {
-        constant(tag = FRAGMENTS) with listOf<Fragment>(FeaturesFragment())
-        constant(tag = FEATURES) with listOf("Chat")
-    }
 }
