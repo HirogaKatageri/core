@@ -1,62 +1,58 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
+apply from: '../constants.gradle'
 
 android {
-    compileSdkVersion compile_sdk_version
+    compileSdkVersion project.compile_sdk_version
+
     defaultConfig {
         applicationId "com.hirogakatageri.sandbox"
-        minSdkVersion minimum_sdk_version
-        targetSdkVersion target_sdk_version
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion project.min_sdk_version
+        targetSdkVersion project.target_sdk_version
+        versionCode project.version_code
+        versionName project.version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     dynamicFeatures = []
 }
 
 dependencies {
+    //Core
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation project(':data')
     implementation project(':base')
-    implementation project(':media')
-
+    implementation project(':auth')
+    implementation project(':blog')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     //Android
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.core:core-ktx:$ktx_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_ext_version"
 
-    //Kodein
-    implementation "org.kodein.di:kodein-di-generic-jvm:$kodein_version"
-    implementation "org.kodein.di:kodein-di-framework-android-x:$kodein_version"
+    //UI-Android
+    implementation "com.google.android.material:material:${material_version}"
 
-    //Firebase
-    implementation "com.google.firebase:firebase-core:$firecore_version"
-    implementation "com.google.firebase:firebase-firestore:$firestore_version"
-
-    //UI
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    implementation "androidx.cardview:cardview:$cardview_version"
-
-    //Core
-    implementation 'com.github.HirogaKatageri:rista-adapter:1.0.3'
-    implementation "com.google.code.gson:gson:$gson_version"
+    //Core-Firebase
+    implementation "com.google.firebase:firebase-firestore-ktx:$firestore_version"
+    implementation "com.google.firebase:firebase-storage-ktx:$firestorage_version"
+    implementation "com.google.firebase:firebase-auth:$fireauth_version"
 }
+
+apply plugin: 'com.google.gms.google-services'
