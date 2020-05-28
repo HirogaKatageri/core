@@ -1,4 +1,4 @@
-package com.hirogakatageri.sandbox
+package org.lotustechnologies.epoxy_helper
 
 import org.junit.Test
 
@@ -10,7 +10,7 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
-    @TestText1EpoxyModel
+    @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }

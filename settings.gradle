@@ -1,1 +1,2 @@
-include ':app', ':data', ':base', ':blog', ':auth'
+include ':app'
+include ':epoxy_helper'

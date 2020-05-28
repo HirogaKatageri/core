@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply from: '../constants.gradle'
+apply from: '../buildSystem/constants.gradle'
+apply from: '../buildSystem/dependencies.gradle'
 
 android {
     compileSdkVersion project.compile_sdk_version
@@ -29,30 +30,56 @@ android {
     }
 
     dynamicFeatures = []
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    project.android.buildTypes.all { buildType ->
+        buildType.javaCompileOptions.annotationProcessorOptions.arguments =
+                [
+                        logEpoxyTimings              : "true",
+                        enableParallelEpoxyProcessing: "true"
+                ]
+    }
 }
 
 dependencies {
-    //Core
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':data')
-    implementation project(':base')
-    implementation project(':auth')
-    implementation project(':blog')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "androidx.core:core-ktx:$ktx_version"
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation project(':epoxy_helper')
+
+    //Kotlin
+    implementation library.kotlin_jdk
+    implementation library.coroutines
+    implementation library.coroutines_android
 
     //Android
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation library.android_ktx
+    implementation library.appcompat
 
-    //UI-Android
-    implementation "com.google.android.material:material:${material_version}"
+    //Android UI
+    implementation library.material
+    implementation library.recyclerview
+    implementation library.cardview
+    implementation library.constraint_layout
 
-    //Core-Firebase
-    implementation "com.google.firebase:firebase-firestore-ktx:$firestore_version"
-    implementation "com.google.firebase:firebase-storage-ktx:$firestorage_version"
-    implementation "com.google.firebase:firebase-auth:$fireauth_version"
+    //Core
+    implementation library.koin_core
+    implementation library.koin_ext
+    implementation library.koin_android
+    implementation library.koin_android_scope
+    implementation library.koin_android_ext
+    implementation library.koin_android_viewmodel
+    implementation library.koin_android_fragment
+    implementation library.epoxy
+    kapt library.epoxy_processor
+
+    //Logging
+    implementation library.timberkt
 }
 
 apply plugin: 'com.google.gms.google-services'
