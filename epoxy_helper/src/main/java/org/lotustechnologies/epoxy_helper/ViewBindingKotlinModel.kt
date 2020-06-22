@@ -1,10 +1,9 @@
-package com.airbnb.epoxy.kotlinsample.helpers
+package org.lotustechnologies.epoxy_helper
 
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.viewbinding.ViewBinding
 import com.airbnb.epoxy.EpoxyModel
-import org.lotustechnologies.epoxy_helper.R
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
 import java.util.concurrent.ConcurrentHashMap

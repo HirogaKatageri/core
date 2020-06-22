@@ -35,8 +35,8 @@ android {
         correctErrorTypes = true
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
     }
 
     project.android.buildTypes.all { buildType ->
@@ -50,16 +50,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':base')
     implementation project(':epoxy_helper')
-
-    //Kotlin
-    implementation library.kotlin_jdk
-    implementation library.coroutines
-    implementation library.coroutines_android
-
-    //Android
-    implementation library.android_ktx
-    implementation library.appcompat
 
     //Android UI
     implementation library.material
@@ -68,13 +60,9 @@ dependencies {
     implementation library.constraint_layout
 
     //Core
-    implementation library.koin_core
-    implementation library.koin_ext
     implementation library.koin_android
     implementation library.koin_android_scope
-    implementation library.koin_android_ext
     implementation library.koin_android_viewmodel
-    implementation library.koin_android_fragment
     implementation library.epoxy
     kapt library.epoxy_processor
 

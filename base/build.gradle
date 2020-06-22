@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 apply from: '../buildSystem/constants.gradle'
 apply from: '../buildSystem/dependencies.gradle'
 
@@ -25,8 +26,9 @@ android {
         }
     }
 
-    kapt {
-        correctErrorTypes = true
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildFeatures {
@@ -35,9 +37,25 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation library.kotlin_jdk
-    implementation library.appcompat
-    implementation library.epoxy
-    kapt library.epoxy_processor
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    api library.kotlin_jdk
+
+    api library.android_ktx
+    api library.appcompat
+
+    api library.coroutines
+    api library.coroutines_android
+    
+    implementation library.hilt
+    kapt library.hilt_compiler
+
+//    api library.koin_android
+//    api library.koin_android_scope
+//    api library.koin_android_viewmodel
+
+    testImplementation library.test_junit
+    androidTestImplementation library.test_assert_junit
+    androidTestImplementation library.test_espresso_core
+
 }

@@ -1,31 +1,28 @@
 package com.hirogakatageri.sandbox
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyModel
+import com.hirogakatageri.base.BaseActivity
 import com.hirogakatageri.sandbox.databinding.ActivityMainBinding
 import java.util.*
 
-class TestActivity : AppCompatActivity() {
+class TestActivity : BaseActivity<ActivityMainBinding>() {
 
     private lateinit var controller: TestController
-    private lateinit var binding: ActivityMainBinding
 
     private var currentList: List<EpoxyModel<*>> = emptyList()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
+    override suspend fun ActivityMainBinding.bind() {
         controller = TestController()
-        binding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, true)
-        binding.recyclerView.setController(controller)
-        binding.recyclerView.setItemSpacingRes(R.dimen.space_small)
+        recyclerView.layoutManager =
+            LinearLayoutManager(this@TestActivity, RecyclerView.VERTICAL, true)
+        recyclerView.setController(controller)
+        recyclerView.setItemSpacingRes(R.dimen.space_small)
 
-        binding.btnAdd.setOnClickListener {
+        btnAdd.setOnClickListener {
             val random = 0..2
             val newList = mutableListOf<EpoxyModel<*>>()
             newList.addAll(currentList)

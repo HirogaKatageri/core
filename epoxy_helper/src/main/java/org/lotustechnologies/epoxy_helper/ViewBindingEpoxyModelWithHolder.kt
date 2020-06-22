@@ -1,4 +1,4 @@
-package com.airbnb.epoxy.kotlinsample.helpers
+package org.lotustechnologies.epoxy_helper
 
 import android.view.View
 import androidx.viewbinding.ViewBinding

@@ -1,9 +1,6 @@
 package com.hirogakatageri.sandbox
 
-import android.view.View
-import android.widget.TextView
-import com.airbnb.epoxy.kotlinsample.helpers.KotlinModel
-import com.airbnb.epoxy.kotlinsample.helpers.ViewBindingKotlinModel
+import org.lotustechnologies.epoxy_helper.ViewBindingKotlinModel
 import com.hirogakatageri.sandbox.databinding.ItemSample2Binding
 import java.util.*
 

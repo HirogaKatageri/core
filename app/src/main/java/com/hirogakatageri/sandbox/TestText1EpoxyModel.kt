@@ -1,6 +1,6 @@
 package com.hirogakatageri.sandbox
 
-import com.airbnb.epoxy.kotlinsample.helpers.ViewBindingKotlinModel
+import org.lotustechnologies.epoxy_helper.ViewBindingKotlinModel
 import com.hirogakatageri.sandbox.databinding.ItemSample1Binding
 import java.util.*
 

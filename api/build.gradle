@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply from: '../buildSystem/constants.gradle'
 apply from: '../buildSystem/dependencies.gradle'
 
@@ -24,20 +23,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    kapt {
-        correctErrorTypes = true
-    }
-
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
     implementation library.kotlin_jdk
-    implementation library.appcompat
-    implementation library.epoxy
-    kapt library.epoxy_processor
+
+    testImplementation library.test_junit
+    androidTestImplementation library.test_assert_junit
+    androidTestImplementation library.test_espresso_core
+
 }
