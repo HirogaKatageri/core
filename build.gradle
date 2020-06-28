@@ -1,3 +1,5 @@
+apply plugin: 'android-reporting'
+
 buildscript {
 
     apply from: 'buildSystem/dependencies.gradle'

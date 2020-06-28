@@ -1,0 +1,135 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@0.2.1
+
+commands:
+  download-gradle-dependencies:
+    steps:
+      - run:
+          name: "Downloading Gradle Dependencies"
+          command: ./gradlew androidDependencies
+
+  save-gradle-cache:
+    steps:
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key:
+            jars{{ checksum "build.gradle" }}
+            - {{ checksum  "base/build.gradle" }}
+            - {{ checksum  "app/build.gradle" }}
+            - {{ checksum  "api/build.gradle" }}
+            - {{ checksum  "epoxy-helper/build.gradle"}}
+
+  restore-gradle-cache:
+    steps:
+      - restore_cache:
+          paths:
+            - ~/.gradle
+          key:
+            jars{{ checksum "build.gradle" }}
+            - {{ checksum  "base/build.gradle" }}
+            - {{ checksum  "app/build.gradle" }}
+            - {{ checksum  "api/build.gradle" }}
+            - {{ checksum  "epoxy-helper/build.gradle"}}
+
+  setup-g-services:
+    steps:
+      - run:
+          name: "Setup google-services.json"
+          command: echo $G_SERVICES | base64 -di > ~/project/app/google-services.json
+
+  setup-project:
+    steps:
+      - checkout
+      - android/restore-build-cache
+      - restore-gradle-cache
+      - setup-g-services
+
+  lint:
+    parameters:
+      to:
+        type: string
+    steps:
+      - run:
+          name: "Run << parameters.to >>:lint"
+          command: ./gradlew << parameters.to >>:lint
+      - store_artifacts:
+          path: << parameters.to >>/build/reports
+          destination: reports/<< parameters.to >>
+      - store_test_results:
+          path: << parameters.to >>/build/test-results
+
+  unit-test:
+    parameters:
+      to:
+        type: string
+    steps:
+      - run:
+          name: "Run << parameters.to >>:testDebugUnitTest"
+          command: ./gradlew << parameters.to >>:testDebugUnitTest
+      - store_artifacts:
+          path: << parameters.to >>/build/reports
+          destination: reports/<< parameters.to >>
+      - store_test_results:
+          path: << parameters.to >>/build/test-results
+
+jobs:
+  build:
+    executor:
+      name: android/android
+      sdk-version: "29"
+    steps:
+      - checkout
+      - download-gradle-dependencies
+      - save-gradle-cache
+      - android/save-build-cache
+
+  lint:
+    executor:
+      name: android/android
+      sdk-version: "29"
+    steps:
+      - setup-project
+      - lint:
+          to: "base"
+      - lint:
+          to: "app"
+      - lint:
+          to: "api"
+      - lint:
+          to: "epoxy-helper"
+
+  unit-test:
+    executor:
+      name: android/android
+      sdk-version: "29"
+    steps:
+      - setup-project
+      - unit-test:
+          to: "base"
+      - unit-test:
+          to: "app"
+      - unit-test:
+          to: "api"
+      - unit-test:
+          to: "epoxy-helper"
+
+workflows:
+  version: "0.1"
+
+  default:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+
+      - lint:
+          requires:
+            - build
+
+      - unit-test:
+          requires:
+            - build
