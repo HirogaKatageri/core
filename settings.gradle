@@ -1,4 +1,4 @@
 include ':api'
 include ':base'
 include ':app'
-include ':epoxy_helper'
+include ':epoxy-helper'
