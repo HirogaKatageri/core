@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/recycler_view"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/space_medium"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/space_medium"
         android:layout_marginBottom="@dimen/space_medium"
-        app:layout_anchor="@+id/recycler_view"
+        app:layout_anchor="@+id/fragment_container"
         app:layout_anchorGravity="bottom|end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

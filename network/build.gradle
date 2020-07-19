@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply from: '../buildSystem/versions.gradle'
 apply from: '../buildSystem/dependencies.gradle'
 
@@ -30,10 +29,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildFeatures {
-        viewBinding = true
-    }
-
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -42,19 +37,23 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    api library.kotlin_jdk
+    implementation library.kotlin_jdk
 
-    api library.appcompat
+    implementation library.android_ktx_core
+    implementation library.androidx_crypto
 
-    api library.coroutines
-    api library.coroutines_android
+    implementation library.retrofit
+    implementation library.retrofit_gson
+    implementation library.retrofit_mock
+    implementation library.okhttp
+    implementation library.okhttp_interceptor
+    implementation library.okhttp_url_connection
+    implementation library.cookie_store
+    implementation library.firebase_auth
 
-    api library.koin_android
-    api library.koin_android_scope
-    api library.koin_android_viewmodel
-    api library.koin_android_ext
-
-    api library.timberkt
+    implementation library.timberkt
+    debugImplementation library.chuck_debug
+    releaseImplementation library.chuck_release
 
     testImplementation library.test_junit
     androidTestImplementation library.test_assert_junit

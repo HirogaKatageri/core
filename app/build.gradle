@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply from: '../buildSystem/constants.gradle'
+apply from: '../buildSystem/versions.gradle'
 apply from: '../buildSystem/dependencies.gradle'
 
 android {
@@ -45,6 +45,10 @@ android {
                         logEpoxyTimings              : "true",
                         enableParallelEpoxyProcessing: "true"
                 ]
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
