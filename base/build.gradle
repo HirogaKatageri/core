@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../buildSystem/versions.gradle'
 apply from: '../buildSystem/dependencies.gradle'
@@ -52,6 +51,10 @@ dependencies {
     api library.coroutines
     api library.coroutines_android
 
+    api library.android_ktx_livedata
+    api library.android_ktx_viewmodel
+    api library.android_ktx_state_viewmodel
+
     api library.koin_android
     api library.koin_android_scope
     api library.koin_android_viewmodel
@@ -62,5 +65,4 @@ dependencies {
     testImplementation library.test_junit
     androidTestImplementation library.test_assert_junit
     androidTestImplementation library.test_espresso_core
-
 }

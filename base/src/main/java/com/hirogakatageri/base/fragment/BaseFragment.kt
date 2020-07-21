@@ -44,6 +44,7 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), CoroutineScope {
         savedInstanceState: Bundle?
     ): View? {
         binding = createBinding(container)
+        launch { binding?.bind() }
         return binding?.root
     }
 

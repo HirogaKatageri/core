@@ -13,8 +13,6 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), CoroutineSc
 
     abstract val binding: VB
 
-    val activityContext get() = this
-
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
