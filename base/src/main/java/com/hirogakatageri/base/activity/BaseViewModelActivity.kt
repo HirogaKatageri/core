@@ -1,5 +1,6 @@
 package com.hirogakatageri.base.activity
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
@@ -15,4 +16,8 @@ abstract class BaseViewModelActivity<VB : ViewBinding, VM : BaseViewModel> :
         observe(this@BaseViewModelActivity) { launch { func(it) } }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        launch { viewModel.start() }
+    }
 }

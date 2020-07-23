@@ -13,10 +13,10 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), CoroutineSc
 
     abstract val binding: VB
 
+    private val job = SupervisorJob()
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-
-    private val job = SupervisorJob()
 
     abstract suspend fun VB.bind()
 

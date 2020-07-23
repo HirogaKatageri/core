@@ -18,13 +18,15 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), CoroutineScope {
 
     var binding: VB? = null
 
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
-
     private val job = SupervisorJob()
+
+    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
     abstract fun createBinding(container: ViewGroup?): VB
 
     abstract suspend fun VB.bind()
+
+    abstract suspend fun afterBind()
 
     @Suppress("UNCHECKED_CAST")
     inline fun <reified T : VB> inflate(viewGroup: ViewGroup?): VB =
@@ -44,7 +46,10 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment(), CoroutineScope {
         savedInstanceState: Bundle?
     ): View? {
         binding = createBinding(container)
-        launch { binding?.bind() }
+        launch {
+            binding?.bind()
+            afterBind()
+        }
         return binding?.root
     }
 

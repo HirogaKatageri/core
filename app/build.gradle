@@ -5,14 +5,14 @@ apply from: '../buildSystem/versions.gradle'
 apply from: '../buildSystem/dependencies.gradle'
 
 android {
-    compileSdkVersion project.compile_sdk_version
+    compileSdkVersion projectVersions.compile_sdk_version
 
     defaultConfig {
         applicationId "com.hirogakatageri.sandbox"
-        minSdkVersion project.min_sdk_version
-        targetSdkVersion project.target_sdk_version
-        versionCode project.version_code
-        versionName project.version_name
+        minSdkVersion projectVersions.min_sdk_version
+        targetSdkVersion projectVersions.target_sdk_version
+        versionCode projectVersions.version_code
+        versionName projectVersions.version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -54,22 +54,24 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':base')
-    implementation project(':epoxy-helper')
 
-    //Android UI
+    implementation library.kotlin_jdk
+
+    implementation library.appcompat
     implementation library.material
-    implementation library.recyclerview
-    implementation library.cardview
-    implementation library.constraint_layout
 
-    //Core
+    implementation library.coroutines
+    implementation library.coroutines_android
+
+    implementation library.android_ktx_livedata
+    implementation library.android_ktx_viewmodel
+    implementation library.android_ktx_state_viewmodel
+
     implementation library.koin_android
     implementation library.koin_android_scope
     implementation library.koin_android_viewmodel
-    implementation library.epoxy
-    kapt library.epoxy_processor
+    implementation library.koin_android_ext
 
-    //Logging
     implementation library.timberkt
 }
 

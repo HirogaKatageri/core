@@ -1,9 +1,9 @@
 ext {
-    project = [
-        min_sdk_version = 23,
-        compile_sdk_version = 30,
-        target_sdk_version = 30,
-        version_code = 1,
-        version_name = '1.0.0',
+    projectVersions = [
+            min_sdk_version    : 23,
+            compile_sdk_version: 30,
+            target_sdk_version : 30,
+            version_code       : 1,
+            version_name       : '0.0.1'
     ]
 }

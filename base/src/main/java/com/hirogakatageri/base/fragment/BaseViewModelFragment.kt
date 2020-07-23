@@ -8,8 +8,16 @@ abstract class BaseViewModelFragment<VB : ViewBinding, VM : BaseViewModel> : Bas
 
     abstract val viewModel: VM
 
+    override suspend fun afterBind() {
+        viewModel.start()
+    }
+
     inline fun <reified T : BaseViewModel> withActivityViewModel(func: T.() -> Unit) {
-        (requireActivity() as BaseViewModelActivity<*, T>).viewModel.run(func)
+        val viewModelActivity = activity
+
+        if (viewModelActivity is BaseViewModelActivity<*, *>) viewModelActivity.viewModel.let {
+            if (it is T) it.run(func)
+        }
     }
 
 }

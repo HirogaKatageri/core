@@ -1,5 +1,4 @@
 include ':repository'
 include ':base'
 include ':app'
-include ':epoxy-helper'
 include ':network'

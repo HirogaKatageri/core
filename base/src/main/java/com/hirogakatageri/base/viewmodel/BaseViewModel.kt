@@ -2,16 +2,15 @@ package com.hirogakatageri.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-abstract class BaseViewModel() : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
 
-    abstract suspend fun start()
+    abstract suspend fun start(): Job
 
-    protected suspend inline fun <T> get(liveData: MutableLiveData<T>, default: T) =
-        withContext(Dispatchers.IO) {
-            if (liveData.value == null) liveData.postValue(default)
-        }
-
+    protected fun <T> get(liveData: MutableLiveData<T>, default: T) = viewModelScope.launch {
+        if (liveData.value == null) liveData.postValue(default)
+    }
 }

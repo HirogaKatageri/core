@@ -3,19 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply from: '../buildSystem/versions.gradle'
 apply from: '../buildSystem/dependencies.gradle'
-apply plugin: 'com.github.dcendents.android-maven'
-
-group='com.github.HirogaKatageri'
 
 android {
-    compileSdkVersion project.compile_sdk_version
+    compileSdkVersion projectVersions.compile_sdk_version
 
     defaultConfig {
-        minSdkVersion project.min_sdk_version
-        targetSdkVersion project.target_sdk_version
+        minSdkVersion projectVersions.min_sdk_version
+        targetSdkVersion projectVersions.target_sdk_version
 
-        versionCode project.version_code
-        versionName project.version_name
+        versionCode projectVersions.version_code
+        versionName projectVersions.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,25 +41,26 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    api library.kotlin_jdk
+    implementation library.kotlin_jdk
+    implementation library.appcompat
 
-    api library.appcompat
+    implementation library.coroutines
+    implementation library.coroutines_android
 
-    api library.coroutines
-    api library.coroutines_android
+    implementation library.android_ktx_livedata
+    implementation library.android_ktx_viewmodel
+    implementation library.android_ktx_state_viewmodel
 
-    api library.android_ktx_livedata
-    api library.android_ktx_viewmodel
-    api library.android_ktx_state_viewmodel
+    implementation library.koin_android
+    implementation library.koin_android_scope
+    implementation library.koin_android_viewmodel
+    implementation library.koin_android_ext
 
-    api library.koin_android
-    api library.koin_android_scope
-    api library.koin_android_viewmodel
-    api library.koin_android_ext
-
-    api library.timberkt
+    implementation library.timberkt
 
     testImplementation library.test_junit
     androidTestImplementation library.test_assert_junit
     androidTestImplementation library.test_espresso_core
 }
+
+apply from: 'publish.gradle'

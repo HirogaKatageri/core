@@ -12,4 +12,8 @@ class MainFragment : BaseFragment<ActivityMainBinding>() {
     override suspend fun ActivityMainBinding.bind() {
 
     }
+
+    override suspend fun afterBind() {
+
+    }
 }
