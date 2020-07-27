@@ -2,6 +2,7 @@ package com.hirogakatageri.base.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.annotation.Keep
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.*
@@ -9,6 +10,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.functions
 
+@Keep
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), CoroutineScope {
 
     abstract val binding: VB

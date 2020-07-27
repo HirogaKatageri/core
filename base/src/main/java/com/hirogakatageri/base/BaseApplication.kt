@@ -1,6 +1,7 @@
 package com.hirogakatageri.base
 
 import android.app.Application
+import androidx.annotation.Keep
 import com.github.ajalt.timberkt.Timber
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -8,6 +9,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
 
+@Keep
 abstract class BaseApplication : Application() {
 
     abstract val moduleList: List<Module>
