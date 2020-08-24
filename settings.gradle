@@ -1,4 +1,6 @@
+include ':utils'
+include ':remote'
+include ':local'
 include ':repository'
-include ':base'
+include ':core'
 include ':app'
-include ':network'

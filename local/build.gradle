@@ -32,10 +32,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(':local')
-    implementation project(':remote')
+
     implementation library.kotlin_jdk
     implementation library.android_ktx_core
     implementation library.appcompat
+    implementation library.material
 }

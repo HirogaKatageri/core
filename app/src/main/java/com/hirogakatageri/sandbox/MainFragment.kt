@@ -1,7 +1,7 @@
 package com.hirogakatageri.sandbox
 
 import android.view.ViewGroup
-import com.hirogakatageri.base.fragment.BaseFragment
+import com.hirogakatageri.core.fragment.BaseFragment
 import com.hirogakatageri.sandbox.databinding.ActivityMainBinding
 
 class MainFragment : BaseFragment<ActivityMainBinding>() {

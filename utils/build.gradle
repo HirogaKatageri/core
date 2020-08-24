@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -29,13 +30,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.6'
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(':local')
-    implementation project(':remote')
     implementation library.kotlin_jdk
     implementation library.android_ktx_core
     implementation library.appcompat
+    implementation library.material
+    implementation library.epoxy
+    kapt library.epoxy_processor
 }

@@ -1,0 +1,62 @@
+apply from: '../buildSystem/versions.gradle'
+
+def publishingProp = new Properties()
+new File('buildSystem/publishing.properties').withInputStream { stream ->
+    publishingProp.load(stream)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.hirogakatageri.sandbox'
+                artifactId = 'base'
+                version = projectVersions.version_name
+
+                pom {
+                    name = 'Base'
+                    description = 'Base Architecture of Sandbox'
+
+                    licenses {
+                        license {
+                            name = 'The MIT License'
+                            url = 'https://github.com/HirogaKatageri/sandbox/blob/master/LICENSE.md'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = 'HirogaKatageri'
+                            name = 'Gian Patrick Quintana'
+                            email = 'gianpatrick27@gmail.com'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = publishingProp.'bintrayUser'
+    key = publishingProp.'bintrayKey'
+
+    publications = ['release']
+    override = true
+    pkg {
+        repo = 'Sandbox'
+        name = 'com.hirogakatageri.core'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/HirogaKatageri/sandbox.git'
+        version {
+            name = projectVersions.version_name
+            released = new Date()
+            vcsTag = projectVersions.version_name
+        }
+    }
+}

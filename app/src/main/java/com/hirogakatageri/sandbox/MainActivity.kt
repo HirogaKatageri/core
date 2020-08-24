@@ -1,6 +1,6 @@
 package com.hirogakatageri.sandbox
 
-import com.hirogakatageri.base.activity.BaseViewModelActivity
+import com.hirogakatageri.core.activity.BaseViewModelActivity
 import com.hirogakatageri.sandbox.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

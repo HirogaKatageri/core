@@ -11,6 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <uses-library
+            android:name="android.test.runner"
+            android:required="false" />
+
+        <uses-library android:name="android.test.base"
+            android:required="false" />
+
+        <uses-library android:name="android.test.mock"
+            android:required="false" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

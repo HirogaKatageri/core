@@ -1,0 +1,64 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion projectVersions.compile_sdk_version
+
+    defaultConfig {
+        minSdkVersion projectVersions.min_sdk_version
+        targetSdkVersion projectVersions.target_sdk_version
+
+        versionCode projectVersions.version_code
+        versionName projectVersions.version_name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation library.kotlin_jdk8
+    implementation library.appcompat
+
+    api library.coroutines
+    api library.coroutines_android
+
+    api library.android_ktx_livedata
+    api library.android_ktx_viewmodel
+    api library.android_ktx_state_viewmodel
+
+    api library.koin_android
+    api library.koin_android_scope
+    api library.koin_android_viewmodel
+    api library.koin_android_ext
+    api library.koin_android_fragment
+
+    api library.timberkt
+
+    testImplementation library.junit
+    androidTestImplementation library.android_test_assertation
+    androidTestImplementation library.espresso_core
+}
+
+apply from: 'publish.gradle'

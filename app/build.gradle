@@ -1,8 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply from: '../buildSystem/versions.gradle'
-apply from: '../buildSystem/dependencies.gradle'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
 
 android {
     compileSdkVersion projectVersions.compile_sdk_version
@@ -53,9 +53,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':base')
+    implementation project(':core')
 
-    implementation library.kotlin_jdk
+    implementation library.kotlin_jdk8
 
     implementation library.appcompat
     implementation library.material
