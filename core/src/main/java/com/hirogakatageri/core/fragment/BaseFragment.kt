@@ -15,7 +15,7 @@ import kotlin.reflect.full.functions
 @Keep
 abstract class BaseFragment<VB : ViewBinding> : Fragment(), CoroutineScope {
 
-    protected lateinit var binding: VB
+    lateinit var binding: VB
 
     private val job = SupervisorJob()
 

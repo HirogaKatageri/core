@@ -32,9 +32,7 @@ android {
 }
 
 dependencies {
-
     implementation library.kotlin_jdk
     implementation library.android_ktx_core
     implementation library.appcompat
-    implementation library.material
 }

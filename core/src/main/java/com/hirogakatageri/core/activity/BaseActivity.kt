@@ -16,7 +16,7 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), CoroutineSc
     /**
      * To initialize call inflate<ViewBindingClass>()
      * */
-    protected abstract val binding: VB
+    abstract val binding: VB
 
     private val job = SupervisorJob()
 

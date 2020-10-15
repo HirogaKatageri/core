@@ -3,7 +3,6 @@ package com.hirogakatageri.core.activity
 import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
 import androidx.viewbinding.ViewBinding
 import com.hirogakatageri.core.viewmodel.BaseViewModel
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModelActivity<VB : ViewBinding, VM : BaseViewModel> :
     BaseActivity<VB>() {
 
-    protected abstract val viewModel: VM
+    abstract val viewModel: VM
 
     protected inline fun <T> LiveData<T>.observe(crossinline func: (T) -> Unit) {
         observe(this@BaseViewModelActivity) { func(it) }

@@ -9,7 +9,7 @@ import com.hirogakatageri.core.viewmodel.BaseViewModel
 @Keep
 abstract class BaseViewModelFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment<VB>() {
 
-    protected abstract val viewModel: VM
+    abstract val viewModel: VM
 
     override suspend fun VB.afterBind() {
         viewModel.start()

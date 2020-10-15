@@ -12,10 +12,7 @@ class MainActivity : BaseViewModelActivity<ActivityMainBinding, MainViewModel>()
 
     override suspend fun ActivityMainBinding.bind() {
         supportFragmentManager.beginTransaction()
-            .add(
-                R.id.fragment_container,
-                MainFragment()
-            )
+            .add(R.id.fragment_container, MainFragment())
             .commit()
     }
 }

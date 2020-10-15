@@ -32,9 +32,31 @@ android {
 }
 
 dependencies {
-
     implementation library.kotlin_jdk
     implementation library.android_ktx_core
     implementation library.appcompat
-    implementation library.material
+    implementation library.coroutines
+    implementation library.coroutines_android
+
+    implementation library.moshi
+
+    api library.retrofit
+    implementation library.retrofit_moshi
+    implementation library.retrofit_mock
+    implementation library.okhttp
+    implementation library.okhttp_interceptor
+    implementation library.okhttp_url_connection
+    implementation library.cookie_store
+    implementation library.firebase_auth
+
+    implementation library.timberkt
+
+    debugImplementation library.chuck_debug
+    releaseImplementation library.chuck_release
+
+    testImplementation library.junit
+    testImplementation library.android_test_core
+    testImplementation library.android_test_assertation
+    testImplementation library.robolectric
+    testImplementation library.coroutines_test
 }
