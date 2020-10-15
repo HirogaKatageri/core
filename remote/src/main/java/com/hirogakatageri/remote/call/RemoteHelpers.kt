@@ -4,12 +4,11 @@ import okhttp3.Headers
 
 object RemoteHelpers {
 
-    fun getNextPageOfUsers(headers: Headers): Long? {
+    fun getNextPageOfUsers(headers: Headers): Int {
         val link = headers.get("link") // Header of the next page
-        val pattern = "(\\?since=\\d+)" // Pattern to find the next page
-        val result = Regex(pattern).find(link ?: "")
-        val values = result?.value?.split('=')
-        return values?.get(1)?.toLong() ?: 0
+        val pagePattern = "(\\?since=\\d+)" // Pattern to find the next page
+        val result = Regex(pagePattern).find(link ?: "")
+        val value = result?.value?.removePrefix("since=")
+        return value?.toInt() ?: 0
     }
-
 }

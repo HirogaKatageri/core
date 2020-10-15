@@ -51,27 +51,51 @@ class MainServiceTest {
                 onError = { error ->
                     Assert.assertNull("An error occurred", error)
                 }, onSuccess = { headers, response ->
-
-                    println("Success")
-
                     isLoading = false
 
-                    val link = headers.get("link")
-                    println("Link: $link")
-
                     val nextPage = RemoteHelpers.getNextPageOfUsers(headers)
-
                     println("Next Page: $nextPage")
 
-                    Assert.assertNotNull("Headers isNull", headers)
-                    Assert.assertNotNull("Link isNull", link)
-                    Assert.assertNotNull("Next Page isNull", nextPage)
-                    Assert.assertNotNull("Response isNull", response)
+                    Assert.assertNotNull("Headers is Null", headers)
+                    Assert.assertNotNull("Link is Null", headers.get("link"))
+                    Assert.assertNotNull("Response is Null", response)
+                    Assert.assertNotNull("Next Page is Null", nextPage)
+                    Assert.assertEquals("Next Page is not 21 after querying first 20 items", 21, nextPage)
                 }
             )
         }
-        Thread.sleep(2500)
-        Assert.assertFalse("isStillLoading", isLoading)
+        Thread.sleep(2000)
+        Assert.assertFalse("Timed Out", isLoading)
+    }
+
+    @Test
+    fun `Get User Info`() {
+        coroutineScope.launch {
+            isLoading = true
+
+            mainService.getUsers(0).parse(
+                onError = { error -> Assert.assertNull("An error occurred", error) },
+                onSuccess = { headers, list ->
+
+                    println("Users queried...")
+
+                    val username = list[0].login!!
+
+                    mainService.getUser(username).parse(
+                        onError = { error -> Assert.assertNull("An error occurred", error) },
+                        onSuccess = { headers, remoteUserModel ->
+
+                            Assert.assertEquals(username, remoteUserModel.login)
+                            Assert.assertNotNull(remoteUserModel)
+                            isLoading = false
+                        }
+                    )
+
+                }
+            )
+        }
+        Thread.sleep(2000)
+        Assert.assertFalse("Timed Out", isLoading)
     }
 
 }
