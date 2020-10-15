@@ -43,7 +43,7 @@ class MainServiceTest {
     }
 
     @Test
-    fun `Get User List`() {
+    fun test_GetUserList() {
         coroutineScope.launch {
             isLoading = true
 
@@ -69,7 +69,7 @@ class MainServiceTest {
     }
 
     @Test
-    fun `Get User Info`() {
+    fun test_getUserInfo() {
         coroutineScope.launch {
             isLoading = true
 

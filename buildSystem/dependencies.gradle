@@ -16,10 +16,11 @@ ext {
     constraintlayout_version = '2.0.2'
 
     //Core
-    room_version = '2.2.5'
     koin_version = '2.2.0-rc-2'
+    room_version = '2.2.5'
     epoxy_version = '4.1.0'
     lifecycle_version = '2.2.0'
+    paging_version = '2.1.2'
 
     //Network
     retrofit_version = '2.9.0'
@@ -79,11 +80,12 @@ ext {
             room_core                     : "androidx.room:room-runtime:$room_version",
             room_compiler                 : "androidx.room:room-compiler:$room_version",
             room_ktx                      : "androidx.room:room-ktx:$room_version",
-            room_test                    : "androidx.room:room-testing:$room_version",
-
-            //RecyclerView
+            room_test                     : "androidx.room:room-testing:$room_version",
             epoxy                         : "com.airbnb.android:epoxy:$epoxy_version",
+            epoxy_paging                  : "com.airbnb.android:epoxy-paging:$epoxy_version",
             epoxy_processor               : "com.airbnb.android:epoxy-processor:$epoxy_version",
+            paging                        : "androidx.paging:paging-runtime-ktx:$paging_version",
+            paging_test                   : "androidx.paging:paging-common-ktx:$paging_version",
 
             //Firebase
             firebase_auth                 : "com.google.firebase:firebase-auth:19.3.2",

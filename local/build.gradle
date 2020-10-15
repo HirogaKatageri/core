@@ -30,6 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.6'
     }
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
 }
 
 dependencies {
@@ -41,10 +44,10 @@ dependencies {
     kapt library.room_compiler
     api library.room_ktx
 
-    testImplementation library.junit
-    testImplementation library.android_test_core
-    testImplementation library.android_test_assertation
-    testImplementation library.robolectric
-    testImplementation library.coroutines_test
-    testImplementation library.room_test
+    androidTestImplementation library.junit
+    androidTestImplementation library.android_test_core
+    androidTestImplementation library.android_test_runner
+    androidTestImplementation library.android_test_assertation
+    androidTestImplementation library.coroutines_test
+    androidTestImplementation library.room_test
 }
