@@ -1,9 +1,7 @@
 apply from: '../buildSystem/versions.gradle'
 
 def publishingProp = new Properties()
-new File('buildSystem/publishing.properties').withInputStream { stream ->
-    publishingProp.load(stream)
-}
+rootProject.file('buildSystem/publishing.properties').withInputStream { publishingProp.load(it) }
 
 afterEvaluate {
     publishing {

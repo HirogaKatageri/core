@@ -19,7 +19,7 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addUsers(list: List<LocalUserModel>)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
+    @Update
     fun updateUser(vararg users: LocalUserModel)
 
 }
