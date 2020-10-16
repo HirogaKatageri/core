@@ -117,7 +117,7 @@ jobs:
           to: "epoxy-helper"
 
 workflows:
-  version: "0.1"
+  version: "0.0.1"
 
   default:
     jobs:

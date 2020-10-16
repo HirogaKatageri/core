@@ -1,3 +1,4 @@
+include ':feature:home'
 include ':utils'
 include ':remote'
 include ':local'

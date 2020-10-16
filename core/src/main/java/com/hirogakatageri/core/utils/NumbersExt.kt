@@ -20,11 +20,9 @@ fun Long.abbreviate(): String {
     if (value < 0) return "-" + value.abbreviate()
     if (value < 1000) return this.toString()
 
-    val e = map.floorEntry(value)
-    val divideBy = e.key
-    val suffix = e.value
+    val (divideBy, suffix) = map.floorEntry(value)
 
-    val truncated = value / (divideBy!! / 10) //the number part of the output times 10
+    val truncated = value / (divideBy / 10) //the number part of the output times 10
     val hasDecimal = truncated < 100 && truncated / 10.0 != (truncated / 10).toDouble()
     return if (hasDecimal) "${truncated / 10.0}$suffix" else "${truncated / 10}$suffix"
 }

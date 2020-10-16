@@ -12,8 +12,8 @@ import kotlin.coroutines.CoroutineContext
 
 @Keep
 class ThrottleClickListener(
-    lifecyclerOwner: LifecycleOwner?,
-    private val click: (view: View?) -> Unit
+    lifecycleOwner: LifecycleOwner?,
+    private val _onClick: (view: View?) -> Unit
 ) : View.OnClickListener, LifecycleObserver, CoroutineScope {
 
     private var isRunning: Boolean = false
@@ -22,7 +22,7 @@ class ThrottleClickListener(
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
     init {
-        lifecyclerOwner?.lifecycle?.addObserver(this)
+        lifecycleOwner?.lifecycle?.addObserver(this)
     }
 
     override fun onClick(view: View?) {
@@ -31,7 +31,7 @@ class ThrottleClickListener(
             d { "${view?.id} click started." }
 
             launch {
-                click(view)
+                _onClick(view)
                 delay(800)
                 isRunning = false
                 d { "${view?.id} click finished." }
@@ -47,10 +47,10 @@ class ThrottleClickListener(
 
     @Keep
     class Builder(
-        val lifecycleOwner: LifecycleOwner? = null,
-        val views: List<View?>? = null,
-        val view: View? = null,
-        val onClick: (view: View?) -> Unit
+        private val lifecycleOwner: LifecycleOwner? = null,
+        private val views: List<View?>? = null,
+        private val view: View? = null,
+        private val onClick: (view: View?) -> Unit
     ) {
         fun build() {
             val listener = ThrottleClickListener(lifecycleOwner, onClick)
