@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearanceOverlay.Home.Item.User.Profile" parent="">
+        <item name="cornerSize">36dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+</resources>

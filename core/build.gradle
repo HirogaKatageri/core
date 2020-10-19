@@ -40,6 +40,7 @@ dependencies {
 
     implementation library.kotlin_jdk8
     implementation library.appcompat
+    implementation library.material
 
     api library.coroutines
     api library.coroutines_android
@@ -53,6 +54,8 @@ dependencies {
     api library.koin_android_viewmodel
     api library.koin_android_ext
     api library.koin_android_fragment
+
+    api library.coil
 
     api library.timberkt
 

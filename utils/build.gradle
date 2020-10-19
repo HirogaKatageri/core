@@ -41,5 +41,8 @@ dependencies {
     implementation library.appcompat
     implementation library.material
     implementation library.epoxy
+    implementation library.coroutines
+    implementation library.coroutines_android
+    implementation library.timberkt
     kapt library.epoxy_processor
 }

@@ -2,24 +2,34 @@ package com.hirogakatageri.local.dao
 
 import androidx.room.*
 import com.hirogakatageri.local.model.LocalUserModel
-import com.hirogakatageri.local.model.LocalUserModelSimple
+import com.hirogakatageri.local.model.SimpleLocalUserModel
 
 @Dao
 interface UserDao {
 
     @Query("SELECT * FROM users")
-    fun getAllUsers(): List<LocalUserModel>
+    suspend fun getAllUsers(): List<LocalUserModel>
 
-    @Query("SELECT rowid, username, followers, profile_image_url, notes FROM users LIMIT :offset, 20")
-    fun getUsers(offset: Int): List<LocalUserModelSimple>
+    @Query("SELECT * FROM users " +
+            "LIMIT :offset, :limit")
+    suspend fun getUsers(offset: Long, limit: Int = 20): List<LocalUserModel>
 
-    @Query("SELECT * FROM users JOIN users_fts ON rowid == users_fts.rowid WHERE users_fts.username MATCH :value GROUP BY rowid")
-    fun search(value: String): List<LocalUserModelSimple>
+    @Query("SELECT * FROM users " +
+            "WHERE rowid=:userId")
+    suspend fun getUser(userId: Long): LocalUserModel?
+
+    @Query("SELECT * FROM users " +
+            "JOIN users_fts " +
+            "ON rowid == users_fts.rowid " +
+            "WHERE users_fts.username " +
+            "MATCH :value || '*' " +
+            "GROUP BY rowid")
+    suspend fun search(value: String): List<SimpleLocalUserModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addUsers(list: List<LocalUserModel>)
+    suspend fun insertUsers(vararg users: LocalUserModel)
 
     @Update
-    fun updateUser(vararg users: LocalUserModel)
+    suspend fun updateUsers(vararg users: LocalUserModel)
 
 }

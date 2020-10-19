@@ -8,12 +8,13 @@ import com.hirogakatageri.remote.service.MainService
 import com.hirogakatageri.remote.wrapper.parse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,12 +26,13 @@ import org.robolectric.annotation.Config
 class MainServiceTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
-    private val coroutineScope = TestCoroutineScope(testDispatcher)
     private lateinit var mainService: MainService
     private var isLoading = false
 
     @Before
     fun setup() {
+        Dispatchers.setMain(testDispatcher)
+
         val context = ApplicationProvider.getApplicationContext<Application>()
         mainService = Client(context, isTesting = true).createService()
         isLoading = false
@@ -43,59 +45,53 @@ class MainServiceTest {
     }
 
     @Test
-    fun test_GetUserList() {
-        coroutineScope.launch {
-            isLoading = true
+    fun test_GetUserList() = runBlocking {
+        isLoading = true
 
-            mainService.getUsers(0).parse(
-                onError = { error ->
-                    Assert.assertNull("An error occurred", error)
-                }, onSuccess = { headers, response ->
-                    isLoading = false
+        mainService.getUsers(0).parse(
+            onError = { error ->
+                assertNull(error)
+            }, onSuccess = { headers, response ->
+                isLoading = false
 
-                    val nextPage = RemoteHelpers.getNextPageOfUsers(headers)
-                    println("Next Page: $nextPage")
+                val offset = RemoteHelpers.getNextOffsetOfUsers(headers)
 
-                    Assert.assertNotNull("Headers is Null", headers)
-                    Assert.assertNotNull("Link is Null", headers.get("link"))
-                    Assert.assertNotNull("Response is Null", response)
-                    Assert.assertNotNull("Next Page is Null", nextPage)
-                    Assert.assertEquals("Next Page is not 21 after querying first 20 items", 21, nextPage)
-                }
-            )
-        }
-        Thread.sleep(2000)
-        Assert.assertFalse("Timed Out", isLoading)
+                assertNotNull("headers", headers)
+                assertNotNull("link", headers.get("link"))
+                assertNotNull("response", response)
+                assertNotNull("offset", offset)
+            }
+        )
+
+        delay(2500)
+        assertFalse("Timed Out", isLoading)
     }
 
     @Test
-    fun test_getUserInfo() {
-        coroutineScope.launch {
-            isLoading = true
+    fun test_getUserInfo() = runBlocking {
+        isLoading = true
 
-            mainService.getUsers(0).parse(
-                onError = { error -> Assert.assertNull("An error occurred", error) },
-                onSuccess = { headers, list ->
+        mainService.getUsers(0).parse(
+            onError = { error -> assertNull("An error occurred", error) },
+            onSuccess = { headers, list ->
 
-                    println("Users queried...")
+                val username = list[0].login
 
-                    val username = list[0].login!!
+                mainService.getUser(username).parse(
+                    onError = { error -> assertNull("An error occurred", error) },
+                    onSuccess = { headers, remoteUserModel ->
 
-                    mainService.getUser(username).parse(
-                        onError = { error -> Assert.assertNull("An error occurred", error) },
-                        onSuccess = { headers, remoteUserModel ->
+                        assertEquals("username", username, remoteUserModel.login)
+                        assertNotNull("model", remoteUserModel)
+                        isLoading = false
+                    }
+                )
 
-                            Assert.assertEquals(username, remoteUserModel.login)
-                            Assert.assertNotNull(remoteUserModel)
-                            isLoading = false
-                        }
-                    )
+            }
+        )
 
-                }
-            )
-        }
-        Thread.sleep(2000)
-        Assert.assertFalse("Timed Out", isLoading)
+        delay(2500)
+        assertFalse("Timed Out", isLoading)
     }
 
 }

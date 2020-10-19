@@ -16,6 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.net.CookieManager
 import java.net.CookiePolicy
 import java.util.concurrent.TimeUnit
+import kotlin.math.pow
 
 
 internal const val TIMEOUT_CONNECT: Long = 60
@@ -75,18 +76,22 @@ class Client(
         }.also { CookieManager.setDefault(it) }
 
     private class RetryInterceptor : Interceptor {
+
         override fun intercept(chain: Interceptor.Chain): Response {
             val request = chain.request()
             var response = chain.proceed(request)
 
-            var requestCount = 1
-            val maxRetryCount = 3
+            val seconds = 2L..5L // To increment exponential backoff
+            var retries = 0
+            val maxRetries = 3
 
-            while (response.code != 200 && requestCount < maxRetryCount) {
+            while (response.code != 200 && retries < maxRetries) {
 
-                Thread.sleep(1000)
+                ++retries
+                val delay: Long = (((3.25).pow(retries) + seconds.random()) * 1000L).toLong()
+
+                Thread.sleep(delay)
                 response = chain.proceed(request)
-                requestCount++
             }
 
             return response

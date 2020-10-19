@@ -9,9 +9,9 @@ import androidx.annotation.Keep
 @JsonClass(generateAdapter = true)
 data class RemoteUserModel(
     @Json(name = "login")
-    val login: String? = null,
+    val login: String,
     @Json(name = "id")
-    val id: Int? = null,
+    val id: Long,
     @Json(name = "node_id")
     val nodeId: String? = null,
     @Json(name = "avatar_url")

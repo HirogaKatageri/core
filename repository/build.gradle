@@ -38,4 +38,15 @@ dependencies {
     implementation library.kotlin_jdk
     implementation library.android_ktx_core
     implementation library.appcompat
+    implementation library.koin_android
+
+    testImplementation library.junit
+    testImplementation library.android_test_core
+    testImplementation library.android_test_assertation
+
+    androidTestImplementation library.junit
+    androidTestImplementation library.android_test_core
+    androidTestImplementation library.android_test_runner
+    androidTestImplementation library.android_test_assertation
+    androidTestImplementation library.koin_test
 }

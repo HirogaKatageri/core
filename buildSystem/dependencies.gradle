@@ -86,6 +86,7 @@ ext {
             epoxy_processor               : "com.airbnb.android:epoxy-processor:$epoxy_version",
             paging                        : "androidx.paging:paging-runtime-ktx:$paging_version",
             paging_test                   : "androidx.paging:paging-common-ktx:$paging_version",
+            coil                          : "io.coil-kt:coil:1.0.0-rc3",
 
             //Firebase
             firebase_auth                 : "com.google.firebase:firebase-auth:19.3.2",

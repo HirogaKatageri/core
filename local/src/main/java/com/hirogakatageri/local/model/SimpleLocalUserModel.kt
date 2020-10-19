@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Fts4(contentEntity = LocalUserModel::class)
 @Entity(tableName = "users_fts")
-data class LocalUserModelSimple(
+data class SimpleLocalUserModel(
     @PrimaryKey @ColumnInfo(name = "rowid") val uid: Int,
     var username: String,
     var followers: Int? = 0,

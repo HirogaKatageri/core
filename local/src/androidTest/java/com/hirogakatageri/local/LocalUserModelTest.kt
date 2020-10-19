@@ -6,73 +6,106 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.hirogakatageri.local.dao.UserDao
 import com.hirogakatageri.local.model.LocalUserModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.*
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class LocalUserModelTest {
 
-    private val sampleModels = listOf<LocalUserModel>(
-        LocalUserModel(1, "Hiroga"),
-        LocalUserModel(2, "Rena"),
-        LocalUserModel(3, "Kira"),
-        LocalUserModel(4, "Rika")
-    )
+    private val testDispatcher = TestCoroutineDispatcher()
+
+    private lateinit var sample: MutableList<LocalUserModel>
     private lateinit var database: LocalDatabase
     private lateinit var userDao: UserDao
 
     @Before
     fun setup() {
+        Dispatchers.setMain(testDispatcher)
+
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, LocalDatabase::class.java).build()
         userDao = database.userDao()
+        sample = mutableListOf()
+
+        for (i in 0..5L) {
+            sample.add(LocalUserModel(i, "${UUID.randomUUID()}"))
+        }
     }
 
     @After
     fun onFinish() {
+        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
         database.close()
     }
 
     @Test
-    fun test_Insert() {
-        userDao.addUsers(sampleModels)
+    fun test_InsertAndGet() = runBlocking {
+        userDao.insertUsers(*sample.toTypedArray())
+        delay(200)
 
-        val users = userDao.getUsers(0)
+        val models = userDao.getAllUsers()
+        delay(200)
+        assertEquals(sample.size, models.size)
 
-        Assert.assertEquals("Hiroga", users[0].username)
-        Assert.assertEquals(4, users.size)
+        val limitedList = userDao.getUsers(0, 1)
+        delay(200)
+        assertEquals(1, limitedList.size)
+
+        val nullModel = userDao.getUser(999)
+        delay(200)
+        assertNull(nullModel)
     }
 
     @Test
-    fun test_Search() {
-        userDao.addUsers(sampleModels)
+    fun test_Search() = runBlocking {
+        userDao.insertUsers(
+            LocalUserModel(0, "Hiroga"),
+            LocalUserModel(1, "Rena"),
+            LocalUserModel(2, "Kira"),
+            LocalUserModel(3, "Rika")
+        )
+        delay(200)
 
-        var toSearch = "Hiroga"
-        var users = userDao.search(toSearch)
-        Assert.assertEquals(1, users.size)
+        userDao.search("Hiroga").let {
+            delay(200)
+            assertEquals(1, it.size)
+        }
 
-        toSearch = "R*"
-        users = userDao.search(toSearch)
-        Assert.assertEquals(2, users.size)
+        userDao.search("R").let {
+            delay(200)
+            assertEquals(2, it.size)
+        }
     }
 
     @Test
-    fun test_Update() {
-        userDao.addUsers(sampleModels)
-        val users = userDao.getAllUsers()
+    fun test_Update() = runBlocking {
+        val newModel = LocalUserModel(sample[0].uid, username = "Hamster")
 
-        val newUsername = "Hamster"
+        userDao.insertUsers(*sample.toTypedArray())
+        delay(200)
 
-        users[0].copy(username = newUsername).let { userDao.updateUser(it) }
-        userDao.updateUser(LocalUserModel(0, newUsername))
+        userDao.updateUsers(newModel)
+        delay(200)
 
-        val newList = userDao.getAllUsers()
-        Assert.assertEquals(newUsername, newList[0].username)
+        val updatedModel = userDao.getUser(sample[0].uid)
+        delay(200)
+
+        assertEquals(updatedModel, newModel)
+        assertEquals("Hamster", updatedModel?.username)
     }
 
 }
