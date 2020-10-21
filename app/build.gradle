@@ -49,14 +49,32 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':core')
+    implementation project(':feature:home')
+    implementation project(':repository')
     implementation library.kotlin_jdk8
     implementation library.appcompat
     implementation library.material
+
+    testImplementation library.junit
+    testImplementation library.android_test_core
+    testImplementation library.android_test_assertation
+
+    androidTestImplementation library.junit
+    androidTestImplementation library.android_test_core
+    androidTestImplementation library.android_test_runner
+    androidTestImplementation library.android_test_assertation
+    androidTestImplementation library.koin_test
+    androidTestImplementation library.coroutines_test
+    androidTestImplementation library.room_test
 }
 
 apply plugin: 'com.google.gms.google-services'

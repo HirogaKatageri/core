@@ -10,7 +10,8 @@ interface MainService {
 
     @GET("users")
     suspend fun getUsers(
-        @Query("since") since: Long
+        @Query("since") since: Long,
+        @Query("per_page") limit: Int = 20
     ): ResponseWrapper<List<RemoteUserModel>, Any>
 
     @GET("users/{username}")

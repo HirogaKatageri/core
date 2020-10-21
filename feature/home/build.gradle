@@ -15,7 +15,7 @@ android {
         versionCode projectVersions.version_code
         versionName projectVersions.version_name
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.hirogakatageri.home.env.HomeTestRunner"
     }
 
     buildTypes {
@@ -51,7 +51,15 @@ dependencies {
     implementation library.epoxy
     kapt library.epoxy_processor
 
+    implementation library.timberkt
+
     testImplementation library.junit
+    testImplementation library.android_test_core
+    testImplementation library.android_test_assertation
+
+    androidTestImplementation library.junit
+    androidTestImplementation library.android_test_core
+    androidTestImplementation library.android_test_runner
     androidTestImplementation library.android_test_assertation
-    androidTestImplementation library.espresso_core
+    androidTestImplementation library.koin_test
 }

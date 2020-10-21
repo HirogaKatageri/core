@@ -3,7 +3,7 @@ package com.hirogakatageri.repository
 import com.hirogakatageri.local.model.LocalUserModel
 import com.hirogakatageri.remote.model.RemoteUserModel
 
-fun RemoteUserModel.toLocalUserModel(): LocalUserModel? = LocalUserModel(
+fun RemoteUserModel.toLocalUserModel(): LocalUserModel = LocalUserModel(
         uid = id,
         username = login,
         followers = followers ?: 0,
@@ -11,5 +11,6 @@ fun RemoteUserModel.toLocalUserModel(): LocalUserModel? = LocalUserModel(
         profileImageUrl = avatarUrl,
         name = name,
         companyName = company,
-        blogUrl = blog
+        blogUrl = blog,
+        htmlUrl = htmlUrl
 )

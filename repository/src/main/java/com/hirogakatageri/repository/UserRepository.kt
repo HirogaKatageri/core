@@ -7,42 +7,25 @@ import com.hirogakatageri.remote.service.MainService
 import com.hirogakatageri.remote.wrapper.parse
 
 class UserRepository(
-    val service: MainService,
-    val dao: UserDao
+    private val service: MainService,
+    private val dao: UserDao
 ) {
-    private var offset: Long = 0
 
-    suspend fun getLocalUsers() = dao.getUsers(offset)
+    suspend fun getLocalUser(username: String): LocalUserModel? = dao.getUser(username)
 
-    suspend fun getRemoteUsers(
+    suspend fun getRemoteUser(
+        username: String,
         onError: () -> Unit,
-        onSuccess: (list: List<LocalUserModel>) -> Unit
+        onSuccess: (model: RemoteUserModel) -> Unit
     ) {
-        service.getUsers(offset).parse(
-            onError = { error -> onError() },
-            onSuccess = { headers, list ->
-                val newList: MutableList<LocalUserModel> = mutableListOf()
-                list.forEach { remote -> remote.toLocalUserModel()?.let { local -> newList.add(local) } }
-                onSuccess(newList)
-            }
+        service.getUser(username).parse(
+            onError = { onError() },
+            onSuccess = { _, model -> onSuccess(model) }
         )
     }
 
-    suspend fun updateLocalUserModelListDetails(remoteList: List<RemoteUserModel>) {
-        val updatedList: MutableList<LocalUserModel> = mutableListOf()
-
-        remoteList.forEach { remote ->
-            dao.getUser(remote.id)?.copy(
-                username = remote.login,
-                profileImageUrl = remote.avatarUrl
-            )?.let { updatedList.add(it) }
-        }
-
-        dao.insertUsers(*updatedList.toTypedArray())
-    }
-
     suspend fun updateLocalUserModelDetails(remoteModel: RemoteUserModel) {
-        val updatedModel = dao.getUser(remoteModel.id).copy(
+        val updatedModel = dao.getUser(remoteModel.login)?.copy(
             username = remoteModel.login,
             profileImageUrl = remoteModel.avatarUrl,
             followers = remoteModel.followers ?: 0,
@@ -52,7 +35,7 @@ class UserRepository(
             blogUrl = remoteModel.blog
         )
 
-        dao.updateUsers(updatedModel)
+        updatedModel?.let { dao.updateUsers(it) }
     }
 
 }

@@ -2,21 +2,20 @@ package com.hirogakatageri.core.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.annotation.Keep
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.*
+import org.koin.androidx.scope.ScopeActivity
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.functions
 
 @Keep
-abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), CoroutineScope {
+abstract class BaseActivity<VB : ViewBinding> : ScopeActivity(), CoroutineScope {
 
-    /**
-     * To initialize call inflate<ViewBindingClass>()
-     * */
-    abstract val binding: VB
+    lateinit var binding: VB
 
     private val job = SupervisorJob()
 
@@ -24,19 +23,17 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity(), CoroutineSc
         get() = Dispatchers.Main + job
 
     /**
-     * Called after onCreate() using the main thread.
+     * Called within onCreate() using the main thread.
      * */
     protected abstract suspend fun VB.bind()
 
-    @Suppress("UNCHECKED_CAST")
-    protected inline fun <reified T : VB> inflate(): VB = T::class.functions.find { func ->
-        func.name == "inflate" && func.parameters[0].type.classifier == LayoutInflater::class.createType().classifier
-    }?.call(layoutInflater) as VB
+    protected abstract fun createBinding(): VB
 
     protected suspend inline fun binding(crossinline func: VB.() -> Unit) = withContext(Dispatchers.Main) { binding.run(func) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = createBinding()
         setContentView(binding.root)
         launch { binding.bind() }
     }

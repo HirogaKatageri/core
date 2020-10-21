@@ -8,6 +8,7 @@ import coil.request.CachePolicy
 import com.github.ajalt.timberkt.Timber
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.fragment.koin.fragmentFactory
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
@@ -27,7 +28,7 @@ abstract class BaseApplication : Application(), ImageLoaderFactory {
                 if (BuildConfig.DEBUG) Level.DEBUG
                 else Level.NONE
             )
-
+            fragmentFactory()
             androidContext(this@BaseApplication)
             modules(moduleList)
         }

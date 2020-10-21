@@ -1,1 +1,6 @@
-<manifest package="com.hirogakatageri.core" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hirogakatageri.core">
+
+    <application android:theme="@style/Theme.Core" />
+
+</manifest>

@@ -33,12 +33,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(':local')
-    implementation project(':remote')
+    api project(':local')
+    api project(':remote')
+    
     implementation library.kotlin_jdk
     implementation library.android_ktx_core
     implementation library.appcompat
     implementation library.koin_android
+
+    implementation library.timberkt
 
     testImplementation library.junit
     testImplementation library.android_test_core

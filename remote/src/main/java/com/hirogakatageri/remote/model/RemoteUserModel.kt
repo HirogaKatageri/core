@@ -11,7 +11,7 @@ data class RemoteUserModel(
     @Json(name = "login")
     val login: String,
     @Json(name = "id")
-    val id: Long,
+    val id: Int,
     @Json(name = "node_id")
     val nodeId: String? = null,
     @Json(name = "avatar_url")

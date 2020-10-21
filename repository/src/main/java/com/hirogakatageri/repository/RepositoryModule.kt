@@ -5,8 +5,8 @@ import com.hirogakatageri.local.LocalDatabase
 import com.hirogakatageri.local.dao.UserDao
 import com.hirogakatageri.remote.Client
 import com.hirogakatageri.remote.service.MainService
-import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object RepositoryModule {
@@ -19,9 +19,13 @@ object RepositoryModule {
                 "local-db"
             ).build()
         }
+        factory<UserDao> { get<LocalDatabase>().userDao() }
+
         single<Client> { Client(androidContext()) }
-        single<MainService> { (client: Client) -> client.createService() }
-        factory<UserDao> { (db: LocalDatabase) -> db.userDao() }
+        single<MainService> { get<Client>().createService() }
+
+        single { UserListRepository(get(), get()) }
+        single { UserRepository(get(), get()) }
     }
 
 }

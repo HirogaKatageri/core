@@ -65,7 +65,7 @@ class LocalUserModelTest {
         delay(200)
         assertEquals(1, limitedList.size)
 
-        val nullModel = userDao.getUser(999)
+        val nullModel = userDao.getUser("")
         delay(200)
         assertNull(nullModel)
     }
@@ -101,7 +101,7 @@ class LocalUserModelTest {
         userDao.updateUsers(newModel)
         delay(200)
 
-        val updatedModel = userDao.getUser(sample[0].uid)
+        val updatedModel = userDao.getUser("Hamster")
         delay(200)
 
         assertEquals(updatedModel, newModel)

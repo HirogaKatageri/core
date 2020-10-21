@@ -31,8 +31,8 @@ sealed class ResponseWrapper<out T : Any, out U : Any> {
 }
 
 suspend inline fun <reified T1 : Any, reified T2 : Any> ResponseWrapper<T1, T2>.parse(
-    crossinline onError: suspend (T2?) -> Unit,
-    crossinline onSuccess: suspend (headers: Headers, T1) -> Unit
+    noinline onError: suspend (T2?) -> Unit,
+    noinline onSuccess: suspend (headers: Headers, T1) -> Unit
 ) = withContext(Dispatchers.IO) {
     when (this@parse) {
         is ResponseWrapper.Success<T1> -> onSuccess(headers, body)

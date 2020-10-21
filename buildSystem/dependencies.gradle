@@ -115,5 +115,6 @@ ext {
             android_test_assertation_truth: "androidx.test.ext:truth:$androidx_test_version",
             espresso_core                 : "androidx.test.espresso:espresso-core:$espresso_version",
             robolectric                   : "org.robolectric:robolectric:$robolectric_version", // Unit Test available
+            lifecycle_test                : "androidx.arch.core:core-testing:2.1.0"
     ]
 }
