@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="core_no_internet">No Internet Connection</string>
+</resources>

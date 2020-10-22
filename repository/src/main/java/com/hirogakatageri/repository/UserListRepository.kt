@@ -4,8 +4,8 @@ import android.os.SystemClock
 import androidx.lifecycle.MutableLiveData
 import com.github.ajalt.timberkt.d
 import com.hirogakatageri.local.dao.UserDao
-import com.hirogakatageri.local.model.base.IUserModel
 import com.hirogakatageri.local.model.LocalUserModel
+import com.hirogakatageri.local.model.base.IUserModel
 import com.hirogakatageri.remote.call.RemoteHelpers
 import com.hirogakatageri.remote.model.RemoteUserModel
 import com.hirogakatageri.remote.service.MainService
@@ -94,7 +94,6 @@ class UserListRepository(
                 updatedList.add(local)
             } ?: updatedList.add(remote.toLocalUserModel())
         }
-
         dao.insertUsers(*updatedList.toTypedArray())
         d { "updateLocalUserModelListDetails finished... ${SystemClock.uptimeMillis() - startTime}ms" }
     }

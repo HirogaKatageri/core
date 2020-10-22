@@ -4,25 +4,40 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.kotlin.ViewBindingHolder
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
+import com.hirogakatageri.core.utils.NetworkLiveData
 import com.hirogakatageri.core.viewmodel.BaseViewModel
 import com.hirogakatageri.home.model.base.IMainItemUser
 import com.hirogakatageri.local.model.base.IUserModel
 import com.hirogakatageri.repository.UserListRepository
+import com.hirogakatageri.utils.EndlessRecyclerViewScrollListener
 import com.hirogakatageri.utils.GenericEpoxyViewBindingClickListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeActivityMainViewModel(private val repository: UserListRepository) : BaseViewModel(),
+class HomeActivityMainViewModel(
+    private val repository: UserListRepository,
+    val network: NetworkLiveData
+) : BaseViewModel(),
     GenericEpoxyViewBindingClickListener {
+
+    internal fun getScrollListener(layoutManager: LinearLayoutManager) =
+        HomeActivityEndlessScrollListener(layoutManager)
 
     private val _userList: MutableLiveData<List<IUserModel>> = MutableLiveData()
     val userList: LiveData<List<IUserModel>> = _userList
+
+    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private var userListQueryFailed: Boolean = false
 
     override suspend fun start(): Job = viewModelScope.launch(Dispatchers.IO + job) {
         getInitialLocalUsers()
@@ -34,15 +49,26 @@ class HomeActivityMainViewModel(private val repository: UserListRepository) : Ba
     }
 
     private suspend fun getInitialRemoteUsers() = withContext(Dispatchers.IO) {
+        _isLoading.postValue(true)
         repository.getRemoteUsers(
-            onError = { e { "getInitialRemoteUsers" } },
+            onError = {
+                e { "getInitialRemoteUsers" }
+                userListQueryFailed = true
+                _isLoading.postValue(false)
+            },
             onSuccess = {
+                userListQueryFailed = false
                 launch {
                     if (repository.isListEmpty) repository.getLocalUsers(_userList)
                     else repository.refreshCurrentList(_userList)
+                    _isLoading.postValue(false)
                 }
             }
         )
+    }
+
+    fun refreshCurrentList() = viewModelScope.launch(Dispatchers.IO + job) {
+        repository.refreshCurrentList(_userList)
     }
 
     fun search(username: String) = viewModelScope.launch(Dispatchers.IO + job) {
@@ -50,10 +76,26 @@ class HomeActivityMainViewModel(private val repository: UserListRepository) : Ba
     }
 
     fun getMoreUsers() = viewModelScope.launch(Dispatchers.IO + job) {
+        _isLoading.postValue(true)
         repository.getRemoteUsers(
-            onError = { e { "getRemoteUsers error..." } },
-            onSuccess = { }
+            onError = {
+                e { "getRemoteUsers error..." }
+                userListQueryFailed = true
+                _isLoading.postValue(false)
+            },
+            onSuccess = {
+                userListQueryFailed = false
+                launch {
+                    if (repository.isListEmpty) repository.getLocalUsers(_userList)
+                    else repository.refreshCurrentList(_userList)
+                    _isLoading.postValue(false)
+                }
+            }
         )
+    }
+
+    fun retryQuery() {
+        if (userListQueryFailed) getMoreUsers()
     }
 
     override fun onClickEpoxyModel(
@@ -66,6 +108,15 @@ class HomeActivityMainViewModel(private val repository: UserListRepository) : Ba
             is IMainItemUser -> {
                 d { "Clicked: ${model.model.username}" }
             }
+        }
+    }
+
+    internal inner class HomeActivityEndlessScrollListener(
+        layoutManager: LinearLayoutManager
+    ) : EndlessRecyclerViewScrollListener(layoutManager) {
+
+        override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+            getMoreUsers()
         }
     }
 }

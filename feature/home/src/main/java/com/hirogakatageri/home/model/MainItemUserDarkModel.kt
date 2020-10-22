@@ -1,5 +1,6 @@
 package com.hirogakatageri.home.model
 
+import android.graphics.ColorMatrixColorFilter
 import android.view.View
 import androidx.core.view.isVisible
 import coil.load
@@ -11,6 +12,7 @@ import com.hirogakatageri.home.databinding.HomeMainItemUserDarkBinding
 import com.hirogakatageri.home.model.base.IMainItemUser
 import com.hirogakatageri.local.model.LocalUserModel
 import com.hirogakatageri.local.model.base.IUserModel
+import com.hirogakatageri.utils.invertColors
 import com.hirogakatageri.utils.setTextSafely
 
 @EpoxyModelClass
@@ -23,6 +25,7 @@ abstract class MainItemUserDarkModel : ViewBindingEpoxyModelWithHolder<HomeMainI
     lateinit var onClickModel: View.OnClickListener
 
     override fun HomeMainItemUserDarkBinding.bind() {
+        imgProfile.invertColors()
         imgProfile.load(model.profileImageUrl)
         txtUsername.setTextSafely(model.username)
         txtDescription.setTextSafely(model.htmlUrl)

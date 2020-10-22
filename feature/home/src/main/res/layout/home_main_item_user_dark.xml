@@ -18,7 +18,6 @@
             android:id="@+id/img_profile"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:background="?colorOnSurface"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Home.Item.User.Profile"
             tools:src="@tools:sample/backgrounds/scenic" />
 

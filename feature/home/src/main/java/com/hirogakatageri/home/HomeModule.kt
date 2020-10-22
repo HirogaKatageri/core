@@ -12,7 +12,7 @@ object HomeModule {
                 HomeActivityMainController(listener)
             }
         }
-        viewModel { HomeActivityMainViewModel(get()) }
+        viewModel { HomeActivityMainViewModel(get(), get()) }
     }
 
 }

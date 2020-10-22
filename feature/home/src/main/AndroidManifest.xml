@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hirogakatageri.home">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
-        <activity android:name=".HomeActivityMain" />
+        <activity
+            android:name=".HomeActivityMain"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
     </application>
 
 </manifest>

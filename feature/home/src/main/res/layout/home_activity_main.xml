@@ -14,6 +14,18 @@
         android:paddingBottom="8dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/core_no_internet"
+        android:padding="8dp"
+        android:id="@+id/txt_network_status"
+        android:textColor="?colorError"
+        android:textAppearance="?textAppearanceOverline"
+        app:layout_anchor="@id/recycler_view"
+        app:layout_anchorGravity="bottom" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
