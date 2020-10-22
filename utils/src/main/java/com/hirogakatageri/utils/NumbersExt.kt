@@ -1,4 +1,4 @@
-package com.hirogakatageri.core.utils
+package com.hirogakatageri.utils
 
 import androidx.annotation.Keep
 import java.util.*

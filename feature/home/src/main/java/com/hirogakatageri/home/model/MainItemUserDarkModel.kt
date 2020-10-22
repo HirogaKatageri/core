@@ -25,6 +25,7 @@ abstract class MainItemUserDarkModel : ViewBindingEpoxyModelWithHolder<HomeMainI
     lateinit var onClickModel: View.OnClickListener
 
     override fun HomeMainItemUserDarkBinding.bind() {
+        container.setOnClickListener(onClickModel)
         imgProfile.invertColors()
         imgProfile.load(model.profileImageUrl)
         txtUsername.setTextSafely(model.username)

@@ -1,5 +1,6 @@
 package com.hirogakatageri.home
 
+import android.content.Intent
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,11 @@ class HomeActivityMain :
         recyclerView.setHasFixedSize(true)
         recyclerView.setItemSpacingDp(12)
         recyclerView.setController(controller)
+
+        viewModel.toStartActivity.observe {
+            val intent = Intent(this@HomeActivityMain, Class.forName(it))
+            startActivity(intent)
+        }
 
         viewModel.network.observe { isAvailable ->
             txtNetworkStatus.isVisible = !isAvailable

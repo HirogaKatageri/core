@@ -15,14 +15,14 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
     <TextView
+        android:id="@+id/txt_network_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="@string/core_no_internet"
         android:padding="8dp"
-        android:id="@+id/txt_network_status"
-        android:textColor="?colorError"
+        android:text="@string/core_no_internet"
         android:textAppearance="?textAppearanceOverline"
+        android:textColor="?colorError"
         app:layout_anchor="@id/recycler_view"
         app:layout_anchorGravity="bottom" />
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_followers">Followers: %1$s</string>
+    <string name="profile_following">Following: %1$s</string>
+    <string name="profile_name">Name:</string>
+    <string name="profile_company">Company:</string>
+    <string name="profile_blog">Blog:</string>
+    <string name="profile_notes">Notes</string>
+</resources>

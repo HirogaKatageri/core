@@ -24,6 +24,7 @@ abstract class MainItemUserModel : ViewBindingEpoxyModelWithHolder<HomeMainItemU
     lateinit var onClickModel: View.OnClickListener
 
     override fun HomeMainItemUserBinding.bind() {
+        container.setOnClickListener(onClickModel)
         imgProfile.load(model.profileImageUrl)
         txtUsername.setTextSafely(model.username)
         txtDescription.setTextSafely(model.htmlUrl)

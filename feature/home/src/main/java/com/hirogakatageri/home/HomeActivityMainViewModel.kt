@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.kotlin.ViewBindingHolder
+import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
 import com.hirogakatageri.core.utils.NetworkLiveData
@@ -104,9 +105,10 @@ class HomeActivityMainViewModel(
         clickedView: View,
         position: Int
     ) {
+        d { "Epoxy model clicked..." }
         when (model) {
             is IMainItemUser -> {
-                d { "Clicked: ${model.model.username}" }
+                _toStartActivity.postValue(QuadrantConstants.PROFILE_ACTIVITY_MAIN)
             }
         }
     }

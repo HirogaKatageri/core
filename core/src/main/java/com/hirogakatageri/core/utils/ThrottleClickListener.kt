@@ -1,4 +1,4 @@
-package com.hirogakatageri.core.utils.action
+package com.hirogakatageri.core.utils
 
 import android.view.View
 import androidx.annotation.Keep
