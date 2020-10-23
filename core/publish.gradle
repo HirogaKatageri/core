@@ -13,12 +13,12 @@ afterEvaluate {
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'com.hirogakatageri.sandbox'
-                artifactId = 'base'
+                artifactId = 'core'
                 version = projectVersions.version_name
 
                 pom {
-                    name = 'Base'
-                    description = 'Base Architecture of Sandbox'
+                    name = 'core'
+                    description = 'Core Architecture of Sandbox'
 
                     licenses {
                         license {

@@ -17,10 +17,14 @@ commands:
             - ~/.gradle
           key:
             jars{{ checksum "build.gradle" }}
-            - {{ checksum  "base/build.gradle" }}
             - {{ checksum  "app/build.gradle" }}
-            - {{ checksum  "api/build.gradle" }}
-            - {{ checksum  "epoxy-helper/build.gradle"}}
+            - {{ checksum  "core/build.gradle" }}
+            - {{ checksum  "feature/home/build.gradle" }}
+            - {{ checksum  "feature/profile/build.gradle" }}
+            - {{ checksum  "local/build.gradle" }}
+            - {{ checksum  "remote/build.gradle" }}
+            - {{ checksum  "repository/build.gradle" }}
+            - {{ checksum  "utils/build.gradle" }}
 
   restore-gradle-cache:
     steps:
@@ -29,10 +33,14 @@ commands:
             - ~/.gradle
           key:
             jars{{ checksum "build.gradle" }}
-            - {{ checksum  "base/build.gradle" }}
             - {{ checksum  "app/build.gradle" }}
-            - {{ checksum  "api/build.gradle" }}
-            - {{ checksum  "epoxy-helper/build.gradle"}}
+            - {{ checksum  "core/build.gradle" }}
+            - {{ checksum  "feature/home/build.gradle" }}
+            - {{ checksum  "feature/profile/build.gradle" }}
+            - {{ checksum  "local/build.gradle" }}
+            - {{ checksum  "remote/build.gradle" }}
+            - {{ checksum  "repository/build.gradle" }}
+            - {{ checksum  "utils/build.gradle" }}
 
   setup-g-services:
     steps:
@@ -40,12 +48,19 @@ commands:
           name: "Setup google-services.json"
           command: echo $G_SERVICES | base64 -di > ~/project/app/google-services.json
 
+  setup-publishing:
+    steps:
+      - run:
+          name: "Setup publish.properties"
+          command: echo $PUBLISH_PROPS | base64 -di > ~/project/buildSystem/publishing.properties
+
   setup-project:
     steps:
       - checkout
+      - setup-g-services
+      - setup-publishing
       - android/restore-build-cache
       - restore-gradle-cache
-      - setup-g-services
 
   lint:
     parameters:
@@ -82,6 +97,8 @@ jobs:
       sdk-version: "29"
     steps:
       - checkout
+      - setup-g-services
+      - setup-publishing
       - download-gradle-dependencies
       - save-gradle-cache
       - android/save-build-cache
@@ -93,13 +110,21 @@ jobs:
     steps:
       - setup-project
       - lint:
-          to: "base"
-      - lint:
           to: "app"
       - lint:
-          to: "api"
+          to: "core"
       - lint:
-          to: "epoxy-helper"
+          to: "feature:home"
+      - lint:
+          to: "feature:profile"
+      - lint:
+          to: "local"
+      - lint:
+          to: "remote"
+      - lint:
+          to: "repository"
+      - lint:
+          to: "utils"
 
   unit-test:
     executor:
@@ -108,13 +133,21 @@ jobs:
     steps:
       - setup-project
       - unit-test:
-          to: "base"
-      - unit-test:
           to: "app"
       - unit-test:
-          to: "api"
+          to: "core"
       - unit-test:
-          to: "epoxy-helper"
+          to: "feature:home"
+      - unit-test:
+          to: "feature:profile"
+      - unit-test:
+          to: "local"
+      - unit-test:
+          to: "remote"
+      - unit-test:
+          to: "repository"
+      - unit-test:
+          to: "utils"
 
 workflows:
   version: "0.0.1"
