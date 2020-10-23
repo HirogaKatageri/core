@@ -1,5 +1,6 @@
 package com.hirogakatageri.core.viewmodel
 
+import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -15,8 +16,8 @@ abstract class BaseViewModel : ViewModel() {
 
     protected val job = SupervisorJob()
 
-    protected val _toStartActivity: SingleLiveEvent<String> = SingleLiveEvent()
-    val toStartActivity: LiveData<String> = _toStartActivity
+    protected val _toStartActivity: SingleLiveEvent<Pair<String, Bundle>> = SingleLiveEvent()
+    val toStartActivity: LiveData<Pair<String, Bundle>> = _toStartActivity
 
     open suspend fun start(): Job = viewModelScope.launch(Dispatchers.IO + job) {}
 

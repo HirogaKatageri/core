@@ -19,9 +19,9 @@
     <style name="Theme.Core" parent="Base.Theme.Core">
         <!--Material color attributes (dark theme) -->
         <item name="colorPrimary">@color/light_black</item>
-        <item name="colorPrimaryVariant">@color/light_black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorSecondary">@color/light_black</item>
-        <item name="colorSecondaryVariant">@color/light_black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
         <item name="android:colorBackground">@color/black</item>
         <item name="colorSurface">@color/light_black</item>
         <!--<item name="colorError"></item>-->

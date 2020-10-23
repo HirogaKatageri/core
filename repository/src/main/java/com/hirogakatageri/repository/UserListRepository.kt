@@ -66,8 +66,8 @@ class UserListRepository(
      * Will update database of new list.
      * */
     suspend fun getRemoteUsers(
-        onError: () -> Unit,
-        onSuccess: () -> Unit
+        onError: suspend () -> Unit,
+        onSuccess: suspend () -> Unit
     ) = withContext(Dispatchers.IO) {
         service.getUsers(remoteOffset).parse(
             onError = { error -> onError() },

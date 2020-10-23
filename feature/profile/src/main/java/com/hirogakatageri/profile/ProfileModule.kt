@@ -10,7 +10,7 @@ object ProfileModule {
             scoped { }
         }
 
-        viewModel { ProfileActivityMainViewModel() }
+        viewModel { ProfileActivityMainViewModel(get(), get()) }
     }
 
 }

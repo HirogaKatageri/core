@@ -1,6 +1,7 @@
 package com.hirogakatageri.home
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.kotlin.ViewBindingHolder
-import com.gaelmarhic.quadrant.QuadrantConstants
+import com.gaelmarhic.quadrant.QuadrantConstants.PROFILE_ACTIVITY_MAIN
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
+import com.hirogakatageri.core.utils.NavigationUtil.UID
+import com.hirogakatageri.core.utils.NavigationUtil.USERNAME
 import com.hirogakatageri.core.utils.NetworkLiveData
 import com.hirogakatageri.core.viewmodel.BaseViewModel
 import com.hirogakatageri.home.model.base.IMainItemUser
@@ -53,17 +56,15 @@ class HomeActivityMainViewModel(
         _isLoading.postValue(true)
         repository.getRemoteUsers(
             onError = {
-                e { "getInitialRemoteUsers" }
+                e { "getInitialRemoteUsers error..." }
                 userListQueryFailed = true
                 _isLoading.postValue(false)
             },
             onSuccess = {
                 userListQueryFailed = false
-                launch {
-                    if (repository.isListEmpty) repository.getLocalUsers(_userList)
-                    else repository.refreshCurrentList(_userList)
-                    _isLoading.postValue(false)
-                }
+                if (repository.isListEmpty) repository.getLocalUsers(_userList)
+                else repository.refreshCurrentList(_userList)
+                _isLoading.postValue(false)
             }
         )
     }
@@ -108,7 +109,12 @@ class HomeActivityMainViewModel(
         d { "Epoxy model clicked..." }
         when (model) {
             is IMainItemUser -> {
-                _toStartActivity.postValue(QuadrantConstants.PROFILE_ACTIVITY_MAIN)
+                _toStartActivity.postValue(
+                    PROFILE_ACTIVITY_MAIN to bundleOf(
+                        USERNAME to model.model.username,
+                        UID to model.model.uid
+                    )
+                )
             }
         }
     }

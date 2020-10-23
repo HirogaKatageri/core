@@ -40,7 +40,7 @@ class LocalUserModelTest {
         userDao = database.userDao()
         sample = mutableListOf()
 
-        for (i in 0..5L) {
+        for (i in 0..5) {
             sample.add(LocalUserModel(i, "${UUID.randomUUID()}"))
         }
     }

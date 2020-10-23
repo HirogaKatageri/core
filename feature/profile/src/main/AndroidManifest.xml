@@ -6,7 +6,8 @@
 
         <activity
             android:name="com.hirogakatageri.profile.ProfileActivityMain"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

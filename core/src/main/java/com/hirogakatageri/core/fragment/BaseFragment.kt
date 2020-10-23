@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Keep
-import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.*
 import org.koin.androidx.scope.ScopeFragment
@@ -32,7 +31,7 @@ abstract class BaseFragment<VB : ViewBinding> : ScopeFragment(), CoroutineScope 
 
     protected abstract fun createBinding(container: ViewGroup?): VB
 
-    protected suspend inline fun binding(crossinline func: VB.() -> Unit) = withContext(Dispatchers.Main) { binding.run(func) }
+    protected inline fun binding(crossinline func: VB.() -> Unit) = launch { binding.run(func) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,16 +1,11 @@
 package com.hirogakatageri.core.activity
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import androidx.annotation.Keep
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.*
 import org.koin.androidx.scope.ScopeActivity
 import kotlin.coroutines.CoroutineContext
-import kotlin.reflect.full.createType
-import kotlin.reflect.full.functions
 
 @Keep
 abstract class BaseActivity<VB : ViewBinding> : ScopeActivity(), CoroutineScope {
@@ -29,7 +24,7 @@ abstract class BaseActivity<VB : ViewBinding> : ScopeActivity(), CoroutineScope 
 
     protected abstract fun createBinding(): VB
 
-    protected suspend inline fun binding(crossinline func: VB.() -> Unit) = withContext(Dispatchers.Main) { binding.run(func) }
+    protected inline fun binding(crossinline func: VB.() -> Unit) = launch { binding.run(func) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,31 +1,45 @@
 package com.hirogakatageri.repository
 
+import androidx.lifecycle.MutableLiveData
 import com.hirogakatageri.local.dao.UserDao
 import com.hirogakatageri.local.model.LocalUserModel
 import com.hirogakatageri.remote.model.RemoteUserModel
 import com.hirogakatageri.remote.service.MainService
 import com.hirogakatageri.remote.wrapper.parse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class UserRepository(
     private val service: MainService,
     private val dao: UserDao
 ) {
 
-    suspend fun getLocalUser(username: String): LocalUserModel? = dao.getUser(username)
+    private var localUserModel: LocalUserModel? = null
+
+    suspend fun getLocalUser(
+        data: MutableLiveData<LocalUserModel?>,
+        username: String
+    ): Unit = withContext(Dispatchers.IO) {
+        localUserModel = dao.getUser(username)
+        data.postValue(localUserModel)
+    }
 
     suspend fun getRemoteUser(
         username: String,
-        onError: () -> Unit,
-        onSuccess: (model: RemoteUserModel) -> Unit
-    ) {
+        onError: suspend () -> Unit,
+        onSuccess: suspend (model: RemoteUserModel) -> Unit
+    ) = withContext(Dispatchers.IO) {
         service.getUser(username).parse(
             onError = { onError() },
             onSuccess = { _, model -> onSuccess(model) }
         )
     }
 
-    suspend fun updateLocalUserModelDetails(remoteModel: RemoteUserModel) {
-        val updatedModel = dao.getUser(remoteModel.login)?.copy(
+    suspend fun updateLocalUserModelDetails(
+        data: MutableLiveData<LocalUserModel?>,
+        remoteModel: RemoteUserModel
+    ) = withContext(Dispatchers.Default) {
+        localUserModel = dao.getUser(remoteModel.login)?.copy(
             username = remoteModel.login,
             profileImageUrl = remoteModel.avatarUrl,
             followers = remoteModel.followers ?: 0,
@@ -35,7 +49,18 @@ class UserRepository(
             blogUrl = remoteModel.blog
         )
 
-        updatedModel?.let { dao.updateUsers(it) }
+        localUserModel?.let { dao.updateUsers(it) }
+        data.postValue(localUserModel)
+    }
+
+    suspend fun updateNotes(
+        data: MutableLiveData<Boolean>,
+        notes: String
+    ) = withContext(Dispatchers.Default) {
+        localUserModel?.copy(notes = notes)?.let {
+            dao.updateUsers(it)
+            data.postValue(true)
+        }
     }
 
 }

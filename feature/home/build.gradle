@@ -15,7 +15,7 @@ android {
         versionCode projectVersions.version_code
         versionName projectVersions.version_name
 
-        testInstrumentationRunner "com.hirogakatageri.home.env.HomeTestRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
