@@ -61,12 +61,10 @@ class HomeActivityMainViewModel(
                 _isLoading.postValue(false)
             },
             onSuccess = {
-                launch {
-                    userListQueryFailed = false
-                    if (repository.isListEmpty) repository.getLocalUsers(_userList)
-                    else repository.refreshCurrentList(_userList)
-                    _isLoading.postValue(false)
-                }
+                userListQueryFailed = false
+                if (repository.isListEmpty) repository.getLocalUsers(_userList)
+                else repository.refreshCurrentList(_userList)
+                _isLoading.postValue(false)
             }
         )
     }
