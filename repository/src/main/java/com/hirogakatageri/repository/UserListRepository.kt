@@ -35,7 +35,7 @@ class UserListRepository(
         data: MutableLiveData<List<IUserModel>>
     ) = withContext(Dispatchers.IO) {
         if (username.isEmpty()) data.postValue(userList)
-        else data.postValue(dao.search(username))
+        else data.postValue(dao.searchComplex(username))
     }
 
     /**

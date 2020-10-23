@@ -61,10 +61,12 @@ class HomeActivityMainViewModel(
                 _isLoading.postValue(false)
             },
             onSuccess = {
-                userListQueryFailed = false
-                if (repository.isListEmpty) repository.getLocalUsers(_userList)
-                else repository.refreshCurrentList(_userList)
-                _isLoading.postValue(false)
+                launch {
+                    userListQueryFailed = false
+                    if (repository.isListEmpty) repository.getLocalUsers(_userList)
+                    else repository.refreshCurrentList(_userList)
+                    _isLoading.postValue(false)
+                }
             }
         )
     }
@@ -87,11 +89,8 @@ class HomeActivityMainViewModel(
             },
             onSuccess = {
                 userListQueryFailed = false
-                launch {
-                    if (repository.isListEmpty) repository.getLocalUsers(_userList)
-                    else repository.refreshCurrentList(_userList)
-                    _isLoading.postValue(false)
-                }
+                repository.getLocalUsers(_userList)
+                _isLoading.postValue(false)
             }
         )
     }

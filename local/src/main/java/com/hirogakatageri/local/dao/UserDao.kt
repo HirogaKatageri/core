@@ -32,6 +32,14 @@ interface UserDao {
     )
     suspend fun search(value: String): List<SimpleLocalUserModel>
 
+    @Query(
+        "SELECT * FROM users " +
+                "WHERE username LIKE '%' || :value || '%' " +
+                "OR notes LIKE '%' || :value || '%' " +
+                "OR name LIKE '%' || :value || '%' "
+    )
+    suspend fun searchComplex(value: String): List<LocalUserModel>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUsers(vararg users: LocalUserModel)
 
