@@ -90,6 +90,12 @@ commands:
       - store_test_results:
           path: << parameters.to >>/build/test-results
 
+  publish-artifacts:
+    steps:
+      - run:
+          name: "Uploading Artifacts to Bintray"
+          command: ./gradlew bintrayUpload
+
 jobs:
   build:
     executor:
@@ -149,6 +155,14 @@ jobs:
       - unit-test:
           to: "utils"
 
+  publish:
+    executor:
+      name: android/android
+      sdk-version: "29"
+    steps:
+      - setup-project
+      - publish-artifacts
+
 workflows:
   version: "0.0.1"
 
@@ -166,3 +180,8 @@ workflows:
       - unit-test:
           requires:
             - build
+
+      - publish:
+          requires:
+            - lint
+            - unit-test

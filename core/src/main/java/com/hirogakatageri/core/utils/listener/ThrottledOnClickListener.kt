@@ -1,4 +1,4 @@
-package com.hirogakatageri.core.utils
+package com.hirogakatageri.core.utils.listener
 
 import android.view.View
 import androidx.annotation.Keep

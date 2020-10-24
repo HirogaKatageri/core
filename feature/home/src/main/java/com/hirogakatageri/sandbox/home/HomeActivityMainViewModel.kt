@@ -12,9 +12,9 @@ import com.airbnb.epoxy.kotlin.ViewBindingHolder
 import com.gaelmarhic.quadrant.QuadrantConstants.PROFILE_ACTIVITY_MAIN
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
-import com.hirogakatageri.core.utils.NavigationUtil.UID
-import com.hirogakatageri.core.utils.NavigationUtil.USERNAME
-import com.hirogakatageri.core.utils.NetworkLiveData
+import com.hirogakatageri.sandbox.navigation.NavigationUtil.UID
+import com.hirogakatageri.sandbox.navigation.NavigationUtil.USERNAME
+import com.hirogakatageri.core.utils.livedata.NetworkLiveData
 import com.hirogakatageri.core.viewmodel.BaseViewModel
 import com.hirogakatageri.sandbox.home.model.base.IMainItemUser
 import com.hirogakatageri.sandbox.local.model.base.IUserModel

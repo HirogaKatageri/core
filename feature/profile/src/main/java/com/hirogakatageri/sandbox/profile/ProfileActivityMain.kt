@@ -4,9 +4,9 @@ import androidx.core.view.isVisible
 import coil.load
 import com.google.android.material.snackbar.Snackbar
 import com.hirogakatageri.core.activity.CoreViewModelActivity
-import com.hirogakatageri.core.utils.NavigationUtil.UID
-import com.hirogakatageri.core.utils.NavigationUtil.USERNAME
-import com.hirogakatageri.core.utils.ThrottledOnClickListener
+import com.hirogakatageri.sandbox.navigation.NavigationUtil.UID
+import com.hirogakatageri.sandbox.navigation.NavigationUtil.USERNAME
+import com.hirogakatageri.core.utils.listener.ThrottledOnClickListener
 import com.hirogakatageri.sandbox.profile.databinding.ProfileActivityMainBinding
 import com.hirogakatageri.sandbox.utils.SpannableUtil.bold
 import com.hirogakatageri.sandbox.utils.SpannableUtil.normal

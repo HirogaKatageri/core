@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.e
-import com.hirogakatageri.core.utils.NetworkLiveData
-import com.hirogakatageri.core.utils.SingleLiveEvent
+import com.hirogakatageri.core.utils.livedata.NetworkLiveData
+import com.hirogakatageri.core.utils.livedata.SingleLiveEvent
 import com.hirogakatageri.core.viewmodel.BaseViewModel
 import com.hirogakatageri.sandbox.local.model.LocalUserModel
 import com.hirogakatageri.sandbox.repository.UserRepository
@@ -22,7 +22,8 @@ class ProfileActivityMainViewModel(
     lateinit var username: String
     var uid: Int = -1
 
-    private val _isNoteUpdateFinished: SingleLiveEvent<Boolean> = SingleLiveEvent()
+    private val _isNoteUpdateFinished: SingleLiveEvent<Boolean> =
+        SingleLiveEvent()
     val isNoteUpdatedFinished: LiveData<Boolean> = _isNoteUpdateFinished
 
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()

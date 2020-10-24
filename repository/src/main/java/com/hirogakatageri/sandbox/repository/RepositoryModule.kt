@@ -3,6 +3,7 @@ package com.hirogakatageri.sandbox.repository
 import androidx.room.Room
 import com.hirogakatageri.sandbox.local.LocalDatabase
 import com.hirogakatageri.sandbox.local.dao.UserDao
+import com.hirogakatageri.sandbox.local.migration.LocalDatabaseMigration
 import com.hirogakatageri.sandbox.remote.Client
 import com.hirogakatageri.sandbox.remote.service.GithubService
 import org.koin.android.ext.koin.androidContext
@@ -16,7 +17,11 @@ object RepositoryModule {
                 androidContext(),
                 LocalDatabase::class.java,
                 "local-db"
-            ).build()
+            )
+                .addMigrations(
+                    LocalDatabaseMigration.MIGRATION_1_2
+                )
+                .build()
         }
         factory<UserDao> { get<LocalDatabase>().userDao() }
 

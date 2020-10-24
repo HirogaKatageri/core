@@ -10,7 +10,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.request.CachePolicy
 import coil.transition.Transition
 import com.github.ajalt.timberkt.Timber
-import com.hirogakatageri.core.utils.NetworkLiveData
+import com.hirogakatageri.core.utils.livedata.NetworkLiveData
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.fragment.koin.fragmentFactory
@@ -51,6 +51,6 @@ abstract class CoreApplication : Application(), ImageLoaderFactory {
     override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)
         .transition(Transition.NONE)
         .diskCachePolicy(CachePolicy.ENABLED)
-        .memoryCachePolicy(CachePolicy.DISABLED)
+        .memoryCachePolicy(CachePolicy.ENABLED)
         .build()
 }

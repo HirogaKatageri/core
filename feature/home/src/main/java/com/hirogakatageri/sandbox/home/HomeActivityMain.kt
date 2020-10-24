@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.ajalt.timberkt.d
 import com.hirogakatageri.core.activity.CoreViewModelActivity
-import com.hirogakatageri.core.utils.NavigationUtil.RC_PROFILE
 import com.hirogakatageri.sandbox.home.databinding.HomeActivityMainBinding
+import com.hirogakatageri.sandbox.navigation.NavigationUtil
+import com.hirogakatageri.sandbox.navigation.NavigationUtil.RC_PROFILE
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -44,10 +45,12 @@ class HomeActivityMain :
         recyclerView.setController(controller)
 
         viewModel.toStartActivity.observe { (name, bundle) ->
-            val intent = Intent(this@HomeActivityMain, Class.forName(name))
             when (name) {
                 QuadrantConstants.PROFILE_ACTIVITY_MAIN -> {
-                    intent.putExtras(bundle)
+                    val intent = NavigationUtil.createProfileIntent(
+                        this@HomeActivityMain,
+                        bundle
+                    )
                     startActivityForResult(intent, RC_PROFILE)
                 }
             }

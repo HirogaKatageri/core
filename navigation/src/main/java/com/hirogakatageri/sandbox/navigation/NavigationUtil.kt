@@ -1,7 +1,8 @@
-package com.hirogakatageri.core.utils
+package com.hirogakatageri.sandbox.navigation
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import com.gaelmarhic.quadrant.QuadrantConstants
 
 object NavigationUtil {
@@ -13,14 +14,12 @@ object NavigationUtil {
 
     fun createProfileIntent(
         context: Context,
-        username: String,
-        uid: Int
+        bundle: Bundle
     ): Intent = Intent(
         context,
         Class.forName(QuadrantConstants.PROFILE_ACTIVITY_MAIN)
     ).apply {
-        putExtra(USERNAME, username)
-        putExtra(UID, uid)
+        putExtras(bundle)
     }
 
 }

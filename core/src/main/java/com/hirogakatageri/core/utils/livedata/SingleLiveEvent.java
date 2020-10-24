@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.hirogakatageri.core.utils;
+package com.hirogakatageri.core.utils.livedata;
 
 import android.util.Log;
 

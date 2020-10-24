@@ -1,4 +1,4 @@
-package com.hirogakatageri.core.utils
+package com.hirogakatageri.core.utils.livedata
 
 import android.net.ConnectivityManager
 import android.net.Network
