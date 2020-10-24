@@ -2,7 +2,7 @@ package com.hirogakatageri.sandbox.remote
 
 import android.content.Context
 import com.hirogakatageri.sandbox.remote.call.NetworkResponseAdapterFactory
-import com.hirogakatageri.sandbox.remote.service.MainService
+import com.hirogakatageri.sandbox.remote.service.GithubService
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -10,6 +10,7 @@ import net.gotev.cookiestore.SharedPreferencesCookieStore
 import net.gotev.cookiestore.WebKitSyncCookieManager
 import net.gotev.cookiestore.syncToWebKitCookieManager
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -31,8 +32,8 @@ class Client(
     private val chuckInterceptor by lazy { ChuckInterceptor(applicationContext) }
     private val cookieStore by lazy { SharedPreferencesCookieStore(applicationContext, "cookies") }
 
-    fun createService(): MainService = Retrofit.Builder()
-        .baseUrl("https://api.github.com")
+    fun createGithubService(baseUrl: HttpUrl = "https://api.github.com".toHttpUrl()): GithubService = Retrofit.Builder()
+        .baseUrl(baseUrl)
         .client(createOkHttpClient())
         .addCallAdapterFactory(NetworkResponseAdapterFactory())
         .addConverterFactory(
@@ -43,7 +44,7 @@ class Client(
             )
         )
         .build()
-        .create(MainService::class.java)
+        .create(GithubService::class.java)
 
     private fun createOkHttpClient(): OkHttpClient {
 
@@ -59,12 +60,12 @@ class Client(
                 addInterceptor(RetryInterceptor())
             }
 
-            if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG && !isTesting) {
                 addInterceptor(HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
                 })
 
-                if (!isTesting) addInterceptor(chuckInterceptor)
+                addInterceptor(chuckInterceptor)
             }
             build()
         }

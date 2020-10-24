@@ -99,6 +99,7 @@ ext {
             okhttp                        : "com.squareup.okhttp3:okhttp:$okhttp_version",
             okhttp_interceptor            : "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
             okhttp_url_connection         : "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_version",
+            okhttp_mock_server            : "com.squareup.okhttp3:mockwebserver:$okhttp_version",
             cookie_store                  : "net.gotev:cookie-store:1.2.1",
 
             //Logging

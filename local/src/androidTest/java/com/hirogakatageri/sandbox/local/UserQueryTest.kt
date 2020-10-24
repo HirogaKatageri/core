@@ -19,11 +19,10 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class LocalUserModelTest {
+class UserQueryTest {
 
     private val testDispatcher = TestCoroutineDispatcher()
 
@@ -38,11 +37,13 @@ class LocalUserModelTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, LocalDatabase::class.java).build()
         userDao = database.userDao()
-        sample = mutableListOf()
-
-        for (i in 0..5) {
-            sample.add(LocalUserModel(i, "${UUID.randomUUID()}"))
-        }
+        sample = mutableListOf(
+            LocalUserModel(0, "Hiroga", name = "Sample", notes = "notes"),
+            LocalUserModel(1, "Rena"),
+            LocalUserModel(2, "Kira"),
+            LocalUserModel(3, "Rika"),
+            LocalUserModel(4, "Mayeth")
+        )
     }
 
     @After
@@ -71,15 +72,7 @@ class LocalUserModelTest {
     }
 
     @Test
-    fun test_Search() = runBlocking {
-        userDao.insertUsers(
-            LocalUserModel(0, "Hiroga"),
-            LocalUserModel(1, "Rena"),
-            LocalUserModel(2, "Kira"),
-            LocalUserModel(3, "Rika")
-        )
-        delay(200)
-
+    fun test_FtsSearch() = runBlocking {
         userDao.search("Hiroga").let {
             delay(200)
             assertEquals(1, it.size)
@@ -88,6 +81,36 @@ class LocalUserModelTest {
         userDao.search("R").let {
             delay(200)
             assertEquals(2, it.size)
+        }
+    }
+
+    @Test
+    fun test_LongSearch() = runBlocking {
+        userDao.searchComplex("r").let {
+            delay(200)
+            assertEquals(4, it.size)
+        }
+
+        userDao.searchComplex("ir").let {
+            delay(200)
+            assertEquals(2, it.size)
+        }
+
+        userDao.searchComplex("Mayeth").let {
+            delay(200)
+            assertEquals(1, it.size)
+        }
+
+        //Test search in name regardless of casing.
+        userDao.searchComplex("sample").let {
+            delay(200)
+            assertEquals(1, it.size)
+        }
+
+        //Test search in notes regardless of casing
+        userDao.searchComplex("NOTES").let {
+            delay(200)
+            assertEquals(1, it.size)
         }
     }
 

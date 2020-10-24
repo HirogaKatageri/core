@@ -7,10 +7,10 @@ import com.hirogakatageri.sandbox.local.model.LocalUserModel
 import com.hirogakatageri.sandbox.local.model.SimpleLocalUserModel
 
 @Database(
-    entities = arrayOf(
+    entities = [
         LocalUserModel::class,
         SimpleLocalUserModel::class
-    ), version = 1
+    ], version = 2
 )
 abstract class LocalDatabase : RoomDatabase() {
 

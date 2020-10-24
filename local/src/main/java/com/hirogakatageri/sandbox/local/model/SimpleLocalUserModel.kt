@@ -10,8 +10,8 @@ import com.hirogakatageri.sandbox.local.model.base.IUserModel
 @Entity(tableName = "users_fts")
 data class SimpleLocalUserModel(
     @PrimaryKey @ColumnInfo(name = "rowid") override val uid: Int,
-    override var username: String,
-    override var htmlUrl: String? = "",
+    @ColumnInfo(name = "username") override var username: String,
+    @ColumnInfo(name = "html_url") override var htmlUrl: String? = "",
     @ColumnInfo(name = "profile_image_url") override var profileImageUrl: String? = null,
-    override var notes: String? = null
+    @ColumnInfo(name = "notes") override var notes: String? = null
 ) : IUserModel

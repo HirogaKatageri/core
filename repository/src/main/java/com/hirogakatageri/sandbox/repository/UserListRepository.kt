@@ -8,13 +8,13 @@ import com.hirogakatageri.sandbox.local.model.LocalUserModel
 import com.hirogakatageri.sandbox.local.model.base.IUserModel
 import com.hirogakatageri.sandbox.remote.call.RemoteHelpers
 import com.hirogakatageri.sandbox.remote.model.RemoteUserModel
-import com.hirogakatageri.sandbox.remote.service.MainService
+import com.hirogakatageri.sandbox.remote.service.GithubService
 import com.hirogakatageri.sandbox.remote.wrapper.parse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class UserListRepository(
-    private val service: MainService,
+    private val service: GithubService,
     private val dao: UserDao
 ) {
     private var localOffset: Long = 0

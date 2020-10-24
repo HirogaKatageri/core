@@ -5,7 +5,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.hirogakatageri.sandbox.local.LocalDatabase
 import com.hirogakatageri.sandbox.local.dao.UserDao
 import com.hirogakatageri.sandbox.remote.Client
-import com.hirogakatageri.sandbox.remote.service.MainService
+import com.hirogakatageri.sandbox.remote.service.GithubService
 import org.junit.After
 import org.junit.Assert
 import org.junit.Rule
@@ -40,7 +40,7 @@ class RepositoryInjectionTest : KoinTest {
         Assert.assertNotNull(client)
 
         val userDao: UserDao = get()
-        val service: MainService = get()
+        val service: GithubService = get()
 
         Assert.assertNotNull(userDao)
         Assert.assertNotNull(service)

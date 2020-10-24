@@ -40,9 +40,8 @@ dependencies {
     implementation library.android_ktx_core
     implementation library.appcompat
 
-    api library.room_core
-    kapt library.room_compiler
     api library.room_ktx
+    kapt library.room_compiler
 
     androidTestImplementation library.junit
     androidTestImplementation library.android_test_core

@@ -59,4 +59,5 @@ dependencies {
     testImplementation library.android_test_assertation
     testImplementation library.robolectric
     testImplementation library.coroutines_test
+    testImplementation library.okhttp_mock_server
 }
