@@ -1,13 +1,16 @@
 package com.hirogakatageri.sandbox
 
-import com.hirogakatageri.core.BaseApplication
-import com.hirogakatageri.home.HomeModule
-import com.hirogakatageri.profile.ProfileModule
-import com.hirogakatageri.repository.RepositoryModule
+import coil.annotation.ExperimentalCoilApi
+import com.hirogakatageri.core.CoreApplication
+import com.hirogakatageri.sandbox.home.HomeModule
+import com.hirogakatageri.sandbox.profile.ProfileModule
+import com.hirogakatageri.sandbox.repository.RepositoryModule
+import org.koin.core.KoinExperimentalAPI
 import org.koin.core.module.Module
-import org.koin.dsl.module
 
-class SandboxApp : BaseApplication() {
+@KoinExperimentalAPI
+@ExperimentalCoilApi
+class SandboxApp : CoreApplication() {
 
     override val moduleList: List<Module> = listOf(
         coreModule(),

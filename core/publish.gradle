@@ -1,60 +1,65 @@
 apply from: '../buildSystem/versions.gradle'
 
 def publishingProp = new Properties()
-rootProject.file('buildSystem/publishing.properties').withInputStream { publishingProp.load(it) }
+def publishingFile = rootProject.file('buildSystem/publishing.properties')
 
-afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
-                // Applies the component for the release build variant.
-                from components.release
+if (publishingFile.exists()) {
+    publishingFile.withInputStream { publishingProp.load(it) }
 
-                // You can then customize attributes of the publication as shown below.
-                groupId = 'com.hirogakatageri.sandbox'
-                artifactId = 'core'
-                version = projectVersions.version_name
+    afterEvaluate {
+        publishing {
+            publications {
+                // Creates a Maven publication called "release".
+                release(MavenPublication) {
+                    // Applies the component for the release build variant.
+                    from components.release
 
-                pom {
-                    name = 'core'
-                    description = 'Core Architecture of Sandbox'
+                    // You can then customize attributes of the publication as shown below.
+                    groupId = 'com.hirogakatageri'
+                    artifactId = 'core'
+                    version = projectVersions.version_name
 
-                    licenses {
-                        license {
-                            name = 'The MIT License'
-                            url = 'https://github.com/HirogaKatageri/sandbox/blob/master/LICENSE.md'
+                    pom {
+                        name = 'core'
+                        description = 'Core Baseline MVVM Architecture '
+
+                        licenses {
+                            license {
+                                name = 'The MIT License'
+                                url = 'https://github.com/HirogaKatageri/sandbox/blob/master/LICENSE.md'
+                            }
                         }
-                    }
 
-                    developers {
-                        developer {
-                            id = 'HirogaKatageri'
-                            name = 'Gian Patrick Quintana'
-                            email = 'gianpatrick27@gmail.com'
+                        developers {
+                            developer {
+                                id = 'HirogaKatageri'
+                                name = 'Gian Patrick Quintana'
+                                email = 'gianpatrick27@gmail.com'
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
 
-bintray {
-    user = publishingProp.'bintrayUser'
-    key = publishingProp.'bintrayKey'
+    bintray {
+        user = publishingProp.'bintrayUser'
+        key = publishingProp.'bintrayKey'
 
-    publications = ['release']
-    override = true
-    pkg {
-        repo = 'Sandbox'
-        name = 'com.hirogakatageri.core'
-        licenses = ['MIT']
-        vcsUrl = 'https://github.com/HirogaKatageri/sandbox.git'
-        version {
-            name = projectVersions.version_name
-            released = new Date()
-            vcsTag = projectVersions.version_name
+        publications = ['release']
+        override = true
+        pkg {
+            repo = 'sandbox'
+            name = 'com.hirogakatageri.core'
+            licenses = ['MIT']
+            vcsUrl = 'https://github.com/HirogaKatageri/sandbox.git'
+            version {
+                name = projectVersions.version_name
+                released = new Date()
+                vcsTag = projectVersions.version_name
+            }
         }
     }
+
 }

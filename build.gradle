@@ -23,8 +23,6 @@ plugins {
     id 'com.jfrog.bintray' version '1.8.5'
 }
 
-apply plugin: 'android-reporting'
-
 allprojects {
     repositories {
         google()

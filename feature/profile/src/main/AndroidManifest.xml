@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hirogakatageri.profile">
+    package="com.hirogakatageri.sandbox.profile">
 
     <application>
 
         <activity
-            android:name="com.hirogakatageri.profile.ProfileActivityMain"
+            android:name="com.hirogakatageri.sandbox.profile.ProfileActivityMain"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustPan" />
 

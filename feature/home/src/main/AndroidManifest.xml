@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hirogakatageri.home">
+    package="com.hirogakatageri.sandbox.home">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
         <activity
-            android:name="com.hirogakatageri.home.HomeActivityMain"
+            android:name="com.hirogakatageri.sandbox.home.HomeActivityMain"
             android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
