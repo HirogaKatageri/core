@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.lifecycle.LiveData
 import androidx.viewbinding.ViewBinding
-import com.hirogakatageri.core.viewmodel.BaseViewModel
+import com.hirogakatageri.core.viewmodel.CoreViewModel
 import kotlinx.coroutines.launch
 
 @Keep
-abstract class CoreViewModelActivity<VB : ViewBinding, VM : BaseViewModel> :
+abstract class CoreViewModelActivity<VB : ViewBinding, VM : CoreViewModel> :
     CoreActivity<VB>() {
 
     abstract val viewModel: VM

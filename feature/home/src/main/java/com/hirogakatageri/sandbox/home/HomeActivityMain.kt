@@ -44,7 +44,7 @@ class HomeActivityMain :
         recyclerView.setItemSpacingDp(12)
         recyclerView.setController(controller)
 
-        viewModel.toStartActivity.observe { (name, bundle) ->
+        viewModel.quadrant.observe { (name, bundle) ->
             when (name) {
                 QuadrantConstants.PROFILE_ACTIVITY_MAIN -> {
                     val intent = NavigationUtil.createProfileIntent(

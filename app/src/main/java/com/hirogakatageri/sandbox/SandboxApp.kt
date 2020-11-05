@@ -13,7 +13,6 @@ import org.koin.core.module.Module
 class SandboxApp : CoreApplication() {
 
     override val moduleList: List<Module> = listOf(
-        coreModule(),
         RepositoryModule.create(),
         HomeModule.create(),
         ProfileModule.create()

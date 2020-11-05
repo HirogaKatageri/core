@@ -12,12 +12,12 @@ import com.airbnb.epoxy.kotlin.ViewBindingHolder
 import com.gaelmarhic.quadrant.QuadrantConstants.PROFILE_ACTIVITY_MAIN
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
-import com.hirogakatageri.sandbox.navigation.NavigationUtil.UID
-import com.hirogakatageri.sandbox.navigation.NavigationUtil.USERNAME
 import com.hirogakatageri.core.utils.livedata.NetworkLiveData
-import com.hirogakatageri.core.viewmodel.BaseViewModel
+import com.hirogakatageri.core.viewmodel.CoreQuadrantViewModel
 import com.hirogakatageri.sandbox.home.model.base.IMainItemUser
 import com.hirogakatageri.sandbox.local.model.base.IUserModel
+import com.hirogakatageri.sandbox.navigation.NavigationUtil.UID
+import com.hirogakatageri.sandbox.navigation.NavigationUtil.USERNAME
 import com.hirogakatageri.sandbox.repository.UserListRepository
 import com.hirogakatageri.sandbox.utils.EndlessRecyclerViewScrollListener
 import com.hirogakatageri.sandbox.utils.GenericEpoxyViewBindingClickListener
@@ -29,7 +29,7 @@ import kotlinx.coroutines.withContext
 class HomeActivityMainViewModel(
     private val repository: UserListRepository,
     val network: NetworkLiveData
-) : BaseViewModel(),
+) : CoreQuadrantViewModel(),
     GenericEpoxyViewBindingClickListener {
 
     internal fun getScrollListener(layoutManager: LinearLayoutManager) =
@@ -106,7 +106,7 @@ class HomeActivityMainViewModel(
         d { "Epoxy model clicked..." }
         when (model) {
             is IMainItemUser -> {
-                _toStartActivity.postValue(
+                _quadrant.postValue(
                     PROFILE_ACTIVITY_MAIN to bundleOf(
                         USERNAME to model.model.username,
                         UID to model.model.uid

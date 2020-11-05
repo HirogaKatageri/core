@@ -39,13 +39,14 @@ abstract class CoreApplication : Application(), ImageLoaderFactory {
             )
             fragmentFactory()
             androidContext(this@CoreApplication)
+            modules(coreModule())
             modules(moduleList)
         }
     }
 
-    fun coreModule() = module {
+    fun coreModule(): Module = module {
         factory<ConnectivityManager> { getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
-        single { NetworkLiveData(get()) }
+        single<NetworkLiveData> { NetworkLiveData(get()) }
     }
 
     override fun newImageLoader(): ImageLoader = ImageLoader.Builder(this)

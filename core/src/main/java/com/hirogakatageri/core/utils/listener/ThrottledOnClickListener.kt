@@ -53,7 +53,7 @@ class ThrottledOnClickListener private constructor(
     @Keep
     class Builder(
         private val lifecycleOwner: LifecycleOwner? = null,
-        private val delayMs: Long = 1000,
+        private val delayMs: Long = 400,
         private val views: List<View?>? = null,
         private val view: View? = null,
         private val onClick: (view: View?) -> Unit

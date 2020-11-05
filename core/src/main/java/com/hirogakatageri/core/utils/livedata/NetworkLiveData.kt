@@ -6,7 +6,9 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
 
-class NetworkLiveData(private val connectivity: ConnectivityManager) : LiveData<Boolean>() {
+class NetworkLiveData(
+    private val connectivity: ConnectivityManager
+) : LiveData<Boolean>() {
 
     override fun onActive() {
         super.onActive()

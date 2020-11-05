@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.e
 import com.hirogakatageri.core.utils.livedata.NetworkLiveData
 import com.hirogakatageri.core.utils.livedata.SingleLiveEvent
-import com.hirogakatageri.core.viewmodel.BaseViewModel
+import com.hirogakatageri.core.viewmodel.CoreViewModel
 import com.hirogakatageri.sandbox.local.model.LocalUserModel
 import com.hirogakatageri.sandbox.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 class ProfileActivityMainViewModel(
     private val repository: UserRepository,
     val network: NetworkLiveData
-) : BaseViewModel() {
+) : CoreViewModel() {
 
     lateinit var username: String
     var uid: Int = -1
