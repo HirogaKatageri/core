@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@0.2.1
+  android: circleci/android@0.2.3
 
 commands:
   download-gradle-dependencies:
@@ -17,14 +17,7 @@ commands:
             - ~/.gradle
           key:
             jars{{ checksum "build.gradle" }}
-            - {{ checksum  "app/build.gradle" }}
             - {{ checksum  "core/build.gradle" }}
-            - {{ checksum  "feature/home/build.gradle" }}
-            - {{ checksum  "feature/profile/build.gradle" }}
-            - {{ checksum  "local/build.gradle" }}
-            - {{ checksum  "remote/build.gradle" }}
-            - {{ checksum  "repository/build.gradle" }}
-            - {{ checksum  "utils/build.gradle" }}
 
   restore-gradle-cache:
     steps:
@@ -33,14 +26,7 @@ commands:
             - ~/.gradle
           key:
             jars{{ checksum "build.gradle" }}
-            - {{ checksum  "app/build.gradle" }}
             - {{ checksum  "core/build.gradle" }}
-            - {{ checksum  "feature/home/build.gradle" }}
-            - {{ checksum  "feature/profile/build.gradle" }}
-            - {{ checksum  "local/build.gradle" }}
-            - {{ checksum  "remote/build.gradle" }}
-            - {{ checksum  "repository/build.gradle" }}
-            - {{ checksum  "utils/build.gradle" }}
 
   setup-g-services:
     steps:
@@ -116,21 +102,7 @@ jobs:
     steps:
       - setup-project
       - lint:
-          to: "app"
-      - lint:
           to: "core"
-      - lint:
-          to: "feature:home"
-      - lint:
-          to: "feature:profile"
-      - lint:
-          to: "local"
-      - lint:
-          to: "remote"
-      - lint:
-          to: "repository"
-      - lint:
-          to: "utils"
 
   unit-test:
     executor:
@@ -139,21 +111,7 @@ jobs:
     steps:
       - setup-project
       - unit-test:
-          to: "app"
-      - unit-test:
           to: "core"
-      - unit-test:
-          to: "feature:home"
-      - unit-test:
-          to: "feature:profile"
-      - unit-test:
-          to: "local"
-      - unit-test:
-          to: "remote"
-      - unit-test:
-          to: "repository"
-      - unit-test:
-          to: "utils"
 
   publish:
     executor:
@@ -185,3 +143,8 @@ workflows:
           requires:
             - lint
             - unit-test
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
