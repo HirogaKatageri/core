@@ -3,6 +3,7 @@
 ## Table of Contents <!-- omit in toc -->
 - [Features](#features)
 - [Setup](#setup)
+      - [build.gradle in Root Project](#buildgradle-in-root-project)
 - [Components](#components)
   - [CoreActivity & CoreFragment](#coreactivity--corefragment)
     - [Activity](#activity)
@@ -26,6 +27,16 @@
 
 *Core already exports Koin, Coil and TimberKt when added to your module.* 
 
+##### build.gradle in Root Project
+
+```
+repositories {
+	maven {
+		url  "https://dl.bintray.com/hirogakatageri/sandbox"
+	}
+}
+```
+
 ##### build.gradle <!-- omit in toc -->
 
 ```
@@ -34,6 +45,8 @@ android {
         viewBinding = true
     }
 }
+
+implementation 'com.hirogakatageri:core:0.0.1'
 ```
 
 ## Components
