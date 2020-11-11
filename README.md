@@ -1,9 +1,10 @@
 # "Core" a simple library to setup MVVM using ViewBinding and Koin <!-- omit in toc --> 
 
+[ ![Download](https://api.bintray.com/packages/hirogakatageri/sandbox/com.hirogakatageri.core/images/download.svg) ](https://bintray.com/hirogakatageri/sandbox/com.hirogakatageri.core/_latestVersion)
+
 ## Table of Contents <!-- omit in toc -->
 - [Features](#features)
 - [Setup](#setup)
-      - [build.gradle in Root Project](#buildgradle-in-root-project)
 - [Components](#components)
   - [CoreActivity & CoreFragment](#coreactivity--corefragment)
     - [Activity](#activity)
@@ -27,7 +28,7 @@
 
 *Core already exports Koin, Coil and TimberKt when added to your module.* 
 
-##### build.gradle in Root Project
+##### build.gradle in Root Project <!-- omit in toc -->
 
 ```
 repositories {
