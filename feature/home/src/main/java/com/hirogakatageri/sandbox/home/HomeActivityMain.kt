@@ -9,7 +9,6 @@ import com.gaelmarhic.quadrant.QuadrantConstants
 import com.github.ajalt.timberkt.d
 import com.hirogakatageri.core.activity.CoreViewModelActivity
 import com.hirogakatageri.sandbox.home.databinding.HomeActivityMainBinding
-import com.hirogakatageri.sandbox.navigation.NavigationUtil
 import com.hirogakatageri.sandbox.navigation.NavigationUtil.RC_PROFILE
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf

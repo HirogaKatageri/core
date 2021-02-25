@@ -1,24 +1,15 @@
 package com.hirogakatageri.core.activity
 
-import android.os.Bundle
 import androidx.annotation.Keep
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
-import com.hirogakatageri.core.viewmodel.CoreViewModel
-import kotlinx.coroutines.launch
 
 @Keep
-abstract class CoreViewModelActivity<VB : ViewBinding, VM : CoreViewModel> :
-    CoreActivity<VB>() {
+abstract class CoreViewModelActivity<VB : ViewBinding, VM : ViewModel> : CoreActivity<VB>() {
 
-    abstract val viewModel: VM
+    abstract val vm: VM
 
-    protected inline fun <T> LiveData<T>.observe(crossinline func: (T) -> Unit) {
-        observe(this@CoreViewModelActivity) { func(it) }
-    }
+    protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        launch { viewModel.start() }
-    }
+
 }

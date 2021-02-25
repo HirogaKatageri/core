@@ -3,10 +3,12 @@ ext {
     google_services_version = '4.3.4'
 
     //Kotlin
-    kotlin_version = '1.4.10'
-    coroutines_version = '1.4.1'
+    kotlin_version = '1.4.30'
+    coroutines_version = '1.4.2'
 
     //Android
+    lifecycle_version = '2.3.0'
+    arch_version = '2.1.0'
     navigation_version = '2.3.1'
 
     //Android UI
@@ -16,7 +18,7 @@ ext {
     constraintlayout_version = '2.0.2'
 
     //Core
-    koin_version = '2.2.0-rc-2'
+    koin_version = '2.2.2'
     room_version = '2.2.5'
     epoxy_version = '4.1.0'
     lifecycle_version = '2.2.0'
@@ -40,25 +42,15 @@ ext {
             //Kotlin
             kotlin_jdk                    : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
             kotlin_jdk8                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
-            coroutines                    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
-            coroutines_android            : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version",
-            coroutines_test               : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version",
 
-            //KTX
-            android_ktx_core              : "androidx.core:core-ktx:1.3.0",
-            android_ktx_collections       : "androidx.collection:collection-ktx:1.1.0",
-            android_ktx_fragment          : "androidx.fragment:fragment-ktx:1.2.5",
-            android_ktx_lifecycle         : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
-            android_ktx_livedata          : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
-            android_ktx_viewmodel         : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
-            android_ktx_state_viewmodel   : "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version",
+            coroutines_bom                : "org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutines_version",
+            coroutines                    : "org.jetbrains.kotlinx:kotlinx-coroutines-core",
+            coroutines_android            : "org.jetbrains.kotlinx:kotlinx-coroutines-android",
+            coroutines_test               : "org.jetbrains.kotlinx:kotlinx-coroutines-test",
 
-            //Android
+            //Android Essentials
             appcompat                     : "androidx.appcompat:appcompat:1.2.0",
             android_security              : "androidx.security:security-crypto:1.0.0",
-            navigation_fragment           : "androidx.navigation:navigation-fragment-ktx:$navigation_version",
-            navigation_ui                 : "androidx.navigation:navigation-ui-ktx:$navigation_version",
-            navigation_dynamic            : "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version",
 
             //Android UI
             material                      : "com.google.android.material:material:${material_version}",
@@ -67,13 +59,42 @@ ext {
             constraint_layout             : "androidx.constraintlayout:constraintlayout:${constraintlayout_version}",
             viewpager2                    : "androidx.viewpager2:viewpager2:1.0.0",
 
+            //Android Navigation
+            navigation_fragment           : "androidx.navigation:navigation-fragment-ktx:$navigation_version",
+            navigation_ui                 : "androidx.navigation:navigation-ui-ktx:$navigation_version",
+            navigation_dynamic            : "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version",
+
+            //Android KTX
+            android_ktx_core              : "androidx.core:core-ktx:1.3.2",
+            android_ktx_collections       : "androidx.collection:collection-ktx:1.1.0",
+            android_ktx_fragment          : "androidx.fragment:fragment-ktx:1.3.0",
+
+            //Android Lifecycle Runtime
+            android_lifecycle             : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+
+            //Android Lifecycle Compiler
+            android_lifecycle_compiler    : "androidx.lifecycle:lifecycle-compiler:$lifecycle_version", // JDK 7 and below kapt
+            android_lifecycle_common      : "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version", // JDK 8 and above implementation
+
+            //Android Lifecycle Modules
+            android_lifecycle_service     : "androidx.lifecycle:lifecycle-service:$lifecycle_version",
+            android_lifecycle_app         : "androidx.lifecycle:lifecycle-process:$lifecycle_version",
+            android_livedata              : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+            android_viewmodel             : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            android_state_viewmodel       : "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version",
+            android_compose_viewmodel     : "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha01",
+
+            //Android Lifecycle Test Helpers
+            android_lifecycle_test        : "androidx.arch.core:core-testing:$arch_version",
+
             //DI
             koin_core                     : "org.koin:koin-core:$koin_version",
-            koin_test                     : "org.koin:koin-test:$koin_version",
+            koin_test                     : "org.koin:koin-test:$koin_version", // Tests
             koin_android                  : "org.koin:koin-android:$koin_version",
             koin_android_scope            : "org.koin:koin-androidx-scope:$koin_version",
             koin_android_viewmodel        : "org.koin:koin-androidx-viewmodel:$koin_version",
             koin_android_fragment         : "org.koin:koin-androidx-fragment:$koin_version",
+            koin_android_workmanager      : "org.koin:koin-androidx-workmanager:$koin_version",
             koin_android_ext              : "org.koin:koin-androidx-ext:$koin_version",
 
             //Core
@@ -87,6 +108,9 @@ ext {
             paging                        : "androidx.paging:paging-runtime-ktx:$paging_version",
             paging_test                   : "androidx.paging:paging-common-ktx:$paging_version",
             coil                          : "io.coil-kt:coil:1.0.0",
+
+            //Utils
+            date_time                 : "com.jakewharton.threetenabp:threetenabp:1.3.0",
 
             //Firebase
             firebase_auth                 : "com.google.firebase:firebase-auth:19.3.2",
@@ -116,6 +140,5 @@ ext {
             android_test_assertation_truth: "androidx.test.ext:truth:$androidx_test_version",
             espresso_core                 : "androidx.test.espresso:espresso-core:$espresso_version",
             robolectric                   : "org.robolectric:robolectric:$robolectric_version", // Unit Test available
-            lifecycle_test                : "androidx.arch.core:core-testing:2.1.0"
     ]
 }

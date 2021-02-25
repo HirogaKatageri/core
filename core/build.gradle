@@ -43,22 +43,24 @@ dependencies {
     implementation library.appcompat
     implementation library.material
 
+    api library.android_livedata
+    api library.android_viewmodel
+    api library.android_state_viewmodel
+
+    implementation platform(library.coroutines_bom)
+
     api library.coroutines
     api library.coroutines_android
+    testImplementation library.coroutines_test
+    androidTestImplementation library.coroutines_test
 
-    api library.android_ktx_livedata
-    api library.android_ktx_viewmodel
-    api library.android_ktx_state_viewmodel
+    implementation library.timberkt
 
     api library.koin_android
     api library.koin_android_scope
     api library.koin_android_viewmodel
-    api library.koin_android_ext
     api library.koin_android_fragment
-
-    api library.coil
-
-    api library.timberkt
+    api library.koin_android_ext
 
     testImplementation library.junit
     androidTestImplementation library.android_test_assertation

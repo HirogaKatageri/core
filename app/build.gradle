@@ -57,13 +57,15 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':core')
-    implementation project(':feature:home')
-    implementation project(':feature:profile')
-    implementation project(':repository')
     implementation library.kotlin_jdk8
     implementation library.appcompat
     implementation library.material
+
+    implementation platform(library.coroutines_bom)
+    implementation library.coroutines
+    implementation library.coroutines_android
+    testImplementation library.coroutines_test
+    androidTestImplementation library.coroutines_test
 
     testImplementation library.junit
     testImplementation library.android_test_core

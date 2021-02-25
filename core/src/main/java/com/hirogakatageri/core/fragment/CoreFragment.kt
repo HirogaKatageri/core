@@ -5,49 +5,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Keep
+import androidx.lifecycle.Lifecycle.Event
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewbinding.ViewBinding
+import com.github.ajalt.timberkt.d
 import kotlinx.coroutines.*
 import org.koin.androidx.scope.ScopeFragment
 import kotlin.coroutines.CoroutineContext
 
 @Keep
-abstract class CoreFragment<VB : ViewBinding> : ScopeFragment(), CoroutineScope {
+abstract class CoreFragment<VB : ViewBinding> : ScopeFragment(),
+    CoroutineScope,
+    LifecycleObserver {
 
-    lateinit var binding: VB
-
-    private val job = SupervisorJob()
+    private lateinit var binding: VB
+    private lateinit var job: Job
 
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
-    /**
-     * Called within onCreateView using the main thread.
-     * */
-    protected abstract suspend fun VB.bind()
-
-    /**
-     * Called after bind() using the main thread.
-     * */
-    protected abstract suspend fun VB.afterBind()
-
     protected abstract fun createBinding(container: ViewGroup?): VB
 
-    protected inline fun binding(crossinline func: VB.() -> Unit) = launch { binding.run(func) }
+    /**
+     * Called after initializing ViewBinding in "onCreateView".
+     * */
+    protected abstract fun VB.bind()
+
+    protected fun binding(func: VB.() -> Unit) = launch { binding.run(func) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewLifecycleOwner.lifecycle.addObserver(this)
         binding = createBinding(container)
-        launch {
-            binding.bind()
-            binding.afterBind()
-        }
+        binding.bind()
         return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} is Destroyed..."))
+    @OnLifecycleEvent(Event.ON_CREATE)
+    private fun createJob() {
+        job = SupervisorJob()
     }
+
+    @OnLifecycleEvent(Event.ON_STOP)
+    private fun destroyJob() {
+        d { "${this.javaClass.simpleName} paused." }
+        coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} paused."))
+    }
+
 }

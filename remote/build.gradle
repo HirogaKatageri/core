@@ -35,8 +35,12 @@ dependencies {
     implementation library.kotlin_jdk
     implementation library.android_ktx_core
     implementation library.appcompat
+
+    implementation platform(library.coroutines_bom)
     implementation library.coroutines
     implementation library.coroutines_android
+    testImplementation library.coroutines_test
+    androidTestImplementation library.coroutines_test
 
     implementation library.moshi
 
