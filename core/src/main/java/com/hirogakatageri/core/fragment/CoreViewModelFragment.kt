@@ -7,8 +7,8 @@ import androidx.viewbinding.ViewBinding
 @Keep
 abstract class CoreViewModelFragment<VB : ViewBinding, VM : ViewModel> : CoreFragment<VB>() {
 
-    abstract val viewModel: VM
+    abstract val vm: VM
 
-    protected inline fun <T> vm(func: VM.() -> T) = viewModel.run(func)
+    protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
 
 }

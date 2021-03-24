@@ -10,24 +10,24 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SampleFragment : CoreViewModelFragment<FragmentSampleBinding, SampleViewModel>() {
 
-    override val viewModel: SampleViewModel by sharedViewModel()
+    override val vm: SampleViewModel by sharedViewModel()
 
     override fun createBinding(container: ViewGroup?): FragmentSampleBinding =
         FragmentSampleBinding.inflate(layoutInflater, container, false)
 
     override fun FragmentSampleBinding.bind() {
-        viewModel.dateTimeObservable.observe(viewLifecycleOwner) { dateTime ->
+        vm.dateTimeObservable.observe(viewLifecycleOwner) { dateTime ->
             textView.text = "$dateTime"
         }
     }
 
     @OnLifecycleEvent(Event.ON_RESUME)
     private fun startTimer() = launch {
-        viewModel.startTimer()
+        vm.startTimer()
     }
 
     @OnLifecycleEvent(Event.ON_PAUSE)
     private fun pauseTimer() = launch {
-        viewModel.stopTimer()
+        vm.stopTimer()
     }
 }

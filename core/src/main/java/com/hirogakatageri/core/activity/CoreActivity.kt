@@ -20,7 +20,7 @@ abstract class CoreActivity<VB : ViewBinding> : ScopeActivity(),
     LifecycleObserver {
 
     private lateinit var binding: VB
-    private lateinit var job: Job
+    private val job = SupervisorJob()
 
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
@@ -32,19 +32,15 @@ abstract class CoreActivity<VB : ViewBinding> : ScopeActivity(),
     protected abstract fun VB.bind()
 
     /**
-     * Function to access ViewBinding object within Activity.
+     * Use this to access the views of your activity.
+     * It will always run in the main thread.
      * */
     protected fun binding(func: VB.() -> Unit) = launch { binding.run(func) }
 
-    @OnLifecycleEvent(Event.ON_CREATE)
-    private fun createJob() {
-        job = SupervisorJob()
-    }
-
     @OnLifecycleEvent(Event.ON_STOP)
     private fun destroyJob() {
-        d { "${this.javaClass.simpleName} paused." }
-        coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} paused."))
+        d { "${this.javaClass.simpleName} stopped." }
+        coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} stopped."))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
