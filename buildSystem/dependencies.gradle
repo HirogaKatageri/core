@@ -3,7 +3,7 @@ ext {
     google_services_version = '4.3.4'
 
     //Kotlin
-    kotlin_version = '1.4.30'
+    kotlin_version = '1.4.31'
     coroutines_version = '1.4.2'
 
     //Android
@@ -15,7 +15,7 @@ ext {
     material_version = '1.2.1'
     recyclerview_version = '1.1.0'
     cardview_version = '1.0.0'
-    constraintlayout_version = '2.0.2'
+    constraintlayout_version = '2.0.4'
 
     //Core
     koin_version = '2.2.2'
@@ -23,10 +23,12 @@ ext {
     epoxy_version = '4.1.0'
     lifecycle_version = '2.2.0'
     paging_version = '2.1.2'
+    rtmp = '1.9.9'
 
     //Network
     retrofit_version = '2.9.0'
     okhttp_version = '4.9.0'
+    moshi_version = '1.11.0'
 
     //Logging
     timberkt_version = '1.5.1'
@@ -110,13 +112,14 @@ ext {
             coil                          : "io.coil-kt:coil:1.0.0",
 
             //Utils
-            date_time                 : "com.jakewharton.threetenabp:threetenabp:1.3.0",
+            date_time                     : "com.jakewharton.threetenabp:threetenabp:1.3.0",
 
             //Firebase
             firebase_auth                 : "com.google.firebase:firebase-auth:19.3.2",
 
             //Network
-            moshi                         : "com.squareup.moshi:moshi-kotlin:1.9.3",
+            moshi                         : "com.squareup.moshi:moshi-kotlin:$moshi_version",
+            moshi_codegen                 : "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version",
             retrofit                      : "com.squareup.retrofit2:retrofit:$retrofit_version",
             retrofit_moshi                : "com.squareup.retrofit2:converter-moshi:$retrofit_version",
             retrofit_mock                 : "com.squareup.retrofit2:retrofit-mock:$retrofit_version",
@@ -125,6 +128,7 @@ ext {
             okhttp_url_connection         : "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_version",
             okhttp_mock_server            : "com.squareup.okhttp3:mockwebserver:$okhttp_version",
             cookie_store                  : "net.gotev:cookie-store:1.2.1",
+            network_response_adapter      : "com.github.haroldadmin:NetworkResponseAdapter:4.1.0",
 
             //Logging
             timberkt                      : "com.github.ajalt:timberkt:$timberkt_version",

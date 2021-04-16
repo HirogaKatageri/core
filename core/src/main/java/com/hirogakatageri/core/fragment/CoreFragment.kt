@@ -19,21 +19,24 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment(),
     CoroutineScope,
     LifecycleObserver {
 
-    private lateinit var binding: VB
+    protected lateinit var binding: VB
 
     private val job = SupervisorJob()
-
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
+    /**
+     * Function to initialize ViewBinding.
+     * @return VB the type of ViewBinding used by the Fragment.
+     * */
     protected abstract fun createBinding(container: ViewGroup?): VB
 
     /**
-     * This is where you would usually bind data to your views.
+     * Called after initializing ViewBinding in "onCreateView".
      * */
     protected abstract fun VB.bind()
 
     /**
-     * Use this to access the views of your fragment.
+     * Function to easily access ViewBinding in the Fragment.
      * It will always run in the main thread.
      * */
     protected fun binding(func: VB.() -> Unit) = launch { binding.run(func) }
@@ -50,7 +53,7 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment(),
     }
 
     @OnLifecycleEvent(Event.ON_STOP)
-    private fun destroyJob() {
+    protected fun cancelCoroutineJobs() {
         d { "${this.javaClass.simpleName} stopped." }
         coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} stopped."))
     }

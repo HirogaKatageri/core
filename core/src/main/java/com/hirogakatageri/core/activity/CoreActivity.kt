@@ -8,22 +8,23 @@ import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewbinding.ViewBinding
 import com.github.ajalt.timberkt.d
 import kotlinx.coroutines.*
-import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 import org.koin.androidx.scope.ScopeActivity
-import org.koin.core.KoinExperimentalAPI
 import kotlin.coroutines.CoroutineContext
 
-@KoinExperimentalAPI
 @Keep
 abstract class CoreActivity<VB : ViewBinding> : ScopeActivity(),
     CoroutineScope,
     LifecycleObserver {
 
-    private lateinit var binding: VB
-    private val job = SupervisorJob()
+    protected lateinit var binding: VB
 
+    private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
+    /**
+     * Function to initialize ViewBinding.
+     * @return VB the type of ViewBinding used by the Activity.
+     * */
     protected abstract fun createBinding(): VB
 
     /**
@@ -32,15 +33,15 @@ abstract class CoreActivity<VB : ViewBinding> : ScopeActivity(),
     protected abstract fun VB.bind()
 
     /**
-     * Use this to access the views of your activity.
+     * Function to easily access ViewBinding in the Activity.
      * It will always run in the main thread.
      * */
-    protected fun binding(func: VB.() -> Unit) = launch { binding.run(func) }
+    protected fun binding(func: VB.() -> Unit): Job = launch { binding.run(func) }
 
     @OnLifecycleEvent(Event.ON_STOP)
-    private fun destroyJob() {
-        d { "${this.javaClass.simpleName} stopped." }
-        coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} stopped."))
+    protected open fun cancelCoroutineJobs() {
+        d { "${this::class.simpleName} stopped." }
+        job.cancelChildren(CancellationException("${this::class.simpleName} stopped."))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

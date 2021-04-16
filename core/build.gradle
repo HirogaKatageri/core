@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'org.jetbrains.dokka'
 }
 
 android {
@@ -37,6 +38,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     implementation library.kotlin_jdk8
@@ -46,6 +48,7 @@ dependencies {
     api library.android_livedata
     api library.android_viewmodel
     api library.android_state_viewmodel
+    api library.android_lifecycle_service
 
     implementation platform(library.coroutines_bom)
 
@@ -65,6 +68,21 @@ dependencies {
     testImplementation library.junit
     androidTestImplementation library.android_test_assertation
     androidTestImplementation library.espresso_core
+}
+
+dokkaHtml.configure {
+
+    outputDirectory.set(file("$rootDir/docs"))
+
+    dokkaSourceSets {
+        named("main") {
+            includeNonPublic.set(true)
+
+            noStdlibLink.set(false)
+            noJdkLink.set(false)
+            noAndroidSdkLink.set(false)
+        }
+    }
 }
 
 apply from: 'publish.gradle'

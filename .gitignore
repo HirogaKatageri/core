@@ -148,3 +148,4 @@ lint/tmp/
 
 # Custom
 buildSystem/publishing.properties
+docs/
