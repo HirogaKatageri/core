@@ -3,7 +3,7 @@
     package="com.hirogakatageri.core.sample">
 
     <application
-        android:name=".SampleApp"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Core">
 
-        <activity android:name=".SampleActivity">
+        <activity android:name=".ui.main.SampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

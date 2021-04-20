@@ -1,10 +1,10 @@
-package com.hirogakatageri.core.sample
+package com.hirogakatageri.core.sample.ui.main
 
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle.Event
-import androidx.lifecycle.OnLifecycleEvent
 import com.hirogakatageri.core.fragment.CoreViewModelFragment
 import com.hirogakatageri.core.sample.databinding.FragmentSampleBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -16,18 +16,29 @@ class SampleFragment : CoreViewModelFragment<FragmentSampleBinding, SampleViewMo
         FragmentSampleBinding.inflate(layoutInflater, container, false)
 
     override fun FragmentSampleBinding.bind() {
-        vm.dateTimeObservable.observe(viewLifecycleOwner) { dateTime ->
-            textView.text = "$dateTime"
+        lifecycleScope.launchWhenStarted {
+            observeState()
         }
     }
 
-    @OnLifecycleEvent(Event.ON_RESUME)
-    private fun startTimer() = launch {
+    override fun onResume() {
+        super.onResume()
         vm.startTimer()
     }
 
-    @OnLifecycleEvent(Event.ON_PAUSE)
-    private fun pauseTimer() = launch {
+    override fun onStop() {
+        super.onStop()
         vm.stopTimer()
+    }
+
+    private suspend fun observeState() = lifecycleScope.launch(Dispatchers.Main) {
+        vm.state.collect { state ->
+            when (state) {
+                is SampleState.Created -> Unit
+                is SampleState.TimeUpdated -> {
+                    binding.textView.text = state.time
+                }
+            }
+        }
     }
 }

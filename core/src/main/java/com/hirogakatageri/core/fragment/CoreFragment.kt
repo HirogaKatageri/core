@@ -14,6 +14,8 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
 
     protected lateinit var binding: VB
 
+    protected val lifecycleScope get() = viewLifecycleOwner.lifecycleScope
+
     /**
      * Function to initialize ViewBinding.
      * @return VB the type of ViewBinding used by the Fragment.

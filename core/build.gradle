@@ -77,10 +77,6 @@ dokkaHtml.configure {
     dokkaSourceSets {
         named("main") {
             includeNonPublic.set(true)
-
-            noStdlibLink.set(false)
-            noJdkLink.set(false)
-            noAndroidSdkLink.set(false)
         }
     }
 }
