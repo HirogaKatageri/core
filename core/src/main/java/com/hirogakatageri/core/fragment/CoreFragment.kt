@@ -5,24 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Keep
-import androidx.lifecycle.Lifecycle.Event
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.github.ajalt.timberkt.d
-import kotlinx.coroutines.*
 import org.koin.androidx.scope.ScopeFragment
-import kotlin.coroutines.CoroutineContext
 
 @Keep
-abstract class CoreFragment<VB : ViewBinding> : ScopeFragment(),
-    CoroutineScope,
-    LifecycleObserver {
+abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
 
     protected lateinit var binding: VB
-
-    private val job = SupervisorJob()
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
 
     /**
      * Function to initialize ViewBinding.
@@ -39,23 +29,17 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment(),
      * Function to easily access ViewBinding in the Fragment.
      * It will always run in the main thread.
      * */
-    protected fun binding(func: VB.() -> Unit) = launch { binding.run(func) }
+    protected fun binding(func: VB.() -> Unit) =
+        lifecycleScope.launchWhenStarted { binding.run(func) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewLifecycleOwner.lifecycle.addObserver(this)
         binding = createBinding(container)
         binding.bind()
         return binding.root
-    }
-
-    @OnLifecycleEvent(Event.ON_STOP)
-    protected fun cancelCoroutineJobs() {
-        d { "${this.javaClass.simpleName} stopped." }
-        coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} stopped."))
     }
 
 }

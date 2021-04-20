@@ -1,17 +1,12 @@
 package com.hirogakatageri.core.service
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleService
-import androidx.lifecycle.OnLifecycleEvent
-import com.github.ajalt.timberkt.d
 import kotlinx.coroutines.*
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.scope.KoinScopeComponent
 import org.koin.core.scope.Scope
 import org.koin.core.scope.newScope
-import kotlin.coroutines.CoroutineContext
 
 /**
  * Based on ScopeService of Koin DI.
@@ -20,24 +15,12 @@ import kotlin.coroutines.CoroutineContext
 abstract class CoreService(
     private val initialiseScope: Boolean = true
 ) : LifecycleService(),
-    CoroutineScope,
-    LifecycleObserver,
     KoinScopeComponent {
-
-    private val job = SupervisorJob()
-    override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
     override val scope: Scope by lazy { newScope(this) }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun stopJobs() {
-        d { "${this.javaClass.simpleName} destroyed." }
-        job.cancelChildren(CancellationException("${this.javaClass.simpleName} destroyed."))
-    }
-
     override fun onCreate() {
         super.onCreate()
-        lifecycle.addObserver(this)
 
         if (initialiseScope) {
             getKoin().logger.debug("Open Service Scope: $scope")
