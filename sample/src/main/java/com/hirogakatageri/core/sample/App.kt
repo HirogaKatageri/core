@@ -1,9 +1,10 @@
 package com.hirogakatageri.core.sample
 
 import com.hirogakatageri.core.CoreApp
-import com.hirogakatageri.core.sample.ui.main.SampleActivity
-import com.hirogakatageri.core.sample.ui.main.SampleFragment
-import com.hirogakatageri.core.sample.ui.main.SampleViewModel
+import com.hirogakatageri.core.sample.ui.main.MainActivity
+import com.hirogakatageri.core.sample.ui.main.MainFragment
+import com.hirogakatageri.core.sample.ui.main.MainViewModel
+import com.hirogakatageri.core.sample.ui.time.TimeFragment
 import com.hirogakatageri.core.sample.util.Clock
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.androidx.fragment.dsl.fragment
@@ -15,13 +16,15 @@ private val mainModule = module {
 
     factory { Clock() }
 
-    viewModel { SampleViewModel(get()) }
+    viewModel { MainViewModel(get()) }
 
-    scope<SampleActivity> {
-        fragment { SampleFragment() }
+    scope<MainActivity> {
+        fragment { MainFragment() }
+        fragment { TimeFragment() }
     }
 
-    scope<SampleFragment> { }
+    scope<MainFragment> { }
+    scope<TimeFragment> { }
 }
 
 class App : CoreApp() {

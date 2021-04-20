@@ -17,6 +17,7 @@ class Clock {
     suspend fun start(onTick: (time: String) -> Unit) = withContext(Dispatchers.IO) {
         ticker = ticker(
             delayMillis = 1000,
+            initialDelayMillis = 0,
             context = Dispatchers.IO
         )
 

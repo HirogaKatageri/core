@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -44,9 +45,13 @@ dependencies {
     implementation library.android_ktx_fragment
     implementation library.appcompat
     implementation library.material
+    implementation library.constraint_layout
+
+    implementation library.navigation_fragment
+    implementation library.navigation_ui
+    androidTestImplementation library.navigation_testing
 
     implementation library.date_time
-
     implementation library.timberkt
 
     testImplementation library.junit
