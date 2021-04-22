@@ -8,11 +8,11 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.context.stopKoin
+import org.koin.test.AutoCloseKoinTest
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
-class CoreActivityTest {
+class CoreActivityTest : AutoCloseKoinTest() {
 
     @get:Rule
     val rule = ActivityScenarioRule(TestActivity::class.java)
@@ -20,7 +20,6 @@ class CoreActivityTest {
     @After
     fun close() {
         rule.scenario.close()
-        stopKoin()
     }
 
     @Test
