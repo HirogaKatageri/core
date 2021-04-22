@@ -35,6 +35,11 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -64,10 +69,14 @@ dependencies {
     api library.koin_android_viewmodel
     api library.koin_android_fragment
     api library.koin_android_ext
+    testImplementation library.koin_test
 
     testImplementation library.junit
-    androidTestImplementation library.android_test_assertation
-    androidTestImplementation library.espresso_core
+    testImplementation library.robolectric
+    testImplementation library.androidx_test
+    testImplementation library.androidx_test_runner
+    testImplementation library.androidx_test_rules
+    testImplementation library.androidx_test_junit
 }
 
 dokkaHtml.configure {
