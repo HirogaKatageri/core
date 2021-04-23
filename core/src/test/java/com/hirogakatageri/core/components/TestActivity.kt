@@ -17,10 +17,17 @@ class TestActivity : CoreActivity<CoreTestLayoutBinding>() {
 
     @SmallTest
     fun test_ViewBinding() {
-        Assert.assertTrue(binding is CoreTestLayoutBinding)
+        Assert.assertEquals(CoreTestLayoutBinding::class, binding::class)
         Assert.assertEquals(R.id.test_layout, binding.root.id)
         Assert.assertEquals(R.id.text_view, binding.textView.id)
         Assert.assertEquals("CoreActivityTest", binding.textView.text)
+
+        binding {
+            Assert.assertEquals(CoreTestLayoutBinding::class, this::class)
+            Assert.assertEquals(R.id.test_layout, root.id)
+            Assert.assertEquals(R.id.text_view, textView.id)
+            Assert.assertEquals("CoreActivityTest", textView.text)
+        }
     }
 
     @SmallTest
@@ -30,6 +37,10 @@ class TestActivity : CoreActivity<CoreTestLayoutBinding>() {
         }
 
         Assert.assertEquals("UpdateViewBinding", binding.textView.text)
+
+        binding {
+            Assert.assertEquals("UpdateViewBinding", textView.text)
+        }
     }
 
 }

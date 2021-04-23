@@ -1,4 +1,4 @@
-package com.hirogakatageri.core.activity
+package com.hirogakatageri.core.tests.activity
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4

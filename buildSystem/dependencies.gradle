@@ -41,117 +41,112 @@ ext {
     library = [
 
             //Kotlin
-            kotlin_jdk                    : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-            kotlin_jdk8                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+            kotlin_jdk                : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            kotlin_jdk8               : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
 
-            coroutines_bom                : "org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutines_version",
-            coroutines                    : "org.jetbrains.kotlinx:kotlinx-coroutines-core",
-            coroutines_android            : "org.jetbrains.kotlinx:kotlinx-coroutines-android",
-            coroutines_test               : "org.jetbrains.kotlinx:kotlinx-coroutines-test",
+            coroutines_bom            : "org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutines_version",
+            coroutines                : "org.jetbrains.kotlinx:kotlinx-coroutines-core",
+            coroutines_android        : "org.jetbrains.kotlinx:kotlinx-coroutines-android",
+            coroutines_test           : "org.jetbrains.kotlinx:kotlinx-coroutines-test",
 
             //Android Essentials
-            appcompat                     : "androidx.appcompat:appcompat:1.2.0",
-            android_security              : "androidx.security:security-crypto:1.0.0",
+            appcompat                 : "androidx.appcompat:appcompat:1.2.0",
+            android_security          : "androidx.security:security-crypto:1.0.0",
 
             //Android UI
-            material                      : "com.google.android.material:material:${material_version}",
-            recyclerview                  : "androidx.recyclerview:recyclerview:${recyclerview_version}",
-            cardview                      : "androidx.cardview:cardview:${cardview_version}",
-            constraint_layout             : "androidx.constraintlayout:constraintlayout:${constraintlayout_version}",
-            viewpager2                    : "androidx.viewpager2:viewpager2:1.0.0",
+            material                  : "com.google.android.material:material:${material_version}",
+            recyclerview              : "androidx.recyclerview:recyclerview:${recyclerview_version}",
+            cardview                  : "androidx.cardview:cardview:${cardview_version}",
+            constraint_layout         : "androidx.constraintlayout:constraintlayout:${constraintlayout_version}",
+            viewpager2                : "androidx.viewpager2:viewpager2:1.0.0",
 
             //Android Navigation
-            navigation_fragment           : "androidx.navigation:navigation-fragment-ktx:$navigation_version",
-            navigation_ui                 : "androidx.navigation:navigation-ui-ktx:$navigation_version",
-            navigation_dynamic            : "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version",
-            navigation_testing            : "androidx.navigation:navigation-testing:$navigation_version",
+            navigation_fragment       : "androidx.navigation:navigation-fragment-ktx:$navigation_version",
+            navigation_ui             : "androidx.navigation:navigation-ui-ktx:$navigation_version",
+            navigation_dynamic        : "androidx.navigation:navigation-dynamic-features-fragment:$navigation_version",
+            navigation_testing        : "androidx.navigation:navigation-testing:$navigation_version",
 
             //Android KTX
-            android_ktx_core              : "androidx.core:core-ktx:1.3.2",
-            android_ktx_collections       : "androidx.collection:collection-ktx:1.1.0",
-            android_ktx_fragment          : "androidx.fragment:fragment-ktx:1.3.0",
+            android_ktx_core          : "androidx.core:core-ktx:1.3.2",
+            android_ktx_collections   : "androidx.collection:collection-ktx:1.1.0",
+            android_ktx_fragment      : "androidx.fragment:fragment-ktx:1.3.0",
 
             //Android Lifecycle Runtime
-            android_lifecycle             : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+            android_lifecycle         : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
 
             //Android Lifecycle Compiler
-            android_lifecycle_compiler    : "androidx.lifecycle:lifecycle-compiler:$lifecycle_version", // JDK 7 and below kapt
-            android_lifecycle_common      : "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version", // JDK 8 and above implementation
+            android_lifecycle_compiler: "androidx.lifecycle:lifecycle-compiler:$lifecycle_version", // JDK 7 and below kapt
+            android_lifecycle_common  : "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version", // JDK 8 and above implementation
 
             //Android Lifecycle Modules
-            android_lifecycle_service     : "androidx.lifecycle:lifecycle-service:$lifecycle_version",
-            android_lifecycle_app         : "androidx.lifecycle:lifecycle-process:$lifecycle_version",
-            android_livedata              : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
-            android_viewmodel             : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
-            android_state_viewmodel       : "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version",
-            android_compose_viewmodel     : "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha01",
+            android_lifecycle_service : "androidx.lifecycle:lifecycle-service:$lifecycle_version",
+            android_lifecycle_app     : "androidx.lifecycle:lifecycle-process:$lifecycle_version",
+            android_livedata          : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+            android_viewmodel         : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            android_state_viewmodel   : "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version",
+            android_compose_viewmodel : "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha01",
 
             //Android Lifecycle Test Helpers
-            android_lifecycle_test        : "androidx.arch.core:core-testing:$arch_version",
+            android_lifecycle_test    : "androidx.arch.core:core-testing:$arch_version",
 
             //DI
-            koin_core                     : "org.koin:koin-core:$koin_version",
-            koin_test                     : "org.koin:koin-test:$koin_version", // Tests
-            koin_android                  : "org.koin:koin-android:$koin_version",
-            koin_android_scope            : "org.koin:koin-androidx-scope:$koin_version",
-            koin_android_viewmodel        : "org.koin:koin-androidx-viewmodel:$koin_version",
-            koin_android_fragment         : "org.koin:koin-androidx-fragment:$koin_version",
-            koin_android_workmanager      : "org.koin:koin-androidx-workmanager:$koin_version",
-            koin_android_ext              : "org.koin:koin-androidx-ext:$koin_version",
+            koin_core                 : "org.koin:koin-core:$koin_version",
+            koin_test                 : "org.koin:koin-test:$koin_version", // Tests
+            koin_android              : "org.koin:koin-android:$koin_version",
+            koin_android_scope        : "org.koin:koin-androidx-scope:$koin_version",
+            koin_android_viewmodel    : "org.koin:koin-androidx-viewmodel:$koin_version",
+            koin_android_fragment     : "org.koin:koin-androidx-fragment:$koin_version",
+            koin_android_workmanager  : "org.koin:koin-androidx-workmanager:$koin_version",
+            koin_android_ext          : "org.koin:koin-androidx-ext:$koin_version",
 
             //Core
-            room_core                     : "androidx.room:room-runtime:$room_version",
-            room_compiler                 : "androidx.room:room-compiler:$room_version",
-            room_ktx                      : "androidx.room:room-ktx:$room_version",
-            room_test                     : "androidx.room:room-testing:$room_version",
-            epoxy                         : "com.airbnb.android:epoxy:$epoxy_version",
-            epoxy_paging                  : "com.airbnb.android:epoxy-paging:$epoxy_version",
-            epoxy_processor               : "com.airbnb.android:epoxy-processor:$epoxy_version",
-            paging                        : "androidx.paging:paging-runtime-ktx:$paging_version",
-            paging_test                   : "androidx.paging:paging-common-ktx:$paging_version",
-            coil                          : "io.coil-kt:coil:1.0.0",
+            room_core                 : "androidx.room:room-runtime:$room_version",
+            room_compiler             : "androidx.room:room-compiler:$room_version",
+            room_ktx                  : "androidx.room:room-ktx:$room_version",
+            room_test                 : "androidx.room:room-testing:$room_version",
+            epoxy                     : "com.airbnb.android:epoxy:$epoxy_version",
+            epoxy_paging              : "com.airbnb.android:epoxy-paging:$epoxy_version",
+            epoxy_processor           : "com.airbnb.android:epoxy-processor:$epoxy_version",
+            paging                    : "androidx.paging:paging-runtime-ktx:$paging_version",
+            paging_test               : "androidx.paging:paging-common-ktx:$paging_version",
+            coil                      : "io.coil-kt:coil:1.0.0",
 
             //Utils
-            date_time                     : "com.jakewharton.threetenabp:threetenabp:1.3.0",
+            date_time                 : "com.jakewharton.threetenabp:threetenabp:1.3.0",
 
             //Firebase
-            firebase_auth                 : "com.google.firebase:firebase-auth:19.3.2",
+            firebase_auth             : "com.google.firebase:firebase-auth:19.3.2",
 
             //Network
-            moshi                         : "com.squareup.moshi:moshi-kotlin:$moshi_version",
-            moshi_codegen                 : "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version",
-            retrofit                      : "com.squareup.retrofit2:retrofit:$retrofit_version",
-            retrofit_moshi                : "com.squareup.retrofit2:converter-moshi:$retrofit_version",
-            retrofit_mock                 : "com.squareup.retrofit2:retrofit-mock:$retrofit_version",
-            okhttp                        : "com.squareup.okhttp3:okhttp:$okhttp_version",
-            okhttp_interceptor            : "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
-            okhttp_url_connection         : "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_version",
-            okhttp_mock_server            : "com.squareup.okhttp3:mockwebserver:$okhttp_version",
-            cookie_store                  : "net.gotev:cookie-store:1.2.1",
-            network_response_adapter      : "com.github.haroldadmin:NetworkResponseAdapter:4.1.0",
+            moshi                     : "com.squareup.moshi:moshi-kotlin:$moshi_version",
+            moshi_codegen             : "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version",
+            retrofit                  : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            retrofit_moshi            : "com.squareup.retrofit2:converter-moshi:$retrofit_version",
+            retrofit_mock             : "com.squareup.retrofit2:retrofit-mock:$retrofit_version",
+            okhttp                    : "com.squareup.okhttp3:okhttp:$okhttp_version",
+            okhttp_interceptor        : "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
+            okhttp_url_connection     : "com.squareup.okhttp3:okhttp-urlconnection:$okhttp_version",
+            okhttp_mock_server        : "com.squareup.okhttp3:mockwebserver:$okhttp_version",
+            cookie_store              : "net.gotev:cookie-store:1.2.1",
+            network_response_adapter  : "com.github.haroldadmin:NetworkResponseAdapter:4.1.0",
 
             //Logging
-            timberkt                      : "com.github.ajalt:timberkt:$timberkt_version",
-            chuck_debug                   : "com.readystatesoftware.chuck:library:$chuck_version",
-            chuck_release                 : "com.readystatesoftware.chuck:library-no-op:$chuck_version",
+            timberkt                  : "com.github.ajalt:timberkt:$timberkt_version",
+            chuck_debug               : "com.readystatesoftware.chuck:library:$chuck_version",
+            chuck_release             : "com.readystatesoftware.chuck:library-no-op:$chuck_version",
 
             //Test
-            junit                         : "junit:junit:4.13.2", // Unit Test available
-            androidx_test                 : "androidx.test:core:$androidx_test_version",
-            androidx_test_runner          : "androidx.test:runner:$androidx_test_version",
-            androidx_test_rules           : "androidx.test:rules:$androidx_test_version",
-            androidx_test_junit           : "androidx.test.ext:junit:1.1.2",
+            junit                     : "junit:junit:4.13.2", // Unit Test available
+            androidx_test             : "androidx.test:core:$androidx_test_version",
+            androidx_test_fragment    : "androidx.fragment:fragment-testing:$androidx_test_version",
+            androidx_test_runner      : "androidx.test:runner:$androidx_test_version",
+            androidx_test_rules       : "androidx.test:rules:$androidx_test_version",
+            androidx_test_junit       : "androidx.test.ext:junit:1.1.2",
 
-            espresso                      : "androidx.test.espresso:espresso-core:$espresso_version",
-            espresso_intents              : "androidx.test.espresso:espresso-intents:3.1.0",
+            espresso                  : "androidx.test.espresso:espresso-core:$espresso_version",
+            espresso_intents          : "androidx.test.espresso:espresso-intents:3.1.0",
 
-            android_test_core             : "androidx.test:core:$androidx_test_version", // Unit Test available
-            android_test_runner           : "androidx.test:runner:$androidx_test_version",
-            android_test_rules            : "androidx.test:rules:$androidx_test_version",
-            android_test_assertation      : "androidx.test.ext:junit-ktx:1.1.2", // Unit Test available
-            android_test_assertation_truth: "androidx.test.ext:truth:$androidx_test_version",
-            espresso_core                 : "androidx.test.espresso:espresso-core:$espresso_version",
-            robolectric                   : "org.robolectric:robolectric:$robolectric_version", // Unit Test available
+            robolectric               : "org.robolectric:robolectric:$robolectric_version", // Unit Test available
     ]
 
 }

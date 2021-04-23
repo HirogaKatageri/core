@@ -55,7 +55,7 @@ dependencies {
     implementation library.timberkt
 
     testImplementation library.junit
-    testImplementation library.android_test_core
-    testImplementation library.android_test_assertation
+    testImplementation library.androidx_test
+    testImplementation library.androidx_test_junit
     testImplementation library.robolectric
 }

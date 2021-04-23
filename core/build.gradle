@@ -74,6 +74,7 @@ dependencies {
     testImplementation library.junit
     testImplementation library.robolectric
     testImplementation library.androidx_test
+    debugImplementation library.androidx_test_fragment
     testImplementation library.androidx_test_runner
     testImplementation library.androidx_test_rules
     testImplementation library.androidx_test_junit
