@@ -2,28 +2,20 @@ package com.hirogakatageri.core.activity
 
 import android.os.Bundle
 import androidx.annotation.Keep
-import androidx.lifecycle.Lifecycle.Event
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.github.ajalt.timberkt.d
-import kotlinx.coroutines.*
-import org.koin.androidx.fragment.android.setupKoinFragmentFactory
+import kotlinx.coroutines.Job
 import org.koin.androidx.scope.ScopeActivity
-import org.koin.core.KoinExperimentalAPI
-import kotlin.coroutines.CoroutineContext
 
-@KoinExperimentalAPI
 @Keep
-abstract class CoreActivity<VB : ViewBinding> : ScopeActivity(),
-    CoroutineScope,
-    LifecycleObserver {
+abstract class CoreActivity<VB : ViewBinding> : ScopeActivity() {
 
-    private lateinit var binding: VB
-    private lateinit var job: Job
+    protected lateinit var binding: VB
 
-    override val coroutineContext: CoroutineContext get() = Dispatchers.Main + job
-
+    /**
+     * Function to initialize ViewBinding.
+     * @return VB the type of ViewBinding used by the Activity.
+     * */
     protected abstract fun createBinding(): VB
 
     /**
@@ -32,23 +24,13 @@ abstract class CoreActivity<VB : ViewBinding> : ScopeActivity(),
     protected abstract fun VB.bind()
 
     /**
-     * Function to access ViewBinding object within Activity.
+     * Function to easily access ViewBinding in the Activity.
+     * It will always run in the main thread.
      * */
-    protected fun binding(func: VB.() -> Unit) = launch { binding.run(func) }
-
-    @OnLifecycleEvent(Event.ON_CREATE)
-    private fun createJob() {
-        job = SupervisorJob()
-    }
-
-    @OnLifecycleEvent(Event.ON_STOP)
-    private fun destroyJob() {
-        d { "${this.javaClass.simpleName} paused." }
-        coroutineContext.cancelChildren(CancellationException("${this.javaClass.simpleName} paused."))
-    }
+    protected fun binding(func: VB.() -> Unit): Job =
+        lifecycleScope.launchWhenStarted { binding.run(func) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        lifecycle.addObserver(this)
         super.onCreate(savedInstanceState)
         binding = createBinding()
         setContentView(binding.root)

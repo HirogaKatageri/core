@@ -5,11 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 
 @Keep
-abstract class CoreViewModelActivity<VB : ViewBinding, VM : ViewModel> : CoreActivity<VB>() {
+abstract class CoreViewModelActivity<VB : ViewBinding, out VM : ViewModel> : CoreActivity<VB>() {
 
-    abstract val vm: VM
+    /**
+     * The ViewModel used in the Activity.
+     * */
+    protected abstract val vm: VM
 
+    /**
+     * Function to easily access contents of the ViewModel.
+     * */
     protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
-
 
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/main_fragment">
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.hirogakatageri.core.sample.ui.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_fragment_to_timeFragment"
+            app:destination="@id/time_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/time_fragment"
+        android:name="com.hirogakatageri.core.sample.ui.time.TimeFragment"
+        android:label="TimeFragment"
+        tools:layout="@layout/fragment_time" />
+
+
+</navigation>
