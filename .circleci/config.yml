@@ -1,52 +1,22 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@0.2.3
+  android: circleci/android@1.0.3
 
 commands:
-  download-gradle-dependencies:
-    steps:
-      - run:
-          name: "Downloading Gradle Dependencies"
-          command: ./gradlew androidDependencies
-
-  save-gradle-cache:
-    steps:
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key:
-            jars{{ checksum "build.gradle" }}
-            - {{ checksum  "core/build.gradle" }}
-
-  restore-gradle-cache:
-    steps:
-      - restore_cache:
-          paths:
-            - ~/.gradle
-          key:
-            jars{{ checksum "build.gradle" }}
-            - {{ checksum  "core/build.gradle" }}
-
-  setup-g-services:
-    steps:
-      - run:
-          name: "Setup google-services.json"
-          command: echo $G_SERVICES | base64 -di > ~/project/app/google-services.json
-
-  setup-publishing:
-    steps:
-      - run:
-          name: "Setup publish.properties"
-          command: echo $PUBLISH_PROPS | base64 -di > ~/project/buildSystem/publishing.properties
-
   setup-project:
     steps:
       - checkout
-      - setup-g-services
-      - setup-publishing
-      - android/restore-build-cache
-      - restore-gradle-cache
+      - android/accept-licenses
+
+  assemble:
+    parameters:
+      to:
+        type: string
+    steps:
+      - run:
+          name: "Run << parameters.to >>:assembleRelease"
+          command: ./gradlew << parameters.to >>:assembleRelease
 
   lint:
     parameters:
@@ -68,8 +38,8 @@ commands:
         type: string
     steps:
       - run:
-          name: "Run << parameters.to >>:testDebugUnitTest"
-          command: ./gradlew << parameters.to >>:testDebugUnitTest
+          name: "Run << parameters.to >>:testReleaseUnitTest"
+          command: ./gradlew << parameters.to >>:testReleaseUnitTest
       - store_artifacts:
           path: << parameters.to >>/build/reports
           destination: reports/<< parameters.to >>
@@ -79,50 +49,55 @@ commands:
   publish-artifacts:
     steps:
       - run:
-          name: "Uploading Artifacts to Bintray"
-          command: ./gradlew bintrayUpload
+          name: "Publish Artifacts to Github"
+          command: ./gradlew publish
 
 jobs:
   build:
     executor:
       name: android/android
-      sdk-version: "29"
+      sdk-version: "23"
     steps:
-      - checkout
-      - setup-g-services
-      - setup-publishing
-      - download-gradle-dependencies
-      - save-gradle-cache
+      - setup-project
+      - assemble:
+          to: "core"
       - android/save-build-cache
+      - android/save-gradle-cache
 
   lint:
     executor:
       name: android/android
-      sdk-version: "29"
+      sdk-version: "23"
     steps:
-      - setup-project
+      - checkout
+      - android/restore-build-cache
+      - android/restore-gradle-cache
       - lint:
           to: "core"
 
   unit-test:
     executor:
       name: android/android
-      sdk-version: "29"
+      sdk-version: "23"
     steps:
-      - setup-project
+      - checkout
+      - android/restore-build-cache
+      - android/restore-gradle-cache
       - unit-test:
           to: "core"
 
   publish:
     executor:
       name: android/android
-      sdk-version: "29"
+      sdk-version: "23"
     steps:
-      - setup-project
+      - checkout
+      - android/restore-build-cache
+      - android/restore-gradle-cache
       - publish-artifacts
 
 workflows:
-  version: "0.0.1"
+  version: "1.0.0"
 
   default:
     jobs:

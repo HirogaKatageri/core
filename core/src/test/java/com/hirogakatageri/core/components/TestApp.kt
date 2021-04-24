@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 val testMod = module {
 
-    scope<TestActivity> { }
+    scope<TestActivity> {}
     scope<TestViewModelActivity> {}
     scope<TestFragment> {}
     scope<TestViewModelFragment> {}

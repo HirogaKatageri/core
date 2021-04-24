@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
 
 @Keep
-abstract class CoreViewModelFragment<VB : ViewBinding, VM : ViewModel> : CoreFragment<VB>() {
+abstract class CoreViewModelFragment<VB : ViewBinding, out VM : ViewModel> : CoreFragment<VB>() {
 
     abstract val vm: VM
 
