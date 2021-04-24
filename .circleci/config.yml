@@ -38,8 +38,8 @@ commands:
         type: string
     steps:
       - run:
-          name: "Run << parameters.to >>:testReleaseUnitTest"
-          command: ./gradlew << parameters.to >>:testReleaseUnitTest
+          name: "Run << parameters.to >>:testDebugUnitTest"
+          command: ./gradlew << parameters.to >>:testDebugUnitTest
       - store_artifacts:
           path: << parameters.to >>/build/reports
           destination: reports/<< parameters.to >>
@@ -119,7 +119,5 @@ workflows:
             - lint
             - unit-test
           filters:
-            tags:
-              only: /.*/
             branches:
-              ignore: /.*/
+              only: master

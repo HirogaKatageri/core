@@ -4,6 +4,6 @@ ext {
             compile_sdk_version: 30,
             target_sdk_version : 30,
             version_code       : 3,
-            version_name       : '0.1.0'
+            version_name       : '0.1.1'
     ]
 }
