@@ -86,7 +86,7 @@ jobs:
       - unit-test:
           to: "core"
 
-  publish:
+  publish-maven:
     executor:
       name: android/android
       sdk-version: "23"
@@ -120,7 +120,11 @@ workflows:
               ignore: /.*/
             tags:
               only: /\d.\d.\d/
-
-      - publish:
+      - publish-maven:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /\d.\d.\d/
           requires:
             - build
