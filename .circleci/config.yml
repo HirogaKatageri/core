@@ -99,7 +99,7 @@ jobs:
 workflows:
   version: "1.0.0"
 
-  merge-test:
+  branch-test:
     jobs:
       - build:
           filters:
@@ -112,11 +112,13 @@ workflows:
           requires:
             - build
 
-  release:
+  publish-release:
     jobs:
       - build:
           filters:
             branches:
+              ignore: /.*/
+            tags:
               only: /\d.\d.\d/
 
       - publish:
