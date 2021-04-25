@@ -5,5 +5,5 @@ pluginManagement {
     }
 }
 
-include ':sample'
-include ':core'
+include(":sample")
+include(":core")
