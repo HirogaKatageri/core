@@ -99,25 +99,26 @@ jobs:
 workflows:
   version: "1.0.0"
 
-  default:
+  merge-test:
     jobs:
       - build:
           filters:
             branches:
-              only: master
-
+              ignore: master
       - lint:
           requires:
             - build
-
       - unit-test:
           requires:
             - build
 
-      - publish:
-          requires:
-            - lint
-            - unit-test
+  release:
+    jobs:
+      - build:
           filters:
             branches:
-              only: master
+              only: /\d.\d.\d/
+
+      - publish:
+          requires:
+            - build

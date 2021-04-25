@@ -65,7 +65,6 @@ CoreFragment with ViewModel ready to be injected using Koin.
     override val vm: TestViewModel by viewModel() // or sharedViewModel()
 ```
 
-
 ### CoreService
 
 Based on ScopeService of Koin DI. This class implements LifecycleService.
@@ -80,6 +79,11 @@ Based on ScopeService of Koin DI. This class implements LifecycleService.
 - Android LifecycleService (2.3.0)
 
 ## Install
+
+### Manual
+
+- Clone the Repository.
+- Copy the "core" module to your project.
 
 ### Jitpack
 
@@ -97,5 +101,5 @@ Add in Root build.gradle
 Add in dependencies
 
 ```
-implementation 'com.github.HirogaKatageri:core:0.1.0'
+implementation 'com.github.HirogaKatageri:core:<tag>'
 ```
