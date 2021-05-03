@@ -11,7 +11,7 @@ object Constants {
 
     //Kotlin
     const val KOTLIN_VERSION = "1.4.32"
-    const val COROUTINES_VERSION = "1.4.2"
+    const val COROUTINES_VERSION = "1.4.3"
 
     //Android
     const val LIFECYCLE_VERSION = "2.3.0"
