@@ -104,7 +104,7 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: master
+              only: /(feature\/.*)|(hotfix\/.*)|(release\/.*)/
       - lint:
           requires:
             - build
