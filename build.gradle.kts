@@ -21,12 +21,6 @@ allprojects {
         google()
         mavenCentral()
         maven {
-            url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
-            content {
-                includeGroup("org.jetbrains.kotlinx")
-            }
-        }
-        maven {
             url = uri("https://maven.pkg.github.com/hirogakatageri/core")
             credentials {
                 username = System.getenv("GITHUB_USER")

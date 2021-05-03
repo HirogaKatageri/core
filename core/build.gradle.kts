@@ -67,15 +67,14 @@ dependencies {
     implementation(Constants.COROUTINES)
     implementation(Constants.COROUTINES_ANDROID)
     testImplementation(Constants.COROUTINES_TEST)
-    androidTestImplementation(Constants.COROUTINES_TEST)
 
     implementation(Constants.TIMBERKT)
 
-    implementation(Constants.KOIN_ANDROID)
-    implementation(Constants.KOIN_ANDROID_SCOPE)
-    implementation(Constants.KOIN_ANDROID_VIEWMODEL)
-    implementation(Constants.KOIN_ANDROID_FRAGMENT)
-    implementation(Constants.KOIN_ANDROID_EXT)
+    api(Constants.KOIN_ANDROID)
+    api(Constants.KOIN_ANDROID_SCOPE)
+    api(Constants.KOIN_ANDROID_VIEWMODEL)
+    api(Constants.KOIN_ANDROID_FRAGMENT)
+    api(Constants.KOIN_ANDROID_EXT)
     testImplementation(Constants.KOIN_TEST)
 
     testImplementation(Constants.JUNIT)
