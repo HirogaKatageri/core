@@ -9,7 +9,16 @@ commands:
       - checkout
       - android/accept-licenses
 
-  assemble:
+  assemble-debug:
+    parameters:
+      to:
+        type: string
+    steps:
+      - run:
+          name: "Run << parameters.to >>:assembleDebug"
+          command: ./gradlew << parameters.to >>:assembleDebug
+
+  assemble-release:
     parameters:
       to:
         type: string
@@ -53,16 +62,32 @@ commands:
           command: ./gradlew publish
 
 jobs:
-  build:
+
+  build-debug:
     executor:
       name: android/android
       sdk-version: "23"
     steps:
       - setup-project
-      - assemble:
+      - assemble-debug:
           to: "core"
-      - android/save-build-cache
-      - android/save-gradle-cache
+      - android/save-build-cache:
+          cache-prefix: "debug"
+      - android/save-gradle-cache:
+          cache-prefix: "debug"
+
+  build-release:
+    executor:
+      name: android/android
+      sdk-version: "23"
+    steps:
+      - setup-project
+      - assemble-release:
+          to: "core"
+      - android/save-build-cache:
+          cache-prefix: "release"
+      - android/save-gradle-cache:
+          cache-prefix: "release"
 
   lint:
     executor:
@@ -70,8 +95,10 @@ jobs:
       sdk-version: "23"
     steps:
       - checkout
-      - android/restore-build-cache
-      - android/restore-gradle-cache
+      - android/restore-build-cache:
+          cache-prefix: "debug"
+      - android/restore-gradle-cache:
+          cache-prefix: "debug"
       - lint:
           to: "core"
 
@@ -81,8 +108,10 @@ jobs:
       sdk-version: "23"
     steps:
       - checkout
-      - android/restore-build-cache
-      - android/restore-gradle-cache
+      - android/restore-build-cache:
+          cache-prefix: "debug"
+      - android/restore-gradle-cache:
+          cache-prefix: "debug"
       - unit-test:
           to: "core"
 
@@ -92,8 +121,10 @@ jobs:
       sdk-version: "23"
     steps:
       - checkout
-      - android/restore-build-cache
-      - android/restore-gradle-cache
+      - android/restore-build-cache:
+          cache-prefix: "release"
+      - android/restore-gradle-cache:
+          cache-prefix: "release"
       - publish-artifacts
 
 workflows:
@@ -101,20 +132,20 @@ workflows:
 
   branch-test:
     jobs:
-      - build:
+      - build-debug:
           filters:
             branches:
               only: /(feature\/.*)|(hotfix\/.*)|(release\/.*)/
       - lint:
           requires:
-            - build
+            - build-debug
       - unit-test:
           requires:
-            - build
+            - build-debug
 
   publish-release:
     jobs:
-      - build:
+      - build-release:
           filters:
             branches:
               ignore: /.*/
@@ -127,4 +158,4 @@ workflows:
             tags:
               only: /\d.\d.\d/
           requires:
-            - build
+            - build-release
