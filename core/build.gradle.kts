@@ -54,25 +54,28 @@ dependencies {
     implementation(Constants.APPCOMPAT)
     implementation(Constants.MATERIAL)
 
-    api(Constants.ANDROID_LIVEDATA)
-    api(Constants.ANDROID_VIEWMODEL)
-    api(Constants.ANDROID_STATE_VIEWMODEL)
-    api(Constants.ANDROID_LIFECYCLE_SERVICE)
+    implementation(Constants.ANDROID_KTX_ACTIVITY)
+    implementation(Constants.ANDROID_KTX_FRAGMENT)
+
+    implementation(Constants.ANDROID_LIVEDATA)
+    implementation(Constants.ANDROID_VIEWMODEL)
+    implementation(Constants.ANDROID_STATE_VIEWMODEL)
+    implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
 
     implementation(platform(Constants.COROUTINES_BOM))
 
-    api(Constants.COROUTINES)
-    api(Constants.COROUTINES_ANDROID)
+    implementation(Constants.COROUTINES)
+    implementation(Constants.COROUTINES_ANDROID)
     testImplementation(Constants.COROUTINES_TEST)
     androidTestImplementation(Constants.COROUTINES_TEST)
 
     implementation(Constants.TIMBERKT)
 
-    api(Constants.KOIN_ANDROID)
-    api(Constants.KOIN_ANDROID_SCOPE)
-    api(Constants.KOIN_ANDROID_VIEWMODEL)
-    api(Constants.KOIN_ANDROID_FRAGMENT)
-    api(Constants.KOIN_ANDROID_EXT)
+    implementation(Constants.KOIN_ANDROID)
+    implementation(Constants.KOIN_ANDROID_SCOPE)
+    implementation(Constants.KOIN_ANDROID_VIEWMODEL)
+    implementation(Constants.KOIN_ANDROID_FRAGMENT)
+    implementation(Constants.KOIN_ANDROID_EXT)
     testImplementation(Constants.KOIN_TEST)
 
     testImplementation(Constants.JUNIT)

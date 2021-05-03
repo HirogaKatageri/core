@@ -3,8 +3,8 @@ object Constants {
     const val MIN_SDK_VERSION = 23
     const val COMPILE_SDK_VERSION = 30
     const val TARGET_SDK_VERSION = 30
-    const val VERSION_CODE = 3
-    const val VERSION_NAME = "0.1.2"
+    const val VERSION_CODE = 4
+    const val VERSION_NAME = "0.1.3"
 
     //Google
     const val GOOGLE_SERVICES_VERSION = "4.3.4"
@@ -78,6 +78,7 @@ object Constants {
     //Android KTX
     const val ANDROID_KTX_CORE = "androidx.core:core-ktx:1.3.2"
     const val ANDROID_KTX_COLLECTIONS = "androidx.collection:collection-ktx:1.1.0"
+    const val ANDROID_KTX_ACTIVITY = "androidx.activity:activity-ktx:1.2.2"
     const val ANDROID_KTX_FRAGMENT = "androidx.fragment:fragment-ktx:1.3.0"
 
     //Android Lifecycle Runtime
