@@ -11,7 +11,7 @@
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_main_fragment_to_timeFragment"
+            android:id="@+id/main_screen_to_time_screen"
             app:destination="@id/time_fragment" />
     </fragment>
 

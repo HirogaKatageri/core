@@ -1,13 +1,16 @@
 package com.hirogakatageri.core.sample.ui.time
 
+import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import com.hirogakatageri.core.fragment.CoreViewModelFragment
 import com.hirogakatageri.core.sample.databinding.FragmentTimeBinding
+import com.hirogakatageri.core.sample.ui.ScreenState
 import com.hirogakatageri.core.sample.ui.main.MainViewModel
-import com.hirogakatageri.core.sample.ui.UiState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -18,9 +21,18 @@ class TimeFragment : CoreViewModelFragment<FragmentTimeBinding, MainViewModel>()
     override fun createBinding(container: ViewGroup?): FragmentTimeBinding =
         FragmentTimeBinding.inflate(layoutInflater, container, false)
 
-    override fun FragmentTimeBinding.bind() {
+    override fun FragmentTimeBinding.bind() {}
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // For Fragments it's recommended to observe state in the onViewCreated function.
         lifecycleScope.launchWhenStarted {
-            observeState()
+            // Wrapping state observation in async.
+            // Is useful in cases where you have multiple state observation functions.
+            // The first state observation won't block the next ones.
+            awaitAll(
+                async { observeState() }
+            )
         }
     }
 
@@ -37,7 +49,7 @@ class TimeFragment : CoreViewModelFragment<FragmentTimeBinding, MainViewModel>()
     private suspend fun observeState() = withContext(Dispatchers.Main) {
         vm.state.collect { state ->
             when (state) {
-                is UiState.TimeUpdated -> {
+                is ScreenState.TimeUpdated -> {
                     binding.textTime.text = state.time
                 }
                 else -> Unit
