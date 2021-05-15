@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.github.ajalt.timberkt.Timber.d
 import com.hirogakatageri.core.activity.CoreViewModelActivity
 import com.hirogakatageri.core.sample.databinding.ActivityMainBinding
 import com.hirogakatageri.core.sample.ui.ScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,7 +28,9 @@ class MainActivity : CoreViewModelActivity<ActivityMainBinding, MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycleScope.launchWhenStarted {
-            observeState()
+            // It is best to wrap StateFlow.collect() in launch()
+            // In order to avoid blocking the thread.
+            launch { observeState() }
         }
     }
 

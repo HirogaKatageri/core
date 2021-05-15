@@ -8,9 +8,8 @@ import com.hirogakatageri.core.sample.databinding.FragmentTimeBinding
 import com.hirogakatageri.core.sample.ui.ScreenState
 import com.hirogakatageri.core.sample.ui.main.MainViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -27,12 +26,9 @@ class TimeFragment : CoreViewModelFragment<FragmentTimeBinding, MainViewModel>()
         super.onViewCreated(view, savedInstanceState)
         // For Fragments it's recommended to observe state in the onViewCreated function.
         lifecycleScope.launchWhenStarted {
-            // Wrapping state observation in async.
-            // Is useful in cases where you have multiple state observation functions.
-            // The first state observation won't block the next ones.
-            awaitAll(
-                async { observeState() }
-            )
+            // It is best to wrap StateFlow.collect() in launch()
+            // In order to avoid blocking the thread.
+            launch { observeState() }
         }
     }
 
