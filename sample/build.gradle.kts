@@ -66,6 +66,7 @@ dependencies {
     // Core
     implementation(Constants.DATE_TIME)
     implementation(Constants.TIMBERKT)
+    implementation(Constants.LEAK_CANARY)
 
     // Testing
     testImplementation(Constants.JUNIT)

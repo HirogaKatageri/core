@@ -113,20 +113,26 @@ object Constants {
     const val KOIN_ANDROID_WORKMANAGER = "io.insert-koin:koin-androidx-workmanager:$KOIN_VERSION"
     const val KOIN_ANDROID_EXT = "io.insert-koin:koin-androidx-ext:$KOIN_VERSION"
 
-    //Core
+    //Data Management
     const val ROOM_CORE = "androidx.room:room-runtime:$ROOM_VERSION"
     const val ROOM_COMPILER = "androidx.room:room-compiler:$ROOM_VERSION"
     const val ROOM_KTX = "androidx.room:room-ktx:$ROOM_VERSION"
     const val ROOM_TEST = "androidx.room:room-testing:$ROOM_VERSION"
+
+    const val PAGING = "androidx.paging:paging-runtime-ktx:$PAGING_VERSION"
+    const val PAGING_TEST = "androidx.paging:paging-common-ktx:$PAGING_VERSION"
+
+    //RecyclerView Util
     const val EPOXY = "com.airbnb.android:epoxy:$EPOXY_VERSION"
     const val EPOXY_PAGING = "com.airbnb.android:epoxy-paging:$EPOXY_VERSION"
     const val EPOXY_PROCESSOR = "com.airbnb.android:epoxy-processor:$EPOXY_VERSION"
-    const val PAGING = "androidx.paging:paging-runtime-ktx:$PAGING_VERSION"
-    const val PAGING_TEST = "androidx.paging:paging-common-ktx:$PAGING_VERSION"
+
+    //Image Utils
     const val COIL = "io.coil-kt:coil:1.0.0"
 
-    //Utils
+    //Misc. Utils
     const val DATE_TIME = "com.jakewharton.threetenabp:threetenabp:1.3.0"
+    const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.7"
 
     //Firebase
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth:19.3.2"
