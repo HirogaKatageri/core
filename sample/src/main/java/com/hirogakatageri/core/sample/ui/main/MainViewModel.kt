@@ -1,10 +1,11 @@
 package com.hirogakatageri.core.sample.ui.main
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hirogakatageri.core.sample.ui.ScreenState
 import com.hirogakatageri.core.sample.util.Clock
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -18,12 +19,9 @@ class MainViewModel(private val clock: Clock) : ViewModel() {
         _state.value = ScreenState.TimeScreen()
     }
 
-    fun startTimer() = viewModelScope.launch {
-        clock.start { time -> _state.value = ScreenState.TimeUpdated(time = time) }
+    fun attachClock(lifecycleOwner: LifecycleOwner) = viewModelScope.launch {
+        clock.attachLifecycle(lifecycleOwner) { time ->
+            _state.value = ScreenState.TimeUpdated(time = time)
+        }
     }
-
-    fun stopTimer() = viewModelScope.launch(Dispatchers.IO) {
-        clock.stop()
-    }
-
 }

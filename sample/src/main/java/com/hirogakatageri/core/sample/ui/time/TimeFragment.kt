@@ -30,23 +30,15 @@ class TimeFragment : CoreViewModelFragment<FragmentTimeBinding, MainViewModel>()
             // In order to avoid blocking the thread.
             launch { observeState() }
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        vm.startTimer()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        vm.stopTimer()
+        vm.attachClock(viewLifecycleOwner)
     }
 
     private suspend fun observeState() = withContext(Dispatchers.Main) {
         vm.state.collect { state ->
             when (state) {
                 is ScreenState.TimeUpdated -> {
-                    binding.textTime.text = state.time
+                    binding?.textTime?.text = state.time
                 }
                 else -> Unit
             }
