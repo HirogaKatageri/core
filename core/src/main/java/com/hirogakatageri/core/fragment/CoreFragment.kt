@@ -12,7 +12,7 @@ import org.koin.androidx.scope.ScopeFragment
 @Keep
 abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
 
-    protected lateinit var binding: VB
+    protected var binding: VB? = null
 
     protected val lifecycleScope get() = viewLifecycleOwner.lifecycleScope
 
@@ -30,9 +30,10 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
     /**
      * Function to easily access ViewBinding in the Fragment.
      * It will always run in the main thread.
+     * It will only run when binding is not null.
      * */
     protected fun binding(func: VB.() -> Unit) =
-        lifecycleScope.launchWhenStarted { binding.run(func) }
+        lifecycleScope.launchWhenStarted { binding?.run(func) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,8 +41,12 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = createBinding(container)
-        binding.bind()
-        return binding.root
+        binding?.bind()
+        return binding?.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
+    }
 }
