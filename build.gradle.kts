@@ -21,6 +21,7 @@ allprojects {
         google()
         mavenCentral()
         maven {
+            name = "GithubPackages"
             url = uri("https://maven.pkg.github.com/hirogakatageri/core")
             credentials {
                 username = System.getenv("GITHUB_USER")
