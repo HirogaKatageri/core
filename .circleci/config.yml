@@ -61,6 +61,23 @@ commands:
           name: "Publish Artifacts to Github"
           command: ./gradlew publish
 
+  save-gradle-cache:
+    description: |
+      Save gradle cache
+    parameters:
+      cache-prefix:
+        default: v1
+        description: Used to form part of the cache key
+        type: string
+    steps:
+      - save_cache:
+          key: gradle-<< parameters.cache-prefix>>-{{ arch }}-{{ checksum
+            "gradle/wrapper/gradle-wrapper.properties" }}-{{ checksum "build.gradle.kts"}}
+          name: Save gradle cache
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
+
 jobs:
 
   build-debug:
@@ -73,7 +90,7 @@ jobs:
           to: "core"
       - android/save-build-cache:
           cache-prefix: "debug"
-      - android/save-gradle-cache:
+      - save-gradle-cache:
           cache-prefix: "debug"
 
   build-release:
@@ -86,7 +103,7 @@ jobs:
           to: "core"
       - android/save-build-cache:
           cache-prefix: "release"
-      - android/save-gradle-cache:
+      - save-gradle-cache:
           cache-prefix: "release"
 
   lint:
