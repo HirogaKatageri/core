@@ -8,7 +8,7 @@ android {
     compileSdkVersion(Constants.COMPILE_SDK_VERSION)
 
     defaultConfig {
-        applicationId("com.hirogakatageri.core.sample")
+        applicationId("dev.hirogakatageri.core.sample")
         minSdkVersion(Constants.MIN_SDK_VERSION)
         targetSdkVersion(Constants.TARGET_SDK_VERSION)
 

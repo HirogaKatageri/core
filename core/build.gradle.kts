@@ -116,7 +116,7 @@ afterEvaluate {
                 from(components["release"])
 
                 // You can then customize attributes of the publication as shown below.
-                groupId = "com.hirogakatageri"
+                groupId = "dev.hirogakatageri"
                 artifactId = "core"
                 version = Constants.VERSION_NAME
 

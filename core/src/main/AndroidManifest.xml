@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hirogakatageri.core">
+    package="dev.hirogakatageri.core">
 
     <application android:theme="@style/Theme.Core" />
 
