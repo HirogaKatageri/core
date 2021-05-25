@@ -137,6 +137,9 @@ object Constants {
     //Firebase
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth:19.3.2"
 
+    //Authentication
+    const val APP_AUTH = "net.openid:appauth:0.8.1"
+
     //Network
     const val MOSHI = "com.squareup.moshi:moshi-kotlin:$MOSHI_VERSION"
     const val MOSHI_CODEGEN = "com.squareup.moshi:moshi-kotlin-codegen:$MOSHI_VERSION"
