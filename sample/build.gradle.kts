@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
+    implementation("dev.hirogakatageri:core:0.1.5")
 
     // Kotlin
     implementation(Constants.KOTLIN_JDK_8)

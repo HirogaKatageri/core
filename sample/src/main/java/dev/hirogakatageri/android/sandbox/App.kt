@@ -1,12 +1,12 @@
 package dev.hirogakatageri.android.sandbox
 
-import dev.hirogakatageri.core.CoreApp
 import dev.hirogakatageri.android.sandbox.ui.main.MainActivity
 import dev.hirogakatageri.android.sandbox.ui.main.MainFragment
 import dev.hirogakatageri.android.sandbox.ui.main.MainViewModel
 import dev.hirogakatageri.android.sandbox.ui.time.TimeFragment
 import dev.hirogakatageri.android.sandbox.util.Clock
 import com.jakewharton.threetenabp.AndroidThreeTen
+import dev.hirogakatageri.core.CoreApp
 import org.koin.androidx.fragment.dsl.fragment
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
