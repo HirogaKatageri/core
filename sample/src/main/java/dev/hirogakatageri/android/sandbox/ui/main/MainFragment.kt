@@ -13,6 +13,7 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
         FragmentMainBinding.inflate(layoutInflater, container, false)
 
     override fun FragmentMainBinding.bind() {
+        btnOauth.setOnClickListener { vm.showOAuthFragment() }
         btnShowTime.setOnClickListener { vm.showTimeFragment() }
     }
 }

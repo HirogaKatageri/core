@@ -10,7 +10,7 @@ object Constants {
     const val GOOGLE_SERVICES_VERSION = "4.3.4"
 
     //Kotlin
-    const val KOTLIN_VERSION = "1.4.32"
+    const val KOTLIN_VERSION = "1.5.10"
     const val COROUTINES_VERSION = "1.4.3"
 
     //Android
@@ -25,7 +25,7 @@ object Constants {
     const val CONSTRAINTLAYOUT_VERSION = "2.0.4"
 
     //Core
-    const val KOIN_VERSION = "2.2.2"
+    const val KOIN_VERSION = "2.2.3"
     const val ROOM_VERSION = "2.2.5"
     const val EPOXY_VERSION = "4.1.0"
     const val PAGING_VERSION = "2.1.2"

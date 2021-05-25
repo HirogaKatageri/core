@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import dev.hirogakatageri.android.sample.databinding.FragmentTimeBinding
-import dev.hirogakatageri.android.sandbox.ui.ScreenState
-import dev.hirogakatageri.android.sandbox.ui.main.MainViewModel
 import dev.hirogakatageri.core.fragment.CoreViewModelFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TimeFragment : CoreViewModelFragment<FragmentTimeBinding, MainViewModel>() {
+class TimeFragment : CoreViewModelFragment<FragmentTimeBinding, TimeViewModel>() {
 
-    override val vm: MainViewModel by sharedViewModel()
+    override val vm: TimeViewModel by viewModel()
 
     override fun createBinding(container: ViewGroup?): FragmentTimeBinding =
         FragmentTimeBinding.inflate(layoutInflater, container, false)
@@ -37,11 +35,13 @@ class TimeFragment : CoreViewModelFragment<FragmentTimeBinding, MainViewModel>()
     private suspend fun observeState() = withContext(Dispatchers.Main) {
         vm.state.collect { state ->
             when (state) {
-                is ScreenState.TimeUpdated -> {
-                    binding?.textTime?.text = state.time
-                }
-                else -> Unit
+                is TimeFragmentState.Origin -> updateTimeText(state.time)
+                is TimeFragmentState.TimeUpdated -> updateTimeText(state.time)
             }
         }
+    }
+
+    private suspend fun updateTimeText(time: String) = withContext(Dispatchers.Main) {
+        binding?.textTime?.text = time
     }
 }

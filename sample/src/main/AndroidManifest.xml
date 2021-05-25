@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="dev.hirogakatageri.android.sample">
 
     <application
@@ -11,10 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Core">
 
-        <activity android:name="dev.hirogakatageri.android.sandbox.ui.main.MainActivity">
+        <activity
+            android:name="dev.hirogakatageri.android.sandbox.ui.main.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="sandbox.android.hirogakatageri.dev"
+                    android:path="/oauth2redirect/twitch"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

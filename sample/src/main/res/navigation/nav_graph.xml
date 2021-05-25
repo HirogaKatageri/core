@@ -13,6 +13,9 @@
         <action
             android:id="@+id/main_screen_to_time_screen"
             app:destination="@id/time_fragment" />
+        <action
+            android:id="@+id/main_screen_to_oauth_screen"
+            app:destination="@id/oauth_fragment" />
     </fragment>
 
     <fragment
@@ -21,5 +24,10 @@
         android:label="TimeFragment"
         tools:layout="@layout/fragment_time" />
 
+    <fragment
+        android:id="@+id/oauth_fragment"
+        android:name="dev.hirogakatageri.android.sandbox.ui.oauth.OAuthFragment"
+        android:label="OAuthFragment"
+        tools:layout="@layout/fragment_oauth" />
 
 </navigation>

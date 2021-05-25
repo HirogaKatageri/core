@@ -147,5 +147,6 @@ lint/tmp/
 
 
 # Custom
+sample/build.properties
 buildSystem/publishing.properties
 docs/
