@@ -7,19 +7,27 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.hirogakatageri.core.sample.ui.main.MainFragment"
+        android:name="dev.hirogakatageri.android.sandbox.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/main_screen_to_time_screen"
             app:destination="@id/time_fragment" />
+        <action
+            android:id="@+id/main_screen_to_oauth_screen"
+            app:destination="@id/oauth_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/time_fragment"
-        android:name="com.hirogakatageri.core.sample.ui.time.TimeFragment"
+        android:name="dev.hirogakatageri.android.sandbox.ui.time.TimeFragment"
         android:label="TimeFragment"
         tools:layout="@layout/fragment_time" />
 
+    <fragment
+        android:id="@+id/oauth_fragment"
+        android:name="dev.hirogakatageri.android.sandbox.ui.oauth.OAuthFragment"
+        android:label="OAuthFragment"
+        tools:layout="@layout/fragment_oauth" />
 
 </navigation>

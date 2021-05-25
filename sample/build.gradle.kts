@@ -1,14 +1,21 @@
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     kotlin("android")
     id("androidx.navigation.safeargs.kotlin")
 }
 
+val buildPropertiesFile = File("sample/build.properties")
+val buildProperties = Properties()
+if (buildPropertiesFile.exists()) buildProperties.load(FileInputStream(buildPropertiesFile))
+
 android {
     compileSdkVersion(Constants.COMPILE_SDK_VERSION)
 
     defaultConfig {
-        applicationId("com.hirogakatageri.core.sample")
+        applicationId("dev.hirogakatageri.android.sandbox")
         minSdkVersion(Constants.MIN_SDK_VERSION)
         targetSdkVersion(Constants.TARGET_SDK_VERSION)
 
@@ -16,6 +23,18 @@ android {
         versionName = Constants.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "TWITCH_CLIENT_ID",
+            buildProperties.getProperty("TWITCH_CLIENT_ID") ?: ""
+        )
+
+        buildConfigField(
+            "String",
+            "TWITCH_SECRET_KEY",
+            buildProperties.getProperty("TWITCH_SECRET_KEY") ?: ""
+        )
     }
 
     buildTypes {
@@ -23,7 +42,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.prog"
+                "proguard-rules.pro"
             )
         }
     }
@@ -58,6 +77,8 @@ dependencies {
     implementation(Constants.CONSTRAINT_LAYOUT)
 
     implementation(Constants.ANDROID_KTX_CORE)
+    implementation(Constants.ANDROID_KTX_ACTIVITY)
+    implementation(Constants.ANDROID_KTX_FRAGMENT)
 
     implementation(Constants.NAVIGATION_FRAGMENT)
     implementation(Constants.NAVIGATION_UI)
@@ -67,6 +88,9 @@ dependencies {
     implementation(Constants.DATE_TIME)
     implementation(Constants.TIMBERKT)
     implementation(Constants.LEAK_CANARY)
+
+    // Authentication
+    implementation(Constants.APP_AUTH)
 
     // Testing
     testImplementation(Constants.JUNIT)

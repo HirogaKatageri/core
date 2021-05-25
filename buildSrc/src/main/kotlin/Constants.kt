@@ -4,13 +4,13 @@ object Constants {
     const val COMPILE_SDK_VERSION = 30
     const val TARGET_SDK_VERSION = 30
     const val VERSION_CODE = 5
-    const val VERSION_NAME = "0.1.4"
+    const val VERSION_NAME = "0.1.5"
 
     //Google
     const val GOOGLE_SERVICES_VERSION = "4.3.4"
 
     //Kotlin
-    const val KOTLIN_VERSION = "1.4.32"
+    const val KOTLIN_VERSION = "1.5.10"
     const val COROUTINES_VERSION = "1.4.3"
 
     //Android
@@ -25,7 +25,7 @@ object Constants {
     const val CONSTRAINTLAYOUT_VERSION = "2.0.4"
 
     //Core
-    const val KOIN_VERSION = "2.2.2"
+    const val KOIN_VERSION = "2.2.3"
     const val ROOM_VERSION = "2.2.5"
     const val EPOXY_VERSION = "4.1.0"
     const val PAGING_VERSION = "2.1.2"
@@ -136,6 +136,9 @@ object Constants {
 
     //Firebase
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth:19.3.2"
+
+    //Authentication
+    const val APP_AUTH = "net.openid:appauth:0.8.1"
 
     //Network
     const val MOSHI = "com.squareup.moshi:moshi-kotlin:$MOSHI_VERSION"
