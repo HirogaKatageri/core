@@ -63,7 +63,7 @@ class OAuthViewModel(
     }
 
     private fun mapTwitchAuthInProgress() = viewModelScope.launch {
-        _state.value = TwitchAuthState.TwitchAuthInProgress(
+        _state.value = TwitchAuthState.AuthInProgress(
             ui = uiState.copy(
                 isTwitchAuthInProgress = true,
                 isTwitchSignedIn = false
@@ -72,17 +72,17 @@ class OAuthViewModel(
     }
 
     private fun mapTwitchOAuthIntentCreated(intent: Intent) = viewModelScope.launch {
-        _state.value = TwitchAuthState.TwitchAuthIntentCreated(
+        _state.value = TwitchAuthState.AuthIntentCreated(
             intent = intent,
             ui = uiState.copy(
-                isTwitchAuthInProgress = false,
+                isTwitchAuthInProgress = true,
                 isTwitchSignedIn = false
             )
         )
     }
 
     private fun mapTwitchAuthError(ex: Exception) = viewModelScope.launch {
-        _state.value = TwitchAuthState.TwitchAuthError(
+        _state.value = TwitchAuthState.AuthError(
             exception = ex,
             ui = uiState.copy(
                 isTwitchAuthInProgress = false,
@@ -92,7 +92,7 @@ class OAuthViewModel(
     }
 
     private fun mapTwitchAccessTokenReceived(accessToken: String?) = viewModelScope.launch {
-        _state.value = TwitchAuthState.TwitchAccessTokenReceived(
+        _state.value = TwitchAuthState.AccessTokenReceived(
             accessToken = accessToken,
             ui = uiState.copy(
                 isTwitchSignedIn = twitchClient.isSignedIn,
@@ -102,7 +102,7 @@ class OAuthViewModel(
     }
 
     private fun mapTwitchAuthCancelled() = viewModelScope.launch {
-        _state.value = TwitchAuthState.TwitchAuthCancelled(
+        _state.value = TwitchAuthState.AuthCancelled(
             ui = uiState.copy(
                 isTwitchSignedIn = false,
                 isTwitchAuthInProgress = false

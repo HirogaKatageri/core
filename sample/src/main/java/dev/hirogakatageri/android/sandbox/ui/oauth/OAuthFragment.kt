@@ -40,30 +40,31 @@ class OAuthFragment : CoreViewModelFragment<FragmentOauthBinding, OAuthViewModel
                         processUiState(state.ui)
                         attachTwitchSwitchListener()
                     }
-                    is TwitchAuthState.TwitchAccessTokenReceived -> {
+                    is TwitchAuthState.AccessTokenReceived -> {
                         processUiState(state.ui)
                         attachTwitchSwitchListener()
                         val accessToken = state.accessToken
                         showSnackbar("Token: $accessToken")
                     }
-                    is TwitchAuthState.TwitchAuthCancelled -> {
+                    is TwitchAuthState.AuthCancelled -> {
                         processUiState(state.ui)
                         attachTwitchSwitchListener()
                     }
-                    is TwitchAuthState.TwitchAuthError -> {
+                    is TwitchAuthState.AuthError -> {
                         processUiState(state.ui)
                         attachTwitchSwitchListener()
                         showSnackbar("An error occurred when signing in with Twitch")
                     }
-                    is TwitchAuthState.TwitchAuthInProgress -> {
+                    is TwitchAuthState.AuthInProgress -> {
                         detachTwitchSwitchListener()
                         processUiState(state.ui)
                     }
-                    is TwitchAuthState.TwitchAuthIntentCreated -> {
+                    is TwitchAuthState.AuthIntentCreated -> {
                         detachTwitchSwitchListener()
+                        processUiState(state.ui)
                         twitchOAuthIntentLauncher.launch(state.intent)
                     }
-                    is TwitchAuthState.TwitchAuthRequired -> {
+                    is TwitchAuthState.ReAuthenticationRequired -> {
                         processUiState(state.ui)
                         attachTwitchSwitchListener()
                         showSnackbar("Your session with Twitch has expired")
@@ -81,11 +82,21 @@ class OAuthFragment : CoreViewModelFragment<FragmentOauthBinding, OAuthViewModel
         switchTwitchAuth.setOnCheckedChangeListener(null)
     }
 
-    private suspend fun processUiState(
+    private fun processUiState(
         state: OAuthFragmentUiState
-    ) = withContext(Dispatchers.Main) {
-        binding?.switchTwitchAuth?.isChecked = state.isTwitchSignedIn
-        binding?.switchTwitchAuth?.isEnabled = !state.isTwitchAuthInProgress
+    ) = binding {
+        switchTwitchAuth.isChecked = state.isTwitchSignedIn
+        processTwitchSignInProgress(state.isTwitchAuthInProgress)
+
+    }
+
+    private fun processTwitchSignInProgress(inProgress: Boolean) = binding {
+        switchTwitchAuth.isEnabled = !inProgress
+        if (inProgress) {
+            progressBar.show()
+        } else {
+            progressBar.hide()
+        }
     }
 
     private suspend fun showSnackbar(message: String) = withContext(Dispatchers.Main) {

@@ -17,30 +17,30 @@ sealed class OAuthFragmentState {
 
     sealed class TwitchAuthState : OAuthFragmentState() {
 
-        data class TwitchAuthInProgress(
+        data class AuthInProgress(
             override val ui: OAuthFragmentUiState
         ) : TwitchAuthState()
 
-        data class TwitchAuthIntentCreated(
+        data class AuthIntentCreated(
             override val ui: OAuthFragmentUiState,
             val intent: Intent
         ) : TwitchAuthState()
 
-        data class TwitchAuthError(
+        data class AuthError(
             override val ui: OAuthFragmentUiState,
             val exception: Exception
         ) : TwitchAuthState()
 
-        data class TwitchAccessTokenReceived(
+        data class AccessTokenReceived(
             override val ui: OAuthFragmentUiState,
             val accessToken: String?
         ) : TwitchAuthState()
 
-        data class TwitchAuthRequired(
+        data class ReAuthenticationRequired(
             override val ui: OAuthFragmentUiState
         ) : TwitchAuthState()
 
-        data class TwitchAuthCancelled(
+        data class AuthCancelled(
             override val ui: OAuthFragmentUiState
         ) : TwitchAuthState()
 
