@@ -44,6 +44,13 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+    lintOptions {
+        disable(
+            "UnsafeExperimentalUsageError",
+            "UnsafeExperimentalUsageWarning"
+        )
+    }
 }
 
 dependencies {

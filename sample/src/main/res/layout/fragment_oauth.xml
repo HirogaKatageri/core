@@ -8,23 +8,24 @@
 
     <TextView
         android:id="@+id/text_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="oAuth Fragment"
+        android:text="OAuth Fragment"
         android:textAlignment="center"
         android:textAppearance="?textAppearanceHeadline5"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_start_auth"
-        android:layout_width="match_parent"
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_twitch_auth"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Sign In Twitch"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:text="Twitch Auth State"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

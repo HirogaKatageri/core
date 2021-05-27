@@ -1,30 +1,48 @@
 package dev.hirogakatageri.android.sandbox.ui.oauth
 
 import android.content.Intent
-import net.openid.appauth.TokenResponse
+
+data class OAuthFragmentUiState(
+    val isTwitchSignedIn: Boolean = false,
+    val isTwitchAuthInProgress: Boolean = false
+)
 
 sealed class OAuthFragmentState {
 
-    abstract val state: Int
-    open val intent: Intent? = null
-    open val twitchTokenResponse: TokenResponse? = null
-    open val twitchTokenException: Exception? = null
+    abstract val ui: OAuthFragmentUiState
 
-    class Initialized(override val state: Int = 0) : OAuthFragmentState()
-
-    class TwitchOAuthIntentCreated(
-        override val state: Int = 1,
-        override val intent: Intent
+    data class Initialized(
+        override val ui: OAuthFragmentUiState
     ) : OAuthFragmentState()
 
-    class TwitchOAuthTokenReceived(
-        override val state: Int = 2,
-        override val twitchTokenResponse: TokenResponse
-    ) : OAuthFragmentState()
+    sealed class TwitchAuthState : OAuthFragmentState() {
 
-    class TwitchOAuthError(
-        override val state: Int = 3,
-        override val twitchTokenException: Exception
-    ) : OAuthFragmentState()
+        data class TwitchAuthInProgress(
+            override val ui: OAuthFragmentUiState
+        ) : TwitchAuthState()
 
+        data class TwitchAuthIntentCreated(
+            override val ui: OAuthFragmentUiState,
+            val intent: Intent
+        ) : TwitchAuthState()
+
+        data class TwitchAuthError(
+            override val ui: OAuthFragmentUiState,
+            val exception: Exception
+        ) : TwitchAuthState()
+
+        data class TwitchAccessTokenReceived(
+            override val ui: OAuthFragmentUiState,
+            val accessToken: String?
+        ) : TwitchAuthState()
+
+        data class TwitchAuthRequired(
+            override val ui: OAuthFragmentUiState
+        ) : TwitchAuthState()
+
+        data class TwitchAuthCancelled(
+            override val ui: OAuthFragmentUiState
+        ) : TwitchAuthState()
+
+    }
 }
