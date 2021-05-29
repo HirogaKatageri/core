@@ -27,13 +27,13 @@ android {
         buildConfigField(
             "String",
             "TWITCH_CLIENT_ID",
-            buildProperties.getProperty("TWITCH_CLIENT_ID") ?: ""
+            buildProperties.getProperty("TWITCH_CLIENT_ID") ?: "null"
         )
 
         buildConfigField(
             "String",
             "TWITCH_SECRET_KEY",
-            buildProperties.getProperty("TWITCH_SECRET_KEY") ?: ""
+            buildProperties.getProperty("TWITCH_SECRET_KEY") ?: "null"
         )
     }
 
