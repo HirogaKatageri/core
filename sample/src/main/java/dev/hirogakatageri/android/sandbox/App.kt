@@ -2,8 +2,7 @@ package dev.hirogakatageri.android.sandbox
 
 import com.github.ajalt.timberkt.Timber
 import com.jakewharton.threetenabp.AndroidThreeTen
-import dev.hirogakatageri.android.sandbox.api.OAuthPreferences
-import dev.hirogakatageri.android.sandbox.api.TwitchClient
+import dev.hirogakatageri.android.sample.BuildConfig
 import dev.hirogakatageri.android.sandbox.ui.main.MainActivity
 import dev.hirogakatageri.android.sandbox.ui.main.MainFragment
 import dev.hirogakatageri.android.sandbox.ui.main.MainViewModel
@@ -12,8 +11,9 @@ import dev.hirogakatageri.android.sandbox.ui.oauth.OAuthViewModel
 import dev.hirogakatageri.android.sandbox.ui.time.TimeFragment
 import dev.hirogakatageri.android.sandbox.ui.time.TimeViewModel
 import dev.hirogakatageri.android.sandbox.util.Clock
-import dev.hirogakatageri.core.BuildConfig
 import dev.hirogakatageri.core.CoreApp
+import dev.hirogakatageri.oauth2client.OAuthPreferences
+import dev.hirogakatageri.oauth2client.TwitchClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.fragment.dsl.fragment
@@ -22,12 +22,17 @@ import org.koin.core.KoinApplication
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import java.lang.ref.WeakReference
 
 private val mainModule = module {
 
-    single { OAuthPreferences(WeakReference(androidContext())) }
-    single { TwitchClient(androidContext(), get()) }
+    single { OAuthPreferences(androidContext()) }
+    single { TwitchClient(
+        BuildConfig.TWITCH_CLIENT_ID,
+        BuildConfig.TWITCH_SECRET_KEY,
+        "channel:manage:broadcast channel:read:stream_key",
+        androidContext(),
+        get()) }
+
     factory { Clock() }
 
     viewModel { MainViewModel() }

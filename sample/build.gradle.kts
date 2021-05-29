@@ -61,6 +61,7 @@ android {
 dependencies {
 
     implementation(project(":core"))
+    implementation(project(":oauth2client"))
 
     // Kotlin
     implementation(Constants.KOTLIN_JDK_8)

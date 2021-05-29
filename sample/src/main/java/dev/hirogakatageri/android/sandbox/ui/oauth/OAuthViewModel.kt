@@ -3,13 +3,14 @@ package dev.hirogakatageri.android.sandbox.ui.oauth
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.activity.result.ActivityResult
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
-import dev.hirogakatageri.android.sandbox.api.TwitchClient
 import dev.hirogakatageri.android.sandbox.ui.oauth.OAuthFragmentState.TwitchAuthState
+import dev.hirogakatageri.oauth2client.TwitchClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -34,7 +35,10 @@ class OAuthViewModel(
 
     fun signInTwitch(context: Context) = viewModelScope.launch {
         mapTwitchAuthInProgress()
-        val intent = twitchClient.buildAuthRequestIntent(context)
+        val intent = twitchClient.buildAuthRequestIntent(
+            context,
+            Uri.parse("https://sandbox.android.hirogakatageri.dev/oauth2redirect/twitch")
+        )
         mapTwitchOAuthIntentCreated(intent)
     }
 

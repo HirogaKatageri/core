@@ -1,11 +1,12 @@
-package dev.hirogakatageri.android.sandbox.api
+package dev.hirogakatageri.oauth2client
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.Keep
+import androidx.core.content.edit
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
-import dev.hirogakatageri.android.sample.BuildConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,23 +18,51 @@ import net.openid.appauth.browser.VersionRange
 import net.openid.appauth.browser.VersionedBrowserMatcher
 import java.lang.ref.WeakReference
 
+@Keep
+fun OAuthPreferences.getCachedTwitchState(config: AuthorizationServiceConfiguration): AuthState =
+    preferences.getString(TwitchClient.TWITCH_AUTH_STATE_KEY, null)?.let { stateJson ->
+        AuthState.jsonDeserialize(stateJson)
+    } ?: AuthState(config)
 
+@Keep
+fun OAuthPreferences.updateCachedTwitchState(state: AuthState) {
+    preferences.edit {
+        putString(TwitchClient.TWITCH_AUTH_STATE_KEY, state.jsonSerializeString())
+    }
+}
+
+@Keep
 class TwitchClient {
 
     constructor(
+        clientId: String,
+        secretKey: String,
+        scope: String,
         preferences: OAuthPreferences
     ) : super() {
+        _clientId = clientId
+        _secretKey = secretKey
+        _scope = scope
         _oAuthPreferences = preferences
     }
 
     constructor(
+        clientId: String,
+        secretKey: String,
+        scope: String,
         context: Context,
         preferences: OAuthPreferences
     ) : super() {
+        _clientId = clientId
+        _secretKey = secretKey
+        _scope = scope
         _oAuthPreferences = preferences
         initialize(context)
     }
 
+    private val _clientId: String
+    private val _secretKey: String
+    private val _scope: String
     private val _oAuthPreferences: OAuthPreferences
 
     private var _context: WeakReference<Context> = WeakReference(null)
@@ -60,7 +89,6 @@ class TwitchClient {
         )
         .build()
 
-
     fun initialize(context: Context) {
         _context = WeakReference(context)
         _authState = _oAuthPreferences.getCachedTwitchState(_serviceConfig)
@@ -71,11 +99,11 @@ class TwitchClient {
 
     suspend fun buildAuthRequestIntent(
         context: Context,
-        redirectUri: Uri = Uri.parse("https://sandbox.android.hirogakatageri.dev/oauth2redirect/twitch")
+        redirectUri: Uri,
     ): Intent = withContext(Dispatchers.IO) {
         val builder = AuthorizationRequest.Builder(
             _serviceConfig,
-            BuildConfig.TWITCH_CLIENT_ID,
+            _clientId,
             ResponseTypeValues.CODE,
             redirectUri
         )
@@ -99,14 +127,6 @@ class TwitchClient {
         onError: suspend (ex: Exception) -> Unit,
         onSuccess: suspend (response: AuthorizationResponse) -> Unit
     ) = withContext(Dispatchers.IO) {
-        if (BuildConfig.DEBUG) {
-            val bundle = intent.extras
-            bundle?.keySet()?.let { set ->
-                set.forEach { key ->
-                    d { "Key: $key, Value: ${bundle.get(key)}" }
-                }
-            }
-        }
 
         val response = AuthorizationResponse.fromIntent(intent)
         val exception = AuthorizationException.fromIntent(intent)
@@ -218,7 +238,7 @@ class TwitchClient {
     private fun AuthorizationResponse.buildTokenExchangeRequest(): TokenRequest {
         // Additional Required Parameters for Twitch.
         val additionalParams = mapOf(
-            "client_secret" to BuildConfig.TWITCH_SECRET_KEY,
+            "client_secret" to _secretKey,
         )
         return createTokenExchangeRequest(additionalParams)
     }
@@ -229,4 +249,7 @@ class TwitchClient {
         _oAuthPreferences.updateCachedTwitchState(newState)
     }
 
+    companion object {
+        const val TWITCH_AUTH_STATE_KEY = "TWITCH_AUTH_STATE"
+    }
 }

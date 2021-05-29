@@ -7,3 +7,4 @@ pluginManagement {
 
 include(":sample")
 include(":core")
+include(":oauth2client")
