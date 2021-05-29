@@ -1,5 +1,6 @@
 package dev.hirogakatageri.core.service
 
+import androidx.annotation.Keep
 import androidx.lifecycle.LifecycleService
 import kotlinx.coroutines.*
 import org.koin.core.parameter.ParametersDefinition
@@ -12,6 +13,7 @@ import org.koin.core.scope.newScope
  * Based on ScopeService of Koin DI.
  * @ref
  * */
+@Keep
 abstract class CoreService(
     private val initialiseScope: Boolean = true
 ) : LifecycleService(),
