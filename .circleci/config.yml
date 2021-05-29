@@ -88,6 +88,8 @@ jobs:
           cache-prefix: "release"
       - assemble-release:
           to: "core"
+      - assemble-release:
+          to: "oauth2client"
       - android/save-build-cache:
           cache-prefix: "release"
       - android/save-gradle-cache:

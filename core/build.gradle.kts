@@ -101,7 +101,7 @@ dependencies {
 }
 
 tasks.dokkaHtml.configure {
-    outputDirectory.set(file("$rootDir/docs"))
+    outputDirectory.set(file("$rootDir/docs/core"))
 
     dokkaSourceSets {
         named("main") {
