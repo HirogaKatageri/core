@@ -14,6 +14,7 @@ import dev.hirogakatageri.oauth2client.TwitchClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import net.openid.appauth.AuthorizationResponse
 
 class OAuthViewModel(
     private val twitchClient: TwitchClient
@@ -51,19 +52,23 @@ class OAuthViewModel(
 
         when {
             result.resultCode == Activity.RESULT_CANCELED -> mapTwitchAuthCancelled()
-            intent != null -> twitchClient.verifyAuthRequest(
+            intent != null -> twitchClient.verifyAuthResponse(
                 intent,
                 onError = ::mapTwitchAuthError,
-                onSuccess = { response ->
-                    twitchClient.requestAccessToken(
-                        response,
-                        ::mapTwitchAuthError,
-                        ::mapTwitchAccessTokenReceived
-                    )
-                }
+                onSuccess = ::requestAccessToken
             )
             else -> e { "Authentication Response is null" }
         }
+    }
+
+    private fun requestAccessToken(
+        response: AuthorizationResponse
+    ) = viewModelScope.launch {
+        twitchClient.requestAccessToken(
+            response,
+            ::mapTwitchAuthError,
+            ::mapTwitchAccessTokenReceived
+        )
     }
 
     private fun mapTwitchAuthInProgress() = viewModelScope.launch {

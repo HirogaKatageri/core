@@ -26,12 +26,15 @@ import org.koin.dsl.module
 private val mainModule = module {
 
     single { OAuthPreferences(androidContext()) }
-    single { TwitchClient(
-        BuildConfig.TWITCH_CLIENT_ID,
-        BuildConfig.TWITCH_SECRET_KEY,
-        "channel:manage:broadcast channel:read:stream_key",
+    single {TwitchClient(
         androidContext(),
-        get()) }
+        "https://id.twitch.tv/oauth2/authorize",
+        "https://id.twitch.tv/oauth2/token",
+        BuildConfig.TWITCH_CLIENT_ID,
+        "channel:manage:broadcast channel:read:stream_key",
+        get(),
+        BuildConfig.TWITCH_SECRET_KEY
+    )}
 
     factory { Clock() }
 

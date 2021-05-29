@@ -9,11 +9,11 @@ import androidx.security.crypto.MasterKeys
 @Keep
 class OAuthPreferences(context: Context) {
 
-    private val _mainKey: String = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+    private val mainKey: String = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
     val preferences: SharedPreferences = EncryptedSharedPreferences.create(
         FILE_NAME,
-        _mainKey,
+        mainKey,
         context,
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM

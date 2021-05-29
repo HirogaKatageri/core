@@ -63,8 +63,8 @@ dependencies {
     implementation(Constants.ANDROID_KTX_CORE)
 
     // Core Libraries
-    implementation(Constants.ANDROID_SECURITY)
-    implementation(Constants.APP_AUTH)
+    api(Constants.ANDROID_SECURITY)
+    api(Constants.APP_AUTH)
 
     // Utils
     implementation(Constants.TIMBERKT)

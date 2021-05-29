@@ -97,12 +97,6 @@ dependencies {
     implementation(Constants.TIMBERKT)
     implementation(Constants.LEAK_CANARY)
 
-    // Security
-    implementation(Constants.ANDROID_SECURITY)
-
-    // Authentication
-    implementation(Constants.APP_AUTH)
-
     // Testing
     testImplementation(Constants.JUNIT)
     testImplementation(Constants.ANDROIDX_TEST)
