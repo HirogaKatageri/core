@@ -32,12 +32,19 @@
 
                 <data
                     android:host="sandbox.android.hirogakatageri.dev"
-                    android:path="/oauth2redirect/twitch"
+                    android:pathPattern="/oauth2redirect/.*"
                     android:scheme="https" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:path="/oauth2redirect/.*"
+                    android:scheme="dev.hirogakatageri.sandbox.android" />
+            </intent-filter>
         </activity>
-
     </application>
-
-
 </manifest>
