@@ -3,6 +3,7 @@ package dev.hirogakatageri.android.sandbox.service
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Configuration
 import android.os.Build
 import androidx.lifecycle.lifecycleScope
 import dev.hirogakatageri.android.sandbox.service.ui.profile.ProfileView
@@ -65,6 +66,11 @@ class ViewService : CoreService() {
         unregisterReceiver(broadcastReceiver)
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        profileView.onConfigurationChanged(newConfig)
+    }
+
     companion object {
         fun launch(context: Context) {
             val intent = Intent(context, ViewService::class.java)
@@ -72,6 +78,5 @@ class ViewService : CoreService() {
             else context.startService(intent)
         }
     }
-
 
 }

@@ -1,5 +1,6 @@
 package dev.hirogakatageri.android.sandbox.service.ui.profile
 
+import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.Build
 import android.util.Size
@@ -34,6 +35,8 @@ class ProfileView(
     serviceState,
     viewModelFactory
 ) {
+
+    private var _cameraProvider: ProcessCameraProvider? = null
 
     override val viewType: ServiceViewType = ServiceViewType.PROFILE
 
@@ -104,7 +107,7 @@ class ProfileView(
 
     private suspend fun onCameraProviderReady(cameraProvider: ProcessCameraProvider) =
         withContext(Dispatchers.Main) {
-
+            _cameraProvider = cameraProvider
             // Set Implementation Mode to Compatible in order to display preview in a TextureView.
             // This allows the Display to be shaped depending on the container.
             binding.cameraPreview.implementationMode = ImplementationMode.COMPATIBLE
@@ -125,6 +128,16 @@ class ProfileView(
                 preview
             )
         }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        launch {
+            // Dispose Camera of camera resources due to screen rotation.
+            // Request Camera Provider in order to restart Camera Preview.
+            _cameraProvider?.unbindAll()
+            vm.requestCameraProvider(serviceProvider.getService())
+        }
+    }
 
     private class OnTouchProfileView(
         private val onMove: (x: Float, y: Float) -> Unit

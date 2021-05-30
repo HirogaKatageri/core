@@ -1,6 +1,7 @@
 package dev.hirogakatageri.android.sandbox.service.components
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.Rect
 import android.os.Build
@@ -94,7 +95,6 @@ abstract class AbstractServiceView<VB : ViewBinding, out VM : ServiceViewModel>(
         }
     }
 
-
     fun attach() = launch {
         if (!isAttached) {
             isAttached = true
@@ -129,4 +129,5 @@ abstract class AbstractServiceView<VB : ViewBinding, out VM : ServiceViewModel>(
         vm.onDetach()
     }
 
+    open fun onConfigurationChanged(newConfig: Configuration) {}
 }
