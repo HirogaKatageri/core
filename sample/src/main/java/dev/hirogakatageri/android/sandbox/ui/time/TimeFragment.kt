@@ -3,7 +3,7 @@ package dev.hirogakatageri.android.sandbox.ui.time
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import dev.hirogakatageri.android.sample.databinding.FragmentTimeBinding
+import dev.hirogakatageri.android.sandbox.databinding.FragmentTimeBinding
 import dev.hirogakatageri.core.fragment.CoreViewModelFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect

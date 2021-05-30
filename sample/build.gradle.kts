@@ -84,13 +84,24 @@ dependencies {
     implementation(Constants.MATERIAL)
     implementation(Constants.CONSTRAINT_LAYOUT)
 
+    // Android Kotlin Extensions
     implementation(Constants.ANDROID_KTX_CORE)
     implementation(Constants.ANDROID_KTX_ACTIVITY)
     implementation(Constants.ANDROID_KTX_FRAGMENT)
 
+    // Android Lifecycle Libraries
+    implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
+
+    // Android Jetpack Navigation
     implementation(Constants.NAVIGATION_FRAGMENT)
     implementation(Constants.NAVIGATION_UI)
     androidTestImplementation(Constants.NAVIGATION_TESTING)
+
+    // Android Camera
+    implementation(Constants.ANDROID_CAMERAX_CORE)
+    implementation(Constants.ANDROID_CAMERAX_CAMERA2)
+    implementation(Constants.ANDROID_CAMERAX_LIFECYCLE)
+    implementation(Constants.ANDROID_CAMERAX_VIEW)
 
     // Core
     implementation(Constants.DATE_TIME)

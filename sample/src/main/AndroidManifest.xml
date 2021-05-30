@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="dev.hirogakatageri.android.sample">
+    package="dev.hirogakatageri.android.sandbox">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="dev.hirogakatageri.android.sandbox.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,8 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Core">
 
+        <service
+            android:name=".service.ViewService"
+            android:foregroundServiceType="mediaProjection" />
+
         <activity
-            android:name="dev.hirogakatageri.android.sandbox.ui.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,7 +7,7 @@ import android.widget.CompoundButton
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.ajalt.timberkt.d
 import com.google.android.material.snackbar.Snackbar
-import dev.hirogakatageri.android.sample.databinding.FragmentOauthBinding
+import dev.hirogakatageri.android.sandbox.databinding.FragmentOauthBinding
 import dev.hirogakatageri.android.sandbox.ui.oauth.OAuthFragmentState.TwitchAuthState
 import dev.hirogakatageri.core.fragment.CoreViewModelFragment
 import kotlinx.coroutines.Dispatchers

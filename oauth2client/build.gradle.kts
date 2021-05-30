@@ -42,9 +42,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    lintOptions {
-        disable("ObsoleteLintCustomCheck")
-    }
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
