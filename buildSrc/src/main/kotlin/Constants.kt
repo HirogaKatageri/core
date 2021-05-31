@@ -17,6 +17,7 @@ object Constants {
     const val LIFECYCLE_VERSION = "2.3.0"
     const val ARCHITECTURE_VERSION = "2.1.0"
     const val NAVIGATION_VERSION = "2.3.5"
+    const val CAMERAX_VERSION  = "1.0.0"
 
     //Android UI
     const val MATERIAL_VERSION = "1.2.1"
@@ -102,6 +103,12 @@ object Constants {
 
     //Android Lifecycle Test Helpers
     const val ANDROID_LIFECYCLE_TEST = "androidx.arch.core:core-testing:$ARCHITECTURE_VERSION"
+
+    //Android CameraX
+    const val ANDROID_CAMERAX_CORE = "androidx.camera:camera-core:$CAMERAX_VERSION"
+    const val ANDROID_CAMERAX_CAMERA2 = "androidx.camera:camera-camera2:$CAMERAX_VERSION"
+    const val ANDROID_CAMERAX_LIFECYCLE = "androidx.camera:camera-lifecycle:$CAMERAX_VERSION"
+    const val ANDROID_CAMERAX_VIEW = "androidx.camera:camera-view:1.0.0-alpha24"
 
     //DI
     const val KOIN_CORE = "io.insert-koin:koin-core:$KOIN_VERSION"

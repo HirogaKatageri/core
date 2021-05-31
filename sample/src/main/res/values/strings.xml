@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">_Sandbox</string>
+
+    <string name="service_view_action_stop_service">Stop Service</string>
 </resources>

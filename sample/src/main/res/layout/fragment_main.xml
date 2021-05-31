@@ -14,11 +14,18 @@
         android:text="Main Fragment"
         android:textAlignment="center"
         android:textAppearance="?textAppearanceHeadline5"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_view_service"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_view_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Service"
+        app:layout_constraintBottom_toTopOf="@id/btn_oauth" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_oauth"
@@ -31,7 +38,7 @@
         android:id="@+id/btn_show_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text="Clock"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

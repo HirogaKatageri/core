@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import dev.hirogakatageri.android.sample.databinding.ActivityMainBinding
+import dev.hirogakatageri.android.sandbox.databinding.ActivityMainBinding
 import dev.hirogakatageri.android.sandbox.ui.ScreenState
 import dev.hirogakatageri.core.activity.CoreViewModelActivity
 import kotlinx.coroutines.Dispatchers
