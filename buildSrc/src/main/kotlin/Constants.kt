@@ -26,7 +26,7 @@ object Constants {
     const val CONSTRAINTLAYOUT_VERSION = "2.0.4"
 
     //Core
-    const val KOIN_VERSION = "2.2.3"
+    const val KOIN_VERSION = "3.0.2"
     const val ROOM_VERSION = "2.2.5"
     const val EPOXY_VERSION = "4.1.0"
     const val PAGING_VERSION = "2.1.2"
@@ -112,13 +112,12 @@ object Constants {
 
     //DI
     const val KOIN_CORE = "io.insert-koin:koin-core:$KOIN_VERSION"
-    const val KOIN_TEST = "io.insert-koin:koin-test:$KOIN_VERSION" // Tests
+    const val KOIN_TEST = "io.insert-koin:koin-test:$KOIN_VERSION"
+    const val KOIN_TEST_JUNIT4 = "io.insert-koin:koin-test-junit4:$KOIN_VERSION" // Tests
     const val KOIN_ANDROID = "io.insert-koin:koin-android:$KOIN_VERSION"
-    const val KOIN_ANDROID_SCOPE = "io.insert-koin:koin-androidx-scope:$KOIN_VERSION"
-    const val KOIN_ANDROID_VIEWMODEL = "io.insert-koin:koin-androidx-viewmodel:$KOIN_VERSION"
-    const val KOIN_ANDROID_FRAGMENT = "io.insert-koin:koin-androidx-fragment:$KOIN_VERSION"
+    const val KOIN_ANDROID_EXT = "io.insert-koin:koin-android-ext:$KOIN_VERSION"
     const val KOIN_ANDROID_WORKMANAGER = "io.insert-koin:koin-androidx-workmanager:$KOIN_VERSION"
-    const val KOIN_ANDROID_EXT = "io.insert-koin:koin-androidx-ext:$KOIN_VERSION"
+    const val KOIN_ANDROID_COMPOSE = "io.insert-koin:koin-androidx-compose:$KOIN_VERSION"
 
     //Data Management
     const val ROOM_CORE = "androidx.room:room-runtime:$ROOM_VERSION"

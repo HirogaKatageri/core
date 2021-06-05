@@ -78,11 +78,10 @@ dependencies {
     implementation(Constants.TIMBERKT)
 
     api(Constants.KOIN_ANDROID)
-    api(Constants.KOIN_ANDROID_SCOPE)
-    api(Constants.KOIN_ANDROID_VIEWMODEL)
-    api(Constants.KOIN_ANDROID_FRAGMENT)
     api(Constants.KOIN_ANDROID_EXT)
+    api(Constants.KOIN_ANDROID_WORKMANAGER)
     testImplementation(Constants.KOIN_TEST)
+    testImplementation(Constants.KOIN_TEST_JUNIT4)
 
     testImplementation(Constants.JUNIT)
     testImplementation(Constants.ROBOLECTRIC)
@@ -133,7 +132,7 @@ afterEvaluate {
 
                     licenses {
                         license {
-                            name.set("The MIT License")
+                            name.set("Apache-2.0")
                             url.set("https://github.com/HirogaKatageri/core/blob/master/LICENSE.md")
                         }
                     }

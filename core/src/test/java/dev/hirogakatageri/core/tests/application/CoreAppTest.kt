@@ -6,7 +6,7 @@ import dev.hirogakatageri.core.components.*
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.annotation.KoinInternal
+import org.koin.core.annotation.KoinInternalApi
 import org.koin.test.AutoCloseKoinTest
 import org.koin.test.check.checkModules
 import org.koin.test.get
@@ -15,7 +15,7 @@ import org.koin.test.get
 @RunWith(AndroidJUnit4::class)
 class CoreAppTest : AutoCloseKoinTest() {
 
-    @KoinInternal
+    @KoinInternalApi
     @Test
     fun test_Modules() {
         checkModules {
