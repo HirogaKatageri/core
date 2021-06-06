@@ -3,12 +3,13 @@ package dev.hirogakatageri.android.sandbox
 import android.os.Build
 import com.github.ajalt.timberkt.Timber
 import com.jakewharton.threetenabp.AndroidThreeTen
-import dev.hirogakatageri.android.sandbox.service.ServiceStateManager
+import dev.hirogakatageri.android.sandbox.service.ServiceController
 import dev.hirogakatageri.android.sandbox.service.ViewService
 import dev.hirogakatageri.android.sandbox.service.ViewServiceBroadcastReceiver
 import dev.hirogakatageri.android.sandbox.service.components.ServiceViewModelFactory
 import dev.hirogakatageri.android.sandbox.service.ui.profile.ProfileView
-import dev.hirogakatageri.android.sandbox.service.util.ViewServiceProvider
+import dev.hirogakatageri.android.sandbox.service.ui.profile.ProfileViewModel
+import dev.hirogakatageri.android.sandbox.service.util.ServiceProvider
 import dev.hirogakatageri.android.sandbox.ui.main.MainActivity
 import dev.hirogakatageri.android.sandbox.ui.main.MainFragment
 import dev.hirogakatageri.android.sandbox.ui.main.MainViewModel
@@ -70,10 +71,13 @@ private val serviceModule = module {
     }
 
     scope<ViewService> {
-        scoped<ViewServiceProvider> { ViewServiceProvider(get()) }
-        scoped<ServiceStateManager> { ServiceStateManager() }
+        scoped<ServiceProvider> { (service: ViewService) -> ServiceProvider(service) }
+        scoped<ServiceController> { ServiceController() }
         scoped<ViewServiceBroadcastReceiver> { ViewServiceBroadcastReceiver() }
 
+        scoped<ProfileViewModel> {
+            get<ServiceViewModelFactory>().create(ProfileViewModel::class)
+        }
         scoped<ProfileView> { ProfileView(get(), get(), get()) }
     }
 }

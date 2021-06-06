@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.os.Build
 import androidx.lifecycle.lifecycleScope
 import dev.hirogakatageri.android.sandbox.service.ui.profile.ProfileView
+import dev.hirogakatageri.android.sandbox.service.util.ServiceProvider
 import dev.hirogakatageri.android.sandbox.util.Broadcasts
 import dev.hirogakatageri.android.sandbox.util.buildNotification
 import dev.hirogakatageri.core.service.CoreService
@@ -14,13 +15,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 private const val NOTIFICATION_ID: Int = 0x2a93a245
 
 class ViewService : CoreService() {
 
     // Components
-    private val stateManager: ServiceStateManager by inject()
+    private val serviceProvider: ServiceProvider = get { parametersOf(this@ViewService) }
+    private val stateManager: ServiceController by inject()
     private val broadcastReceiver: ViewServiceBroadcastReceiver by inject()
 
     // Views
@@ -42,18 +47,18 @@ class ViewService : CoreService() {
     private suspend fun observeState() = withContext(Dispatchers.Main) {
         stateManager.state.collect { state ->
             when (state) {
-                is ServiceState.Initialized -> onInitialized()
-                is ServiceState.Destroyed -> Unit
+                is ServiceState.Initialized -> mapInitialized(state)
                 else -> Unit
             }
         }
     }
 
-    private suspend fun onInitialized() = withContext(Dispatchers.Main) {
-        startForeground(NOTIFICATION_ID, buildNotification())
-        registerReceiver()
-        profileView.bindAndAttach()
-    }
+    private suspend fun mapInitialized(state: ServiceState.Initialized) =
+        withContext(Dispatchers.Main) {
+            startForeground(NOTIFICATION_ID, buildNotification())
+            registerReceiver()
+            profileView.bindAndAttach()
+        }
 
     private suspend fun registerReceiver() = withContext(Dispatchers.IO) {
         val intentFilter = IntentFilter()

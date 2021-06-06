@@ -1,5 +1,6 @@
 package dev.hirogakatageri.android.sandbox.service.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.Build
@@ -16,29 +17,25 @@ import com.github.ajalt.timberkt.d
 import dev.hirogakatageri.android.sandbox.databinding.ServiceViewProfileBinding
 import dev.hirogakatageri.android.sandbox.service.ServiceEvent.ProfileEvent
 import dev.hirogakatageri.android.sandbox.service.ServiceState.ProfileState
-import dev.hirogakatageri.android.sandbox.service.ServiceStateManager
+import dev.hirogakatageri.android.sandbox.service.ServiceController
 import dev.hirogakatageri.android.sandbox.service.components.AbstractServiceView
-import dev.hirogakatageri.android.sandbox.service.components.ServiceViewModelFactory
-import dev.hirogakatageri.android.sandbox.service.components.ServiceViewType
-import dev.hirogakatageri.android.sandbox.service.util.ViewServiceProvider
+import dev.hirogakatageri.android.sandbox.service.util.ServiceProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ProfileView(
-    serviceProvider: ViewServiceProvider,
-    serviceState: ServiceStateManager,
-    viewModelFactory: ServiceViewModelFactory
+    serviceProvider: ServiceProvider,
+    serviceState: ServiceController,
+    viewModel: ProfileViewModel
 ) : AbstractServiceView<ServiceViewProfileBinding, ProfileViewModel>(
     serviceProvider,
     serviceState,
-    viewModelFactory
+    viewModel
 ) {
 
     private var _cameraProvider: ProcessCameraProvider? = null
-
-    override val viewType: ServiceViewType = ServiceViewType.PROFILE
 
     private val onTouchListener = OnTouchProfileView(
         onMove = { x, y ->
@@ -58,8 +55,6 @@ class ProfileView(
     }
 
     override fun bindView() {
-        super.bindView()
-
         binding = ServiceViewProfileBinding.inflate(layoutInflater)
         layoutParams = LayoutParams(
             LayoutParams.WRAP_CONTENT,

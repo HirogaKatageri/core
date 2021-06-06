@@ -7,6 +7,7 @@ import android.graphics.Rect
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.WindowManager
+import androidx.annotation.CallSuper
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.lifecycle.Lifecycle
@@ -14,47 +15,37 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.viewbinding.ViewBinding
 import com.github.ajalt.timberkt.d
+import com.github.ajalt.timberkt.e
 import dev.hirogakatageri.android.sandbox.R
-import dev.hirogakatageri.android.sandbox.service.ServiceState
-import dev.hirogakatageri.android.sandbox.service.ServiceStateManager
-import dev.hirogakatageri.android.sandbox.service.util.ViewServiceProvider
+import dev.hirogakatageri.android.sandbox.service.ServiceController
+import dev.hirogakatageri.android.sandbox.service.util.ServiceProvider
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import kotlin.coroutines.CoroutineContext
 
 abstract class AbstractServiceView<VB : ViewBinding, out VM : ServiceViewModel>(
-    protected val serviceProvider: ViewServiceProvider,
-    protected val serviceState: ServiceStateManager,
-    protected val viewModelFactory: ServiceViewModelFactory
+    protected val serviceProvider: ServiceProvider,
+    protected val serviceController: ServiceController,
+    protected val vm: VM
 ) : CoroutineScope, LifecycleObserver {
 
-    /**
-     * Used to determine what ViewModel will be instantiated by ServiceViewModelFactory.
-     * */
-    abstract val viewType: ServiceViewType
-
-    /**
-     * The View Model of the View. Instantiated by the ViewModelFactory using ServiceViewType.
-     * @see ServiceViewType
-     * @see ServiceViewModelFactory
-     * */
-    protected val vm: VM by lazy { viewModelFactory.create(viewType) as VM }
-
-    // Coroutines Setup
     protected val job = SupervisorJob()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
+    /**
+     * Used to override the theme used in the LayoutInflater.
+     * */
     @StyleRes
-    var themeResId: Int = R.style.Theme_Core
+    open val themeResId: Int = R.style.Theme_Core
+
+    private var _isAttached: Boolean = false
 
     /**
-     * State of attachment to WindowManager. It is only changed in the attach() and detach().
+     * @return true when attach() has been called and detach() has not yet been called.
      * */
-    var isAttached: Boolean = false
+    val isAttached: Boolean get() = _isAttached
 
     init {
-        // Retrieves reference to service and attaches this as a Lifecycle Observer.
-        // To detach the view when Service is destroyed.
+        // Attaches View as a LifecycleObserver to Service.
         serviceProvider.getService().lifecycle.addObserver(this)
     }
 
@@ -86,48 +77,84 @@ abstract class AbstractServiceView<VB : ViewBinding, out VM : ServiceViewModel>(
         else
             windowManager?.defaultDisplay?.rotation
 
-    open fun bindView() {
-        launch {
-            serviceState.state.collect { state ->
-                if (state is ServiceState.Destroyed)
-                    job.cancelChildren(CancellationException("Service:DESTROYED"))
-            }
-        }
-    }
+    /**
+     * By default this is where you initialize your view.
+     * */
+    abstract fun bindView()
 
+    /**
+     * Adds the View to the WindowManager.
+     * */
     fun attach() = launch {
         if (!isAttached) {
-            isAttached = true
-            windowManager?.addView(binding.root, layoutParams)
-            onAttach()
+            _isAttached = true
+
+            val window = windowManager
+
+            if (window != null) {
+                try {
+                    window.addView(binding.root, layoutParams)
+                    onAttach()
+                } catch (ex: WindowManager.BadTokenException) {
+                    e(ex) { "Unable to add ${this@AbstractServiceView::class.simpleName} to WindowManager" }
+                    _isAttached = false
+                } catch (ex: WindowManager.InvalidDisplayException) {
+                    e(ex) { "Unable to add ${this@AbstractServiceView::class.simpleName} to WindowManager" }
+                    _isAttached = false
+                }
+            } else _isAttached = false
         }
     }
 
+    /**
+     * Short function that calls bindView() and attach().
+     * */
     fun bindAndAttach() = launch {
         bindView()
         attach()
     }
 
+    /**
+     * Callback method that notifies this View is now attached to the WindowManager.
+     * */
     open suspend fun onAttach() = withContext(Dispatchers.Main) {
-        d { "${this::class.simpleName} Attached" }
+        d { "${this@AbstractServiceView::class.simpleName} Attached" }
     }
 
+    /**
+     * Removes the view to the WindowManager. It will cancel all current jobs of the View
+     * before attempting to remove the View from the WindowManager. This is called automatically
+     * if the view is observing the lifecycle of the Service.
+     * */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun detach() {
-        job.cancelChildren()
+        job.cancelChildren(CancellationException("Service:DESTROYED"))
         launch {
             if (isAttached) {
-                isAttached = false
-                windowManager?.removeView(binding.root)
-                onDetach()
+                _isAttached = false
+
+                val window = windowManager
+
+                if (window != null) {
+                    window.removeView(binding.root)
+                    onDetach()
+                } else e { "Unable to detach ${this@AbstractServiceView::class.simpleName} because WindowManager is null." }
             }
         }
     }
 
+    /**
+     * Callback method that notifies this view is now detached from the WindowManager.
+     * */
+    @CallSuper
     open suspend fun onDetach() = withContext(Dispatchers.Main) {
-        d { "${this::class.simpleName} Detached" }
+        d { "${this@AbstractServiceView::class.simpleName} Detached" }
         vm.onDetach()
     }
 
+    /**
+     * Callback method for this view when onConfigurationChanged is called in the Service.
+     * Useful for handling screen rotations.
+     * */
     open fun onConfigurationChanged(newConfig: Configuration) {}
 }
