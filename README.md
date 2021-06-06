@@ -1,13 +1,19 @@
-# Features
+# What is this Repository?
 
-## Wrappers for Activity, Fragment, Service and Application
+This is actually a sandbox repository I made in order to develop stuff. It started modular so I could develop libraries for my use cases. It is named "Core" because this is where I started making Wrappers for my Activities, Fragments, Services and Application for MVVM and Koin.
 
-These are created to work with and MVVM Architecture with Koin in mind.
+Eventually if a library is too big for this repository I'll make a new repository for it.
 
-## OAuth2.0 Clients
+## Features
 
-- Twitch (Usable but still in Development)
+### Core
 
-## View Service Framework (In Development)
+Wrappers for Activities, Fragments, Services and Applications to use with MVVM and Koin.
+
+### View Service Framework (In Progress)
 
 A framework to easily create and display views in a ForegroundService.
+
+### OAuth2.0 Clients
+
+- Twitch (Usable but still in Development)
