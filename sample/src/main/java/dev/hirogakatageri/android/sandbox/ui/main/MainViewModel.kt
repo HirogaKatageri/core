@@ -8,7 +8,7 @@ import android.provider.Settings
 import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.hirogakatageri.android.sandbox.service.ViewService
+import dev.hirogakatageri.android.sandbox.service.SampleViewService
 import dev.hirogakatageri.android.sandbox.ui.PermissionState
 import dev.hirogakatageri.android.sandbox.ui.ScreenState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -73,6 +73,6 @@ class MainViewModel : ViewModel() {
     }
 
     fun startViewService(activity: Activity) {
-        ViewService.launch(activity)
+        SampleViewService.launch(activity)
     }
 }

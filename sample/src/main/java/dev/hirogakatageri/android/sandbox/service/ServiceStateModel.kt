@@ -1,8 +1,6 @@
 package dev.hirogakatageri.android.sandbox.service
 
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -10,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlin.coroutines.CoroutineContext
 
-class ServiceController : LifecycleObserver, CoroutineScope {
+class ServiceStateModel : LifecycleObserver, CoroutineScope {
 
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
@@ -20,10 +18,5 @@ class ServiceController : LifecycleObserver, CoroutineScope {
     )
 
     val state: StateFlow<ServiceState> = _state
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun onServiceDestroyed() {
-        _state.value = ServiceState.Destroyed()
-    }
 
 }

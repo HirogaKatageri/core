@@ -10,9 +10,9 @@ Eventually if a library is too big for this repository I'll make a new repositor
 
 Wrappers for Activities, Fragments, Services and Applications to use with MVVM and Koin.
 
-### View Service Framework (In Progress)
+### View Service (In Progress)
 
-A framework to easily create and display views in a ForegroundService.
+A library to easily create and display views in a ForegroundService.
 
 ### OAuth2.0 Clients
 

@@ -3,10 +3,8 @@ package dev.hirogakatageri.android.sandbox.service.ui.profile
 import android.content.Context
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import dev.hirogakatageri.android.sandbox.service.ServiceEvent
-import dev.hirogakatageri.android.sandbox.service.ServiceEvent.ProfileEvent
 import dev.hirogakatageri.android.sandbox.service.ServiceState.ProfileState
-import dev.hirogakatageri.android.sandbox.service.components.ServiceViewModel
+import dev.hirogakatageri.viewservice.viewmodel.ServiceViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,46 +13,49 @@ import kotlin.math.roundToInt
 
 class ProfileViewModel : ServiceViewModel() {
 
-    private val _state: MutableStateFlow<ProfileState> =
-        MutableStateFlow(ProfileState.Neutral())
+    private val _state: MutableStateFlow<ProfileState> = MutableStateFlow(ProfileState.Neutral())
     val state: StateFlow<ProfileState> = _state
 
-    override fun notifyEvent(event: ServiceEvent) {
-        when (event) {
-            is ProfileEvent.ProfileMoved -> mapMovement(event)
-            is ProfileEvent.ProfileClicked -> mapClick(event)
-        }
-    }
+    private var cameraProvider: ProcessCameraProvider? = null
 
-    private fun mapNeutral() = launch {
+    private fun neutral() = launch {
         _state.value = ProfileState.Neutral()
     }
 
-    private fun mapMovement(event: ProfileEvent.ProfileMoved) = launch(Dispatchers.Default) {
-        val newX = (event.x - (event.width / 2)).roundToInt()
-        val newY = (event.y - (event.height / 2)).roundToInt()
-
-        _state.value = ProfileState.Movement(x = newX, y = newY)
-    }
-
-    private fun mapClick(event: ProfileEvent.ProfileClicked) = launch {
+    fun click() = launch {
         _state.value = ProfileState.Clicked()
-        mapNeutral()
+        neutral()
     }
 
-    private fun mapCameraProviderReady(cameraProvider: ProcessCameraProvider) = launch {
-        _state.value = ProfileState.CameraProviderReady(cameraProvider = cameraProvider)
-        mapNeutral()
-    }
+    fun moveView(x: Float, y: Float, width: Int, height: Int) =
+        launch(Dispatchers.Default) {
+            val newX = (x - (width / 2)).roundToInt()
+            val newY = (y - (height / 2)).roundToInt()
 
-    fun requestCameraProvider(context: Context) {
+            _state.value = ProfileState.Movement(x = newX, y = newY)
+        }
+
+    fun requestCameraProvider(context: Context) = launch(Dispatchers.IO) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
 
         cameraProviderFuture.addListener(
             {
-                val cameraProvider = cameraProviderFuture.get()
-                mapCameraProviderReady(cameraProvider)
+                cameraProvider = cameraProviderFuture.get()
+                cameraProvider?.let {
+                    _state.value = ProfileState.CameraProviderReady(
+                        cameraProvider = it
+                    )
+                }
             }, ContextCompat.getMainExecutor(context)
         )
+    }
+
+    fun unbindCamera() = launch {
+        cameraProvider?.unbindAll()
+    }
+
+    override fun onDetach() {
+        unbindCamera()
+        super.onDetach()
     }
 }

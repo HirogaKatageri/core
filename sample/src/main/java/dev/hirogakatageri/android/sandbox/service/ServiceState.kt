@@ -7,11 +7,7 @@ sealed class ServiceState {
     abstract val state: Int
 
     data class Initialized(
-        override val state: Int = 0
-    ) : ServiceState()
-
-    data class Destroyed(
-        override val state: Int = -1
+        override val state: Int = 1
     ) : ServiceState()
 
     sealed class ProfileState : ServiceState() {

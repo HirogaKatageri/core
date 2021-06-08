@@ -1,8 +1,6 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("org.jetbrains.dokka")
+    id ("com.android.library")
+    kotlin ("android")
     `maven-publish`
 }
 
@@ -54,20 +52,15 @@ android {
 }
 
 dependencies {
-
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(project(":core"))
 
     implementation(Constants.KOTLIN_JDK_8)
-    implementation(Constants.APPCOMPAT)
-    implementation(Constants.MATERIAL)
-
-    implementation(Constants.ANDROID_KTX_ACTIVITY)
-    implementation(Constants.ANDROID_KTX_FRAGMENT)
-
-    implementation(Constants.ANDROID_LIVEDATA)
-    implementation(Constants.ANDROID_VIEWMODEL)
-    implementation(Constants.ANDROID_STATE_VIEWMODEL)
     implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
+
+    implementation(Constants.KOIN_ANDROID)
+    implementation(Constants.KOIN_ANDROID_EXT)
+    testImplementation(Constants.KOIN_TEST)
+    testImplementation(Constants.KOIN_TEST_JUNIT4)
 
     implementation(platform(Constants.COROUTINES_BOM))
 
@@ -75,39 +68,12 @@ dependencies {
     implementation(Constants.COROUTINES_ANDROID)
     testImplementation(Constants.COROUTINES_TEST)
 
-    implementation(Constants.TIMBERKT)
-
-    implementation(Constants.KOIN_ANDROID)
-    implementation(Constants.KOIN_ANDROID_EXT)
-    testImplementation(Constants.KOIN_TEST)
-    testImplementation(Constants.KOIN_TEST_JUNIT4)
-
     testImplementation(Constants.JUNIT)
     testImplementation(Constants.ROBOLECTRIC)
     testImplementation(Constants.ANDROIDX_TEST)
-    debugImplementation(Constants.ANDROIDX_TEST_FRAGMENT)
     testImplementation(Constants.ANDROIDX_TEST_RUNNER)
     testImplementation(Constants.ANDROIDX_TEST_RULES)
     testImplementation(Constants.ANDROIDX_TEST_JUNIT)
-}
-
-tasks.dokkaHtml.configure {
-    outputDirectory.set(file("$rootDir/docs/core"))
-
-    dokkaSourceSets {
-        named("main") {
-            includeNonPublic.set(true)
-            jdkVersion.set(8)
-            noStdlibLink.set(false)
-            noJdkLink.set(false)
-            noAndroidSdkLink.set(false)
-        }
-    }
-    pluginsMapConfiguration.set(
-        mapOf(
-            "org.jetbrains.dokka.base.DokkaBase" to """{ "separateInheritedMembers":true}"""
-        )
-    )
 }
 
 afterEvaluate {
@@ -122,12 +88,12 @@ afterEvaluate {
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = "dev.hirogakatageri"
-                artifactId = "core"
+                artifactId = "view-service"
                 version = Constants.VERSION_NAME
 
                 pom {
-                    name.set("Core")
-                    description.set("Boilerplate Library for Android using MVVM and Koin DI.")
+                    name.set("View Service")
+                    description.set("Create and attach Views easily to the WindowManager")
 
                     licenses {
                         license {

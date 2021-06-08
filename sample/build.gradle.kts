@@ -69,6 +69,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":oauth2client"))
+    implementation(project(":viewservice"))
 
     // Kotlin
     implementation(Constants.KOTLIN_JDK_8)
@@ -78,6 +79,10 @@ dependencies {
     implementation(Constants.COROUTINES)
     implementation(Constants.COROUTINES_ANDROID)
     testImplementation(Constants.COROUTINES_TEST)
+
+    // Koin
+    implementation(Constants.KOIN_ANDROID)
+    implementation(Constants.KOIN_ANDROID_EXT)
 
     // Android
     implementation(Constants.APPCOMPAT)

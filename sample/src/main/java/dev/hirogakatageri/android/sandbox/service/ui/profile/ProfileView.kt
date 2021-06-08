@@ -1,6 +1,5 @@
 package dev.hirogakatageri.android.sandbox.service.ui.profile
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.os.Build
@@ -15,46 +14,37 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView.ImplementationMode
 import com.github.ajalt.timberkt.d
 import dev.hirogakatageri.android.sandbox.databinding.ServiceViewProfileBinding
-import dev.hirogakatageri.android.sandbox.service.ServiceEvent.ProfileEvent
 import dev.hirogakatageri.android.sandbox.service.ServiceState.ProfileState
-import dev.hirogakatageri.android.sandbox.service.ServiceController
-import dev.hirogakatageri.android.sandbox.service.components.AbstractServiceView
-import dev.hirogakatageri.android.sandbox.service.util.ServiceProvider
+import dev.hirogakatageri.android.sandbox.service.ServiceStateModel
+import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
+import dev.hirogakatageri.viewservice.view.ViewBindingViewModelServiceView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ProfileView(
-    serviceProvider: ServiceProvider,
-    serviceState: ServiceController,
-    viewModel: ProfileViewModel
-) : AbstractServiceView<ServiceViewProfileBinding, ProfileViewModel>(
+    serviceProvider: LifecycleServiceProvider,
+    themeResId: Int,
+    viewModel: ProfileViewModel,
+    val serviceModel: ServiceStateModel
+) : ViewBindingViewModelServiceView<ServiceViewProfileBinding, ProfileViewModel>(
     serviceProvider,
-    serviceState,
+    themeResId,
     viewModel
 ) {
 
-    private var _cameraProvider: ProcessCameraProvider? = null
-
     private val onTouchListener = OnTouchProfileView(
         onMove = { x, y ->
-            val event = ProfileEvent.ProfileMoved(
-                x = x,
-                y = y,
-                width = binding.root.width,
-                height = binding.root.height
-            )
-            vm.notifyEvent(event)
+            viewModel.moveView(x, y, binding.root.width, binding.root.height)
         }
     )
 
     private val onClickListener = View.OnClickListener {
-        val event = ProfileEvent.ProfileClicked()
-        vm.notifyEvent(event)
+        viewModel.click()
     }
 
-    override fun bindView() {
+    override fun createView() {
         binding = ServiceViewProfileBinding.inflate(layoutInflater)
         layoutParams = LayoutParams(
             LayoutParams.WRAP_CONTENT,
@@ -74,11 +64,11 @@ class ProfileView(
         binding.root.setOnClickListener(onClickListener)
 
         launch { observeState() }
-        launch { vm.requestCameraProvider(serviceProvider.getService()) }
+        launch { viewModel.requestCameraProvider(serviceProvider.service) }
     }
 
     private suspend fun observeState() = withContext(Dispatchers.Main) {
-        vm.state.collect { state ->
+        viewModel.state.collect { state ->
             d { "State: ${state::class.simpleName}" }
             when (state) {
                 is ProfileState.Movement -> onProfileMovement(state.x, state.y)
@@ -93,7 +83,7 @@ class ProfileView(
         layoutParams.x = x
         layoutParams.y = y
 
-        windowManager?.updateViewLayout(binding.root, layoutParams)
+        windowManager.updateViewLayout(binding.root, layoutParams)
     }
 
     private suspend fun onProfileClicked() = withContext(Dispatchers.Main) {
@@ -102,7 +92,6 @@ class ProfileView(
 
     private suspend fun onCameraProviderReady(cameraProvider: ProcessCameraProvider) =
         withContext(Dispatchers.Main) {
-            _cameraProvider = cameraProvider
             // Set Implementation Mode to Compatible in order to display preview in a TextureView.
             // This allows the Display to be shaped depending on the container.
             binding.cameraPreview.implementationMode = ImplementationMode.COMPATIBLE
@@ -118,7 +107,7 @@ class ProfileView(
             preview.setSurfaceProvider(binding.cameraPreview.surfaceProvider)
 
             cameraProvider.bindToLifecycle(
-                serviceProvider.getService(),
+                serviceProvider.service,
                 cameraSelector,
                 preview
             )
@@ -129,8 +118,8 @@ class ProfileView(
         launch {
             // Dispose Camera of camera resources due to screen rotation.
             // Request Camera Provider in order to restart Camera Preview.
-            _cameraProvider?.unbindAll()
-            vm.requestCameraProvider(serviceProvider.getService())
+            viewModel.unbindCamera()
+            viewModel.requestCameraProvider(serviceProvider.service)
         }
     }
 

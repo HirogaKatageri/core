@@ -3,9 +3,9 @@ package dev.hirogakatageri.android.sandbox.util
 import android.app.Notification
 import androidx.core.app.NotificationCompat
 import dev.hirogakatageri.android.sandbox.R
-import dev.hirogakatageri.android.sandbox.service.ViewService
+import dev.hirogakatageri.android.sandbox.service.SampleViewService
 
-fun ViewService.buildNotification(): Notification = NotificationCompat.Builder(
+fun SampleViewService.buildNotification(): Notification = NotificationCompat.Builder(
     this,
     SERVICE_VIEW_CHANNEL_ID
 )
