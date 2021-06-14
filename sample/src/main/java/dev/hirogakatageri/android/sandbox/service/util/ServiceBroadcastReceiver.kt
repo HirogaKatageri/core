@@ -6,7 +6,7 @@ import android.content.Intent
 import dev.hirogakatageri.android.sandbox.service.SampleViewService
 import dev.hirogakatageri.android.sandbox.util.Broadcasts
 
-class SampleViewServiceBroadcastReceiver : BroadcastReceiver() {
+class ServiceBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val service = context as SampleViewService
 

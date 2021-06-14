@@ -7,7 +7,7 @@ import android.content.res.Configuration
 import android.os.Build
 import androidx.lifecycle.lifecycleScope
 import dev.hirogakatageri.android.sandbox.service.ui.profile.ProfileView
-import dev.hirogakatageri.android.sandbox.service.util.SampleViewServiceBroadcastReceiver
+import dev.hirogakatageri.android.sandbox.service.util.ServiceBroadcastReceiver
 import dev.hirogakatageri.android.sandbox.util.Broadcasts
 import dev.hirogakatageri.android.sandbox.util.buildNotification
 import dev.hirogakatageri.viewservice.service.CoreViewService
@@ -23,7 +23,7 @@ class SampleViewService : CoreViewService() {
 
     // Components
     private val stateModel: ServiceStateModel by inject()
-    private val receiver: SampleViewServiceBroadcastReceiver by inject()
+    private val receiver: ServiceBroadcastReceiver by inject()
 
     // Views
     private val profileView: ProfileView by inject()

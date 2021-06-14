@@ -4,7 +4,7 @@ import dev.hirogakatageri.android.sandbox.service.SampleViewService
 import dev.hirogakatageri.android.sandbox.service.ServiceStateModel
 import dev.hirogakatageri.android.sandbox.service.ui.ServiceViews
 import dev.hirogakatageri.android.sandbox.service.ui.profile.ProfileView
-import dev.hirogakatageri.android.sandbox.service.util.SampleViewServiceBroadcastReceiver
+import dev.hirogakatageri.android.sandbox.service.util.ServiceBroadcastReceiver
 import dev.hirogakatageri.android.sandbox.service.util.ServiceViewFactory
 import dev.hirogakatageri.android.sandbox.service.util.ServiceViewModelFactory
 import dev.hirogakatageri.viewservice.service.CoreViewService
@@ -26,7 +26,7 @@ internal val serviceModule = module {
             LifecycleServiceProvider(service)
         }
         scoped<ServiceStateModel> { ServiceStateModel() }
-        scoped<SampleViewServiceBroadcastReceiver> { SampleViewServiceBroadcastReceiver() }
+        scoped<ServiceBroadcastReceiver> { ServiceBroadcastReceiver() }
 
         scoped<ProfileView> { serviceViewFactory.create(ServiceViews.PROFILE, get(), get()) }
     }
