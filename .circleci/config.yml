@@ -13,10 +13,13 @@ commands:
     parameters:
       id:
         type: string
+      flavor:
+        type: string
+        default: ""
     steps:
       - run:
-          name: "Run Gradle Task << parameters.id >>:assemble"
-          command: ./gradlew << parameters.id >>:assemble
+          name: "Run Gradle Task << parameters.id >>:assemble<< parameters.flavor >>"
+          command: ./gradlew << parameters.id >>:assemble<< parameters.flavor >>
 
   lint:
     parameters:
@@ -50,7 +53,7 @@ commands:
     steps:
       - run:
           name: "Publish Artifacts to Github"
-          command: ./gradlew publish
+          command: ./gradlew publish --continue
 
 jobs:
 
