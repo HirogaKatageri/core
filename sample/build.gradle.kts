@@ -20,7 +20,7 @@ android {
         targetSdkVersion(Constants.TARGET_SDK_VERSION)
 
         versionCode = Constants.VERSION_CODE
-        versionName = Constants.VERSION_NAME
+        versionName = Constants.SAMPLE_VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

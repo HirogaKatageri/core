@@ -4,7 +4,11 @@ object Constants {
     const val COMPILE_SDK_VERSION = 30
     const val TARGET_SDK_VERSION = 30
     const val VERSION_CODE = 5
-    const val VERSION_NAME = "0.1.7"
+
+    const val CORE_VERSION_NAME = "0.2.0"
+    const val VIEW_SERVICE_VERSION_NAME = "0.1.0"
+    const val OAUTH2_CLIENT_VERSION_NAME = "0.2.0"
+    const val SAMPLE_VERSION_NAME = "0.2.0"
 
     //Google
     const val GOOGLE_SERVICES_VERSION = "4.3.4"

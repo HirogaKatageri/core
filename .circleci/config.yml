@@ -9,51 +9,42 @@ commands:
       - checkout
       - android/accept-licenses
 
-  assemble-debug:
+  build-module:
     parameters:
-      to:
+      id:
         type: string
     steps:
       - run:
-          name: "Run << parameters.to >>:assembleDebug"
-          command: ./gradlew << parameters.to >>:assembleDebug
-
-  assemble-release:
-    parameters:
-      to:
-        type: string
-    steps:
-      - run:
-          name: "Run << parameters.to >>:assembleRelease"
-          command: ./gradlew << parameters.to >>:assembleRelease
+          name: "Run Gradle Task << parameters.id >>:assemble"
+          command: ./gradlew << parameters.id >>:assemble
 
   lint:
     parameters:
-      to:
+      module:
         type: string
     steps:
       - run:
-          name: "Run << parameters.to >>:lint"
-          command: ./gradlew << parameters.to >>:lint
+          name: "Run << parameters.module >>:lint"
+          command: ./gradlew << parameters.module >>:lint
       - store_artifacts:
-          path: << parameters.to >>/build/reports
-          destination: reports/<< parameters.to >>
+          path: << parameters.module >>/build/reports
+          destination: reports/<< parameters.module >>
       - store_test_results:
-          path: << parameters.to >>/build/test-results
+          path: << parameters.module >>/build/test-results
 
   unit-test:
     parameters:
-      to:
+      module:
         type: string
     steps:
       - run:
-          name: "Run << parameters.to >>:testDebugUnitTest"
-          command: ./gradlew << parameters.to >>:testDebugUnitTest
+          name: "Run << parameters.module >>:testDebugUnitTest"
+          command: ./gradlew << parameters.module >>:testDebugUnitTest
       - store_artifacts:
-          path: << parameters.to >>/build/reports
-          destination: reports/<< parameters.to >>
+          path: << parameters.module >>/build/reports
+          destination: reports/<< parameters.module >>
       - store_test_results:
-          path: << parameters.to >>/build/test-results
+          path: << parameters.module >>/build/test-results
 
   publish-artifacts:
     steps:
@@ -63,37 +54,21 @@ commands:
 
 jobs:
 
-  build-debug:
+  build:
     executor:
       name: android/android
       sdk-version: "23"
     steps:
       - setup-project
-      - android/restore-gradle-cache:
-          cache-prefix: "debug"
-      - assemble-debug:
-          to: "core"
-      - android/save-build-cache:
-          cache-prefix: "debug"
-      - android/save-gradle-cache:
-          cache-prefix: "debug"
-
-  build-release:
-    executor:
-      name: android/android
-      sdk-version: "23"
-    steps:
-      - setup-project
-      - android/restore-gradle-cache:
-          cache-prefix: "release"
-      - assemble-release:
-          to: "core"
-      - assemble-release:
-          to: "oauth2client"
-      - android/save-build-cache:
-          cache-prefix: "release"
-      - android/save-gradle-cache:
-          cache-prefix: "release"
+      - android/restore-gradle-cache
+      - build-module:
+          id: "core"
+      - build-module:
+          id: "oauth2client"
+      - build-module:
+          id: "viewservice"
+      - android/save-build-cache
+      - android/save-gradle-cache
 
   lint:
     executor:
@@ -101,12 +76,10 @@ jobs:
       sdk-version: "23"
     steps:
       - checkout
-      - android/restore-build-cache:
-          cache-prefix: "debug"
-      - android/restore-gradle-cache:
-          cache-prefix: "debug"
+      - android/restore-build-cache
+      - android/restore-gradle-cache
       - lint:
-          to: "core"
+          module: "core"
 
   unit-test:
     executor:
@@ -114,12 +87,10 @@ jobs:
       sdk-version: "23"
     steps:
       - checkout
-      - android/restore-build-cache:
-          cache-prefix: "debug"
-      - android/restore-gradle-cache:
-          cache-prefix: "debug"
+      - android/restore-build-cache
+      - android/restore-gradle-cache
       - unit-test:
-          to: "core"
+          module: "core"
 
   publish-maven:
     executor:
@@ -127,10 +98,8 @@ jobs:
       sdk-version: "23"
     steps:
       - checkout
-      - android/restore-build-cache:
-          cache-prefix: "release"
-      - android/restore-gradle-cache:
-          cache-prefix: "release"
+      - android/restore-build-cache
+      - android/restore-gradle-cache
       - publish-artifacts
 
 workflows:
@@ -138,20 +107,20 @@ workflows:
 
   branch-test:
     jobs:
-      - build-debug:
+      - build:
           filters:
             branches:
               only: /(feature\/.*)|(hotfix\/.*)|(release\/.*)/
       - lint:
           requires:
-            - build-debug
+            - build
       - unit-test:
           requires:
-            - build-debug
+            - build
 
   publish-release:
     jobs:
-      - build-release:
+      - build:
           filters:
             branches:
               ignore: /.*/
@@ -164,4 +133,4 @@ workflows:
             tags:
               only: /\d.\d.\d/
           requires:
-            - build-release
+            - build

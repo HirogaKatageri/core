@@ -12,7 +12,7 @@ android {
         targetSdkVersion(Constants.TARGET_SDK_VERSION)
 
         versionCode = Constants.VERSION_CODE
-        versionName = Constants.VERSION_NAME
+        versionName = Constants.VIEW_SERVICE_VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -20,14 +20,14 @@ android {
 
     buildTypes {
         getByName("debug") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -89,7 +89,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = "dev.hirogakatageri"
                 artifactId = "view-service"
-                version = Constants.VERSION_NAME
+                version = Constants.VIEW_SERVICE_VERSION_NAME
 
                 pom {
                     name.set("View Service")

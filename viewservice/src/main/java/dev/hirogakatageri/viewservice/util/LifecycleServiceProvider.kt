@@ -16,6 +16,7 @@
 
 package dev.hirogakatageri.viewservice.util
 
+import androidx.annotation.Keep
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleService
@@ -24,6 +25,7 @@ import java.lang.ref.WeakReference
 /**
  * Provides the Context and Lifecycle of the Service where the view will be attached.
  * */
+@Keep
 class LifecycleServiceProvider(service: LifecycleService) {
 
     private val _service: WeakReference<LifecycleService> = WeakReference(service)
@@ -35,6 +37,7 @@ class LifecycleServiceProvider(service: LifecycleService) {
 
 val LifecycleServiceProvider.lifecycle: Lifecycle get() = service.lifecycle
 
+@Keep
 fun LifecycleServiceProvider.addLifecycleObserver(observer: LifecycleObserver) {
     lifecycle.addObserver(observer)
 }

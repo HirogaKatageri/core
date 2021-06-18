@@ -18,10 +18,12 @@ package dev.hirogakatageri.viewservice.viewmodel
 
 import android.util.Log
 import androidx.annotation.CallSuper
+import androidx.annotation.Keep
 import kotlinx.coroutines.*
 import java.util.concurrent.CancellationException
 import kotlin.coroutines.CoroutineContext
 
+@Keep
 abstract class ServiceViewModel : CoroutineScope {
 
     private val job = SupervisorJob()

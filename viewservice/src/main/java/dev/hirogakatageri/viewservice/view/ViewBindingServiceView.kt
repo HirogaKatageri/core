@@ -17,6 +17,7 @@
 package dev.hirogakatageri.viewservice.view
 
 import android.view.View
+import androidx.annotation.Keep
 import androidx.viewbinding.ViewBinding
 import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
 
@@ -24,6 +25,7 @@ import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
  * Wrapper Class for ServiceView with ViewBinding.
  * @see ServiceView
  * */
+@Keep
 abstract class ViewBindingServiceView<VB : ViewBinding>(
     serviceProvider: LifecycleServiceProvider,
     themeResId: Int,
