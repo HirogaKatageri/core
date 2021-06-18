@@ -16,8 +16,10 @@
 
 package dev.hirogakatageri.viewservice.service
 
+import androidx.annotation.Keep
 import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
 
+@Keep
 interface ViewService {
 
     val serviceProvider: LifecycleServiceProvider

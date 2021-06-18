@@ -27,6 +27,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.CallSuper
+import androidx.annotation.Keep
 import androidx.lifecycle.*
 import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
 import dev.hirogakatageri.viewservice.util.addLifecycleObserver
@@ -37,6 +38,7 @@ import kotlin.coroutines.CoroutineContext
  * @param serviceProvider ServiceProvider to observe the Lifecycle of the Service.
  * @param themeResId The theme to use when inflating the Layout.
  * */
+@Keep
 abstract class ServiceView(
     val serviceProvider: LifecycleServiceProvider,
     val themeResId: Int

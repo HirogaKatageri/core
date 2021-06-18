@@ -16,6 +16,7 @@
 
 package dev.hirogakatageri.viewservice.view
 
+import androidx.annotation.Keep
 import androidx.viewbinding.ViewBinding
 import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
 import dev.hirogakatageri.viewservice.viewmodel.ServiceViewModel
@@ -26,6 +27,7 @@ import kotlinx.coroutines.withContext
  * Wrapper Class for ViewBinding with ViewModel
  * @see ViewBindingServiceView
  * */
+@Keep
 abstract class ViewBindingViewModelServiceView<VB : ViewBinding, out VM : ServiceViewModel>(
     serviceProvider: LifecycleServiceProvider,
     themeResId: Int,

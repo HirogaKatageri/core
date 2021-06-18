@@ -16,6 +16,7 @@
 
 package dev.hirogakatageri.viewservice.service
 
+import androidx.annotation.Keep
 import dev.hirogakatageri.core.service.CoreService
 import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
 import org.koin.android.ext.android.get
@@ -24,6 +25,7 @@ import org.koin.core.parameter.parametersOf
 /**
  * Wrapper Class which can be used with dev.hirogakatageri.core for ViewService implementations.
  * */
+@Keep
 abstract class CoreViewService : CoreService(), ViewService {
 
     override val serviceProvider: LifecycleServiceProvider =
