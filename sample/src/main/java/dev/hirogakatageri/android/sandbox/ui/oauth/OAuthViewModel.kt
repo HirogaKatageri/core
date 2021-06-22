@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
 import dev.hirogakatageri.android.sandbox.ui.oauth.OAuthFragmentState.TwitchAuthState
-import dev.hirogakatageri.oauth2client.TwitchClient
+import dev.hirogakatageri.oauth2client.twitch.TwitchClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

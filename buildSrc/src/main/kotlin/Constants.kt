@@ -5,10 +5,10 @@ object Constants {
     const val TARGET_SDK_VERSION = 30
     const val VERSION_CODE = 5
 
-    const val CORE_VERSION_NAME = "0.2.1"
+    const val CORE_VERSION_NAME = "0.2.2"
     const val VIEW_SERVICE_VERSION_NAME = "0.1.0"
-    const val OAUTH2_CLIENT_VERSION_NAME = "0.2.0"
-    const val SAMPLE_VERSION_NAME = "0.2.0"
+    const val OAUTH2_CLIENT_VERSION_NAME = "0.2.1"
+    const val SAMPLE_VERSION_NAME = "0.2.1"
 
     //Google
     const val GOOGLE_SERVICES_VERSION = "4.3.4"
@@ -148,7 +148,7 @@ object Constants {
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth:19.3.2"
 
     //Authentication
-    const val APP_AUTH = "net.openid:appauth:0.8.1"
+    const val APP_AUTH = "net.openid:appauth:0.9.0"
 
     //Network
     const val MOSHI = "com.squareup.moshi:moshi-kotlin:$MOSHI_VERSION"

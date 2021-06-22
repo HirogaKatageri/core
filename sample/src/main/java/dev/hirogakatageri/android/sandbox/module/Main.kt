@@ -9,8 +9,8 @@ import dev.hirogakatageri.android.sandbox.ui.oauth.OAuthViewModel
 import dev.hirogakatageri.android.sandbox.ui.time.TimeFragment
 import dev.hirogakatageri.android.sandbox.ui.time.TimeViewModel
 import dev.hirogakatageri.android.sandbox.util.Clock
-import dev.hirogakatageri.oauth2client.OAuthPreferences
-import dev.hirogakatageri.oauth2client.TwitchClient
+import dev.hirogakatageri.oauth2client.util.OAuthPreferences
+import dev.hirogakatageri.oauth2client.twitch.TwitchClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.fragment.dsl.fragment
 import org.koin.androidx.viewmodel.dsl.viewModel

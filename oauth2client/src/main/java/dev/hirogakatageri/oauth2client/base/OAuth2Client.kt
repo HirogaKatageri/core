@@ -6,19 +6,15 @@ import android.net.Uri
 import androidx.annotation.Keep
 import com.github.ajalt.timberkt.d
 import com.github.ajalt.timberkt.e
-import dev.hirogakatageri.oauth2client.OAuthPreferences
+import dev.hirogakatageri.oauth2client.util.OAuthPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.openid.appauth.*
-import net.openid.appauth.browser.BrowserDenyList
-import net.openid.appauth.browser.Browsers
-import net.openid.appauth.browser.VersionRange
-import net.openid.appauth.browser.VersionedBrowserMatcher
 
 @Keep
-abstract class AbstractOAuthClient {
+abstract class OAuth2Client {
 
     constructor(
         authorizationUrl: String,
@@ -73,7 +69,6 @@ abstract class AbstractOAuthClient {
     protected val preferences: OAuthPreferences
 
     /**
-     * The current state of your OAuth Session.
      * @see AuthState
      * */
     protected lateinit var authState: AuthState
@@ -91,19 +86,11 @@ abstract class AbstractOAuthClient {
     /**
      * @see AppAuthConfiguration
      * */
-    open val appAuthConfig: AppAuthConfiguration = AppAuthConfiguration.Builder()
-        .setBrowserMatcher(
-            BrowserDenyList(
-                VersionedBrowserMatcher(
-                    Browsers.SBrowser.PACKAGE_NAME,
-                    Browsers.SBrowser.SIGNATURE_SET,
-                    true,  // when this browser is used via a custom tab
-                    VersionRange.atMost("5.3")
-                )
-            )
-        )
-        .build()
+    open val appAuthConfig: AppAuthConfiguration = AppAuthConfiguration.Builder().build()
 
+    /**
+     * The default parameters to include in an Auth Request.
+     * */
     open val defaultAuthRequestParams: Map<String, String> = emptyMap()
 
     /**
