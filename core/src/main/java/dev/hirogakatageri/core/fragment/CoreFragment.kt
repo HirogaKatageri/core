@@ -17,12 +17,15 @@
 package dev.hirogakatageri.core.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Keep
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.scope.ScopeFragment
 
 @Keep
@@ -48,8 +51,15 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
      * It will always run in the main thread.
      * It will only run when binding is not null.
      * */
-    protected fun binding(func: VB.() -> Unit) =
-        lifecycleScope.launchWhenStarted { binding?.run(func) }
+    protected fun binding(func: VB.() -> Unit) = lifecycleScope.launch(Dispatchers.Main) {
+            val b = binding
+            if (b == null) Log.e(
+                this@CoreFragment::class.simpleName,
+                "ViewBinding is null, Action won't be run.",
+                RuntimeException("ViewBinding is null, Action won't be run.")
+            )
+            else b.run(func)
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
