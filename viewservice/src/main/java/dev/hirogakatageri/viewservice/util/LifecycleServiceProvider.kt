@@ -32,7 +32,6 @@ class LifecycleServiceProvider(service: LifecycleService) {
 
     val service
         get() = _service.get() ?: throw RuntimeException("Reference to Service is missing")
-
 }
 
 val LifecycleServiceProvider.lifecycle: Lifecycle get() = service.lifecycle

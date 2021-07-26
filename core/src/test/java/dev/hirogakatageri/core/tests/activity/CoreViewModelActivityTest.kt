@@ -28,5 +28,4 @@ class CoreViewModelActivityTest : AutoCloseKoinTest() {
             activity.test_ViewModelInjection()
         }
     }
-
 }

@@ -11,7 +11,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import net.openid.appauth.*
+import net.openid.appauth.AppAuthConfiguration
+import net.openid.appauth.AuthState
+import net.openid.appauth.AuthorizationException
+import net.openid.appauth.AuthorizationRequest
+import net.openid.appauth.AuthorizationResponse
+import net.openid.appauth.AuthorizationService
+import net.openid.appauth.AuthorizationServiceConfiguration
+import net.openid.appauth.RegistrationResponse
+import net.openid.appauth.ResponseTypeValues
+import net.openid.appauth.TokenRequest
+import net.openid.appauth.TokenResponse
 
 @Keep
 abstract class OAuth2Client {
@@ -309,5 +319,4 @@ abstract class OAuth2Client {
     fun dispose() {
         authService.dispose()
     }
-
 }

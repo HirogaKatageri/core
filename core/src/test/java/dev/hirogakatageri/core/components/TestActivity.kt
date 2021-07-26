@@ -42,5 +42,4 @@ class TestActivity : CoreActivity<CoreTestLayoutBinding>() {
             Assert.assertEquals("UpdateViewBinding", textView.text)
         }
     }
-
 }

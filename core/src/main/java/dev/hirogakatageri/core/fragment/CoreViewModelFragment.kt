@@ -26,5 +26,4 @@ abstract class CoreViewModelFragment<VB : ViewBinding, out VM : ViewModel> : Cor
     abstract val vm: VM
 
     protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
-
 }

@@ -35,5 +35,4 @@ abstract class ViewBindingServiceView<VB : ViewBinding>(
 
     override val view: View
         get() = binding.root
-
 }

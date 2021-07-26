@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("org.jetbrains.dokka")
+    id("org.jlleitschuh.gradle.ktlint")
     `maven-publish`
 }
 

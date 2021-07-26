@@ -38,5 +38,4 @@ class OAuthPreferences(context: Context) {
     companion object {
         private const val FILE_NAME = "OAUTH_PREFERENCES"
     }
-
 }

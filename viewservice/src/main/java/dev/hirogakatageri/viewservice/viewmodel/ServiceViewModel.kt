@@ -19,7 +19,10 @@ package dev.hirogakatageri.viewservice.viewmodel
 import android.util.Log
 import androidx.annotation.CallSuper
 import androidx.annotation.Keep
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 import java.util.concurrent.CancellationException
 import kotlin.coroutines.CoroutineContext
 

@@ -10,7 +10,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.test.AutoCloseKoinTest
 
-
 @SmallTest
 @RunWith(AndroidJUnit4::class)
 class CoreViewModelFragmentTest : AutoCloseKoinTest() {
@@ -28,5 +27,4 @@ class CoreViewModelFragmentTest : AutoCloseKoinTest() {
             fragment.test_ViewModelInjection()
         }
     }
-
 }

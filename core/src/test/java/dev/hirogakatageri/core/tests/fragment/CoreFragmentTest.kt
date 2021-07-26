@@ -34,5 +34,4 @@ class CoreFragmentTest : AutoCloseKoinTest() {
             fragment.test_UpdateViewBinding()
         }
     }
-
 }

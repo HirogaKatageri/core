@@ -52,14 +52,14 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
      * It will only run when binding is not null.
      * */
     protected fun binding(func: VB.() -> Unit) = lifecycleScope.launch(Dispatchers.Main) {
-            val b = binding
-            if (b == null) Log.e(
-                this@CoreFragment::class.simpleName,
-                "ViewBinding is null, Action won't be run.",
-                RuntimeException("ViewBinding is null, Action won't be run.")
-            )
-            else b.run(func)
-        }
+        val b = binding
+        if (b == null) Log.e(
+            this@CoreFragment::class.simpleName,
+            "ViewBinding is null, Action won't be run.",
+            RuntimeException("ViewBinding is null, Action won't be run.")
+        )
+        else b.run(func)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

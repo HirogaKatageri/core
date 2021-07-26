@@ -23,5 +23,4 @@ import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
 interface ViewService {
 
     val serviceProvider: LifecycleServiceProvider
-
 }

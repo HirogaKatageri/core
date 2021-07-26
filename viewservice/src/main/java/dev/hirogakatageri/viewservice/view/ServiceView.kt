@@ -28,10 +28,18 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.CallSuper
 import androidx.annotation.Keep
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import dev.hirogakatageri.viewservice.util.LifecycleServiceProvider
 import dev.hirogakatageri.viewservice.util.addLifecycleObserver
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -175,5 +183,4 @@ abstract class ServiceView(
      * Useful for handling screen rotations.
      * */
     open fun onConfigurationChanged(newConfig: Configuration) {}
-
 }

@@ -24,5 +24,4 @@ class TestViewModelActivity : CoreViewModelActivity<CoreTestLayoutBinding, TestV
             Assert.assertEquals("TestViewModel", string)
         }
     }
-
 }

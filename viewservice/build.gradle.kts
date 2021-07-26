@@ -1,6 +1,7 @@
 plugins {
-    id ("com.android.library")
-    kotlin ("android")
+    id("com.android.library")
+    kotlin("android")
+    id("org.jlleitschuh.gradle.ktlint")
     `maven-publish`
 }
 

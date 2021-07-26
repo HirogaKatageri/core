@@ -32,5 +32,4 @@ abstract class CoreViewModelActivity<VB : ViewBinding, out VM : ViewModel> : Cor
      * Function to easily access contents of the ViewModel.
      * */
     protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
-
 }

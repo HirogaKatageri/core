@@ -2,7 +2,12 @@ package dev.hirogakatageri.core.tests.application
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import dev.hirogakatageri.core.components.*
+import dev.hirogakatageri.core.components.TestActivity
+import dev.hirogakatageri.core.components.TestFragment
+import dev.hirogakatageri.core.components.TestViewModel
+import dev.hirogakatageri.core.components.TestViewModelActivity
+import dev.hirogakatageri.core.components.TestViewModelFragment
+import dev.hirogakatageri.core.components.testMod
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,5 +34,4 @@ class CoreAppTest : AutoCloseKoinTest() {
         }
         Assert.assertNotNull(get<TestViewModel>())
     }
-
 }
