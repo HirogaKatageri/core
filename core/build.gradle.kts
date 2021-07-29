@@ -8,14 +8,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Constants.COMPILE_SDK_VERSION)
+    compileSdk = Constants.COMPILE_SDK_VERSION
 
     defaultConfig {
-        minSdkVersion(Constants.MIN_SDK_VERSION)
-        targetSdkVersion(Constants.TARGET_SDK_VERSION)
-
-        versionCode = Constants.VERSION_CODE
-        versionName = Constants.CORE_VERSION_NAME
+        minSdk = Constants.MIN_SDK_VERSION
+        targetSdk = Constants.TARGET_SDK_VERSION
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

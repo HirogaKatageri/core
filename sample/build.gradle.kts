@@ -12,12 +12,12 @@ val buildProperties = Properties()
 if (buildPropertiesFile.exists()) buildProperties.load(FileInputStream(buildPropertiesFile))
 
 android {
-    compileSdkVersion(Constants.COMPILE_SDK_VERSION)
+    compileSdk = Constants.COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId("dev.hirogakatageri.android.sandbox")
-        minSdkVersion(Constants.MIN_SDK_VERSION)
-        targetSdkVersion(Constants.TARGET_SDK_VERSION)
+        applicationId = "dev.hirogakatageri.android.sandbox"
+        minSdk = Constants.MIN_SDK_VERSION
+        targetSdk = Constants.TARGET_SDK_VERSION
 
         versionCode = Constants.VERSION_CODE
         versionName = Constants.SAMPLE_VERSION_NAME
