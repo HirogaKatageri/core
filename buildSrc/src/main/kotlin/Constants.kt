@@ -5,50 +5,50 @@ object Constants {
     const val TARGET_SDK_VERSION = 30
     const val VERSION_CODE = 5
 
-    const val CORE_VERSION_NAME = "0.2.2"
+    const val CORE_VERSION_NAME = "0.3.0"
     const val VIEW_SERVICE_VERSION_NAME = "0.1.0"
     const val OAUTH2_CLIENT_VERSION_NAME = "0.2.1"
     const val SAMPLE_VERSION_NAME = "0.2.1"
 
     //Google
-    const val GOOGLE_SERVICES_VERSION = "4.3.4"
+    const val GOOGLE_SERVICES_VERSION = "4.3.9"
 
     //Kotlin
-    const val KOTLIN_VERSION = "1.5.10"
-    const val COROUTINES_VERSION = "1.4.3"
+    const val KOTLIN_VERSION = "1.5.21"
+    const val COROUTINES_VERSION = "1.5.1"
 
     //Android
-    const val LIFECYCLE_VERSION = "2.3.0"
+    const val LIFECYCLE_VERSION = "2.3.1"
     const val ARCHITECTURE_VERSION = "2.1.0"
     const val NAVIGATION_VERSION = "2.3.5"
     const val CAMERAX_VERSION  = "1.0.0"
 
     //Android UI
-    const val MATERIAL_VERSION = "1.2.1"
-    const val RECYCLERVIEW_VERSION = "1.1.0"
+    const val MATERIAL_VERSION = "1.4.0"
+    const val RECYCLERVIEW_VERSION = "1.2.1"
     const val CARDVIEW_VERSION = "1.0.0"
-    const val CONSTRAINTLAYOUT_VERSION = "2.0.4"
+    const val CONSTRAINTLAYOUT_VERSION = "2.1.0"
 
     //Core
-    const val KOIN_VERSION = "3.0.2"
-    const val ROOM_VERSION = "2.2.5"
-    const val EPOXY_VERSION = "4.1.0"
-    const val PAGING_VERSION = "2.1.2"
+    const val KOIN_VERSION = "3.1.2"
+    const val ROOM_VERSION = "2.3.0"
+    const val EPOXY_VERSION = "4.6.2"
+    const val PAGING_VERSION = "3.0.1"
     const val RTMP_VERSION = "1.9.9"
 
     //Network
     const val RETROFIT_VERSION = "2.9.0"
-    const val OKHTTP_VERSION = "4.9.0"
-    const val MOSHI_VERSION = "1.11.0"
+    const val OKHTTP_VERSION = "4.9.1"
+    const val MOSHI_VERSION = "1.12.0"
 
     //Logging
     const val TIMBERKT_VERSION = "1.5.1"
     const val CHUCK_VERSION = "1.1.0"
 
     //Testing
-    const val ANDROIDX_TEST_VERSION = "1.3.0"
+    const val ANDROIDX_TEST_VERSION = "1.4.0"
     const val ESPRESSO_VERSION = "3.3.0"
-    const val ROBOLECTRIC_VERSION = "4.5.1"
+    const val ROBOLECTRIC_VERSION = "4.6.1"
 
     //Full Paths
     //Kotlin
@@ -148,7 +148,7 @@ object Constants {
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth:19.3.2"
 
     //Authentication
-    const val APP_AUTH = "net.openid:appauth:0.9.0"
+    const val APP_AUTH = "net.openid:appauth:0.9.1"
 
     //Network
     const val MOSHI = "com.squareup.moshi:moshi-kotlin:$MOSHI_VERSION"
@@ -171,9 +171,9 @@ object Constants {
     //Test
     const val JUNIT = "junit:junit:4.13.2" // Unit Test available
     const val ANDROIDX_TEST = "androidx.test:core:$ANDROIDX_TEST_VERSION"
-    const val ANDROIDX_TEST_FRAGMENT = "androidx.fragment:fragment-testing:$ANDROIDX_TEST_VERSION"
     const val ANDROIDX_TEST_RUNNER = "androidx.test:runner:$ANDROIDX_TEST_VERSION"
     const val ANDROIDX_TEST_RULES = "androidx.test:rules:$ANDROIDX_TEST_VERSION"
+    const val ANDROIDX_TEST_FRAGMENT = "androidx.fragment:fragment-testing:1.3.6"
     const val ANDROIDX_TEST_JUNIT = "androidx.test.ext:junit:1.1.2"
 
     const val ESPRESSO = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"

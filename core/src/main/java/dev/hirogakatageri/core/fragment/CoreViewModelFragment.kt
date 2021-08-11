@@ -23,7 +23,13 @@ import androidx.viewbinding.ViewBinding
 @Keep
 abstract class CoreViewModelFragment<VB : ViewBinding, out VM : ViewModel> : CoreFragment<VB>() {
 
-    abstract val vm: VM
+    /**
+     * The ViewModel used in the Fragment.
+     * */
+    protected abstract val vm: VM
 
+    /**
+     * Function to easily access the ViewModel.
+     * */
     protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
 }

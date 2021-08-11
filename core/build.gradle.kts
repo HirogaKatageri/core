@@ -74,7 +74,6 @@ dependencies {
     testImplementation(Constants.COROUTINES_TEST)
 
     implementation(Constants.KOIN_ANDROID)
-    implementation(Constants.KOIN_ANDROID_EXT)
     testImplementation(Constants.KOIN_TEST)
     testImplementation(Constants.KOIN_TEST_JUNIT4)
 

@@ -82,7 +82,6 @@ dependencies {
 
     // Koin
     implementation(Constants.KOIN_ANDROID)
-    implementation(Constants.KOIN_ANDROID_EXT)
 
     // Android
     implementation(Constants.APPCOMPAT)

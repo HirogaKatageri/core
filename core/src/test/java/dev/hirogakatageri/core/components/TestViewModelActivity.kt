@@ -20,6 +20,7 @@ class TestViewModelActivity : CoreViewModelActivity<CoreTestLayoutBinding, TestV
         Assert.assertNotNull(vm)
         Assert.assertEquals("TestViewModel", vm.string)
 
+
         vm {
             Assert.assertEquals("TestViewModel", string)
         }

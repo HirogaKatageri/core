@@ -29,7 +29,7 @@ abstract class CoreViewModelActivity<VB : ViewBinding, out VM : ViewModel> : Cor
     protected abstract val vm: VM
 
     /**
-     * Function to easily access contents of the ViewModel.
+     * Function to easily access the ViewModel.
      * */
     protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
 }

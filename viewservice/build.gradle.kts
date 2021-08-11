@@ -56,7 +56,6 @@ dependencies {
     implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
 
     implementation(Constants.KOIN_ANDROID)
-    implementation(Constants.KOIN_ANDROID_EXT)
     testImplementation(Constants.KOIN_TEST)
     testImplementation(Constants.KOIN_TEST_JUNIT4)
 

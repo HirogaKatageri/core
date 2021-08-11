@@ -26,15 +26,18 @@ import org.koin.core.module.Module
 @Keep
 abstract class CoreApp : Application() {
 
+    /**
+     * List of Koin Modules to initialize in [KoinApplication].
+     * */
     protected abstract val moduleList: List<Module>
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-            onStartKoin()
             androidContext(this@CoreApp)
             modules(moduleList)
+            onStartKoin()
         }
     }
 

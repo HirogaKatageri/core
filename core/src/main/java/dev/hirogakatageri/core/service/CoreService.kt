@@ -23,8 +23,7 @@ import org.koin.android.scope.serviceScope
 import org.koin.core.scope.Scope
 
 /**
- * This service is based on ScopeService made in Koin v2.x.x
- * With a difference where this implements LifecycleService.
+ * Service is based on ScopeService in Koin. This inherits [LifecycleService].
  * */
 @Keep
 abstract class CoreService(

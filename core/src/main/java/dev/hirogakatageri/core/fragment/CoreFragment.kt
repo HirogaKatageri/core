@@ -31,32 +31,39 @@ import org.koin.androidx.scope.ScopeFragment
 @Keep
 abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
 
+    /**
+     * The ViewBinding property used by the Activity.
+     * This becomes null when onDestroyView is called.
+     * */
     protected var binding: VB? = null
 
+    /**
+     * Property to easily access the View's Lifecycle Scope
+     * */
     protected val lifecycleScope get() = viewLifecycleOwner.lifecycleScope
 
     /**
      * Function to initialize ViewBinding.
-     * @return VB the type of ViewBinding used by the Fragment.
+     * @return ViewBinding used by the Fragment.
      * */
     protected abstract fun createBinding(container: ViewGroup?): VB
 
     /**
-     * Called after initializing ViewBinding in "onCreateView".
+     * Called after [createBinding] in [onCreateView].
+     * Initialization of UI is recommended here.
      * */
     protected abstract fun VB.bind()
 
     /**
-     * Function to easily access ViewBinding in the Fragment.
-     * It will always run in the main thread.
-     * It will only run when binding is not null.
+     * Function to easily manipulate ViewBinding used in Fragment.
+     * It runs in the Main thread anf if Lifecycle State is at least [Lifecycle.State.STARTED]
      * */
-    protected fun binding(func: VB.() -> Unit) = lifecycleScope.launch(Dispatchers.Main) {
+    protected fun binding(func: VB.() -> Unit) = lifecycleScope.launchWhenStarted {
         val b = binding
         if (b == null) Log.e(
             this@CoreFragment::class.simpleName,
-            "ViewBinding is null, Action won't be run.",
-            RuntimeException("ViewBinding is null, Action won't be run.")
+            "ViewBinding is null, action won't be run.",
+            RuntimeException("ViewBinding is null, action won't be run.")
         )
         else b.run(func)
     }

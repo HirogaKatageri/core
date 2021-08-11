@@ -26,25 +26,30 @@ import org.koin.androidx.scope.ScopeActivity
 @Keep
 abstract class CoreActivity<VB : ViewBinding> : ScopeActivity() {
 
+    /**
+     * The ViewBinding property used by the Activity.
+     * */
     protected lateinit var binding: VB
 
     /**
      * Function to initialize ViewBinding.
-     * @return VB the type of ViewBinding used by the Activity.
+     * @return ViewBinding used by the Activity.
      * */
     protected abstract fun createBinding(): VB
 
     /**
-     * Called after initializing ViewBinding in "onCreate".
+     * Called after [createBinding] and [setContentView] in [onCreate].
+     * Initialization of UI is recommended here.
      * */
     protected abstract fun VB.bind()
 
     /**
-     * Function to easily access ViewBinding in the Activity.
-     * It will always run in the main thread.
+     * Function to easily manipulate ViewBinding used in Activity.
+     * It runs in the Main thread anf if Lifecycle State is at least [Lifecycle.State.STARTED]
      * */
-    protected fun binding(func: VB.() -> Unit): Job =
-        lifecycleScope.launchWhenStarted { binding.run(func) }
+    protected fun binding(func: VB.() -> Unit): Job = lifecycleScope.launchWhenStarted {
+        binding.run(func)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
