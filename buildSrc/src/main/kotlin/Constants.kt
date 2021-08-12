@@ -81,10 +81,10 @@ object Constants {
     const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:$NAVIGATION_VERSION"
 
     //Android KTX
-    const val ANDROID_KTX_CORE = "androidx.core:core-ktx:1.3.2"
+    const val ANDROID_KTX_CORE = "androidx.core:core-ktx:1.6.0"
     const val ANDROID_KTX_COLLECTIONS = "androidx.collection:collection-ktx:1.1.0"
-    const val ANDROID_KTX_ACTIVITY = "androidx.activity:activity-ktx:1.2.2"
-    const val ANDROID_KTX_FRAGMENT = "androidx.fragment:fragment-ktx:1.3.0"
+    const val ANDROID_KTX_ACTIVITY = "androidx.activity:activity-ktx:1.3.1"
+    const val ANDROID_KTX_FRAGMENT = "androidx.fragment:fragment-ktx:1.3.6"
 
     //Android Lifecycle Runtime
     const val ANDROID_LIFECYCLE = "androidx.lifecycle:lifecycle-runtime-ktx:$LIFECYCLE_VERSION"
@@ -112,7 +112,7 @@ object Constants {
     const val ANDROID_CAMERAX_CORE = "androidx.camera:camera-core:$CAMERAX_VERSION"
     const val ANDROID_CAMERAX_CAMERA2 = "androidx.camera:camera-camera2:$CAMERAX_VERSION"
     const val ANDROID_CAMERAX_LIFECYCLE = "androidx.camera:camera-lifecycle:$CAMERAX_VERSION"
-    const val ANDROID_CAMERAX_VIEW = "androidx.camera:camera-view:1.0.0-alpha24"
+    const val ANDROID_CAMERAX_VIEW = "androidx.camera:camera-view:1.0.0-alpha27"
 
     //DI
     const val KOIN_CORE = "io.insert-koin:koin-core:$KOIN_VERSION"
@@ -161,7 +161,7 @@ object Constants {
     const val OKHTTP_URL_CONNECTION = "com.squareup.okhttp3:okhttp-urlconnection:$OKHTTP_VERSION"
     const val OKHTTP_MOCK_SERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
     const val COOKIE_STORE = "net.gotev:cookie-store:1.2.1"
-    const val NETWORK_RESPONSE_ADAPTER = "com.github.haroldadmin:NetworkResponseAdapter:4.1.0"
+    const val NETWORK_RESPONSE_ADAPTER = "com.github.haroldadmin:NetworkResponseAdapter:4.2.2"
 
     //Logging
     const val TIMBERKT = "com.github.ajalt:timberkt:$TIMBERKT_VERSION"
@@ -174,7 +174,7 @@ object Constants {
     const val ANDROIDX_TEST_RUNNER = "androidx.test:runner:$ANDROIDX_TEST_VERSION"
     const val ANDROIDX_TEST_RULES = "androidx.test:rules:$ANDROIDX_TEST_VERSION"
     const val ANDROIDX_TEST_FRAGMENT = "androidx.fragment:fragment-testing:1.3.6"
-    const val ANDROIDX_TEST_JUNIT = "androidx.test.ext:junit:1.1.2"
+    const val ANDROIDX_TEST_JUNIT = "androidx.test.ext:junit:1.1.3"
 
     const val ESPRESSO = "androidx.test.espresso:espresso-core:$ESPRESSO_VERSION"
     const val ESPRESSO_INTENTS = "androidx.test.espresso:espresso-intents:3.1.0"

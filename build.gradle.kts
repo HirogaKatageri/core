@@ -1,7 +1,7 @@
 buildscript {
     repositories {
-        google()
         mavenCentral()
+        google()
     }
 
     dependencies {
@@ -22,8 +22,8 @@ plugins {
 
 allprojects {
     repositories {
-        google()
         mavenCentral()
+        google()
         maven {
             name = "GithubPackages"
             url = uri("https://maven.pkg.github.com/hirogakatageri/core")
