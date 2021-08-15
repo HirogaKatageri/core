@@ -24,8 +24,6 @@ import android.view.ViewGroup
 import androidx.annotation.Keep
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.androidx.scope.ScopeFragment
 
 @Keep

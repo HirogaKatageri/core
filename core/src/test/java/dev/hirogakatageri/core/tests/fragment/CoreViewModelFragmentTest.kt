@@ -1,7 +1,6 @@
 package dev.hirogakatageri.core.tests.fragment
 
 import androidx.fragment.app.testing.FragmentScenario
-import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest

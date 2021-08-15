@@ -52,5 +52,4 @@ class CoreAppTest : AutoCloseKoinTest() {
         Assert.assertTrue(getKoin().scopeRegistry.scopeDefinitions.containsAll(scopes))
         Assert.assertNotNull(getKoin().get<TestViewModel>())
     }
-
 }
