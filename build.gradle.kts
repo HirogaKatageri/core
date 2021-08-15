@@ -20,21 +20,6 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-        google()
-        maven {
-            name = "GithubPackages"
-            url = uri("https://maven.pkg.github.com/hirogakatageri/core")
-            credentials {
-                username = System.getenv("GITHUB_USER")
-                password = System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-}
-
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
