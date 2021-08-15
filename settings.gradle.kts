@@ -18,10 +18,10 @@ dependencyResolutionManagement {
                 password = System.getenv("GITHUB_TOKEN")
             }
         }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 include(":sample")
 include(":core")
 include(":oauth2client")
-include(":viewservice")

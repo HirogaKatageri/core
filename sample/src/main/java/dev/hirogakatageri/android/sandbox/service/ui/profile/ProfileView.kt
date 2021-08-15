@@ -54,8 +54,8 @@ class ProfileView(
             PixelFormat.TRANSLUCENT
         ).also { params ->
             params.gravity = Gravity.TOP or Gravity.START
-            val x = windowRect?.right ?: Integer.MAX_VALUE
-            val y = ((windowRect?.bottom ?: 1000) / 100) * 70
+            val x = windowRect.right
+            val y = (windowRect.bottom / 100) * 70
             params.x = x
             params.y = y
         }

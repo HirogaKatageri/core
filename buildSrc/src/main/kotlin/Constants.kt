@@ -6,7 +6,6 @@ object Constants {
     const val VERSION_CODE = 5
 
     const val CORE_VERSION_NAME = "0.3.0"
-    const val VIEW_SERVICE_VERSION_NAME = "0.1.0"
     const val OAUTH2_CLIENT_VERSION_NAME = "0.2.1"
     const val SAMPLE_VERSION_NAME = "0.2.1"
 

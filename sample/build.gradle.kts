@@ -15,7 +15,7 @@ android {
     compileSdk = Constants.COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId = "dev.hirogakatageri.android.sandbox"
+        applicationId = "dev.hirogakatageri.sandbox"
         minSdk = Constants.MIN_SDK_VERSION
         targetSdk = Constants.TARGET_SDK_VERSION
 
@@ -69,7 +69,7 @@ dependencies {
 
     implementation(project(":core"))
     implementation(project(":oauth2client"))
-    implementation(project(":viewservice"))
+    implementation("com.github.HirogaKatageri:view-service:0.1.1")
 
     // Kotlin
     implementation(Constants.KOTLIN_JDK_8)
