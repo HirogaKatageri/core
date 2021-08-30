@@ -6,27 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
-import com.github.ajalt.timberkt.Timber.d
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dev.hirogakatageri.core.fragment.CoreViewModelFragment
-import dev.hirogakatageri.sandbox.R
 import dev.hirogakatageri.sandbox.databinding.FragmentMainBinding
 import dev.hirogakatageri.sandbox.ui.PermissionState
+import dev.hirogakatageri.sandbox.ui.main.feature.FeatureAdapter
+import dev.hirogakatageri.sandbox.ui.main.feature.FeatureManager
+import dev.hirogakatageri.sandbox.ui.main.feature.FeatureModel
 import dev.hirogakatageri.sandbox.util.canDrawOverlays
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 
 class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>() {
 
-    private val viewServicePermissionLauncher =
+    private val servicePermissionLauncher =
         registerForActivityResult(RequestMultiplePermissions()) { map ->
-            vm.verifyPermissionServiceViewPermissions(map)
+            vm.verifyServiceViewPermissions(map)
         }
 
     private val overlayPermissionLauncher =
@@ -36,22 +38,23 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
 
     private val pvm: ParentViewModel by sharedViewModel()
 
-    override val vm: MainViewModel by viewModel {
-        parametersOf(viewServicePermissionLauncher)
+    override val vm: MainViewModel by stateViewModel {
+        parametersOf(servicePermissionLauncher)
     }
 
-    private val redirectionClickListener: RedirectionClickListener by inject {
+    private val redirectionCallback: RedirectionCallback by scope.inject {
         parametersOf(pvm, vm)
     }
+
+    private val sampleAdapter: FeatureAdapter by scope.inject()
+
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun createBinding(container: ViewGroup?): FragmentMainBinding =
         FragmentMainBinding.inflate(layoutInflater, container, false)
 
     override fun FragmentMainBinding.bind() {
-        btnShowTime.setOnClickListener(redirectionClickListener)
-        btnOauth.setOnClickListener(redirectionClickListener)
-        btnViewService.setOnClickListener(redirectionClickListener)
-        btnFcm.setOnClickListener(redirectionClickListener)
+        setupRecyclerView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +62,29 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
         lifecycleScope.launchWhenStarted {
             launch { observePermissionState() }
         }
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        val featureListState = vm.featureListState
+
+        if (featureListState != null) {
+            layoutManager.onRestoreInstanceState(featureListState)
+        }
+    }
+
+    override fun onDestroyView() {
+        vm.featureListState = layoutManager.onSaveInstanceState()
+        binding?.listFeatures?.adapter = null
+        super.onDestroyView()
+    }
+
+    private fun FragmentMainBinding.setupRecyclerView() {
+        sampleAdapter.clickCallback = redirectionCallback
+        layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
+        listFeatures.layoutManager = layoutManager
+        listFeatures.adapter = sampleAdapter
     }
 
     private suspend fun observePermissionState() = withContext(Dispatchers.Main) {
@@ -73,8 +99,8 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
                     else
                         vm.startViewService(requireActivity())
                 is PermissionState.ServiceViewPermissionsDenied -> onServiceViewPermissionsRejected()
-                is PermissionState.OverlayPermissionGranted -> vm.startViewService(requireActivity())
-                is PermissionState.OverlayPermissionDenied -> onOverlayPermissionRejected()
+                is PermissionState.OverlayPermissionGranted -> onOverlayPermissionGranted()
+                is PermissionState.OverlayPermissionDenied -> onOverlayPermissionDenied()
                 else -> Unit
             }
             vm.resetPermissionState()
@@ -87,7 +113,11 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
             .show()
     }
 
-    private fun onOverlayPermissionRejected() = binding {
+    private fun onOverlayPermissionGranted() = lifecycleScope.launchWhenStarted {
+        vm.startViewService(requireActivity())
+    }
+
+    private fun onOverlayPermissionDenied() = binding {
         Snackbar
             .make(root, "Overlay permission is required", Snackbar.LENGTH_SHORT)
             .setAction("Open Settings") {
@@ -99,17 +129,19 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
             .show()
     }
 
-    internal class RedirectionClickListener(
+    internal class RedirectionCallback(
         private val pvm: ParentViewModel,
         private val vm: MainViewModel
-    ) : View.OnClickListener {
-        override fun onClick(v: View?) {
-            when (v?.id) {
-                R.id.btn_show_time -> pvm.showTimeFragment()
-                R.id.btn_oauth -> pvm.showOAuthFragment()
-                R.id.btn_view_service -> vm.startServiceView()
-                R.id.btn_fcm -> pvm.showFcmFragment()
+    ) : FeatureAdapter.SampleItemClickCallback() {
+
+        override fun onClick(model: FeatureModel) {
+            when (model.key) {
+                FeatureManager.FeatureKey.CLOCK -> pvm.showTimeFragment()
+                FeatureManager.FeatureKey.OAUTH -> pvm.showOAuthFragment()
+                FeatureManager.FeatureKey.VIEW_SERVICE -> vm.startServiceView()
+                FeatureManager.FeatureKey.FCM -> pvm.showFcmFragment()
             }
         }
     }
+
 }

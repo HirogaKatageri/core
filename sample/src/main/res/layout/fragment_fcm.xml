@@ -12,7 +12,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
-        android:text="@string/fcm_header"
+        android:text="@string/screen_fcm"
         android:textAppearance="?textAppearanceHeadline5"
         app:layout_constraintTop_toTopOf="parent" />
 

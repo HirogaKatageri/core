@@ -4,11 +4,13 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Parcelable
 import android.provider.Settings
 import androidx.activity.result.ActivityResultLauncher
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.hirogakatageri.sandbox.module.PermissionLauncher
+import dev.hirogakatageri.sandbox.PermissionLauncher
 import dev.hirogakatageri.sandbox.service.SampleViewService
 import dev.hirogakatageri.sandbox.ui.PermissionState
 import kotlinx.coroutines.Dispatchers
@@ -18,12 +20,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
+    val savedState: SavedStateHandle,
     private val serviceViewPermissionLauncher: PermissionLauncher
 ) : ViewModel() {
 
     private val _permissionState: MutableStateFlow<PermissionState> =
         MutableStateFlow(PermissionState.Neutral())
     val permissionState: StateFlow<PermissionState> = _permissionState
+
+    var featureListState: Parcelable?
+        get() = savedState[FEATURE_LIST_STATE]
+        set(value) {
+            savedState[FEATURE_LIST_STATE] = value
+        }
 
     fun resetPermissionState() {
         _permissionState.value = PermissionState.Neutral()
@@ -41,7 +50,7 @@ class MainViewModel(
         serviceViewPermissionLauncher.launch(permissions)
     }
 
-    fun verifyPermissionServiceViewPermissions(
+    fun verifyServiceViewPermissions(
         map: Map<String, Boolean>
     ) = viewModelScope.launch {
         if (map.containsValue(false))
@@ -70,5 +79,9 @@ class MainViewModel(
 
     fun startViewService(activity: Activity) {
         SampleViewService.launch(activity)
+    }
+
+    companion object {
+        const val FEATURE_LIST_STATE = "FEATURE_LIST_STATE"
     }
 }

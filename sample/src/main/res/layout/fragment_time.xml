@@ -12,10 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Time Screen"
+        android:text="@string/screen_clock"
         android:textAlignment="center"
         android:textAppearance="?textAppearanceHeadline5"
-        app:layout_constraintBottom_toTopOf="@+id/text_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,14 +27,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
-        android:text="YYYY-MM-DDT00:00:00"
         android:textAlignment="center"
         android:textAppearance="?textAppearanceHeadline6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_title"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:text="YYYY-MM-DDT00:00:00" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

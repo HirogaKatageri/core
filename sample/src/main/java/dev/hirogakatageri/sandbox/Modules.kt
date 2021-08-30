@@ -1,6 +1,7 @@
 package dev.hirogakatageri.sandbox
 
 import androidx.activity.result.ActivityResultLauncher
+import androidx.lifecycle.SavedStateHandle
 import dev.hirogakatageri.oauth2client.twitch.TwitchClient
 import dev.hirogakatageri.oauth2client.util.OAuthPreferences
 import dev.hirogakatageri.sandbox.service.SampleViewService
@@ -16,6 +17,8 @@ import dev.hirogakatageri.sandbox.ui.main.MainActivity
 import dev.hirogakatageri.sandbox.ui.main.MainFragment
 import dev.hirogakatageri.sandbox.ui.main.MainViewModel
 import dev.hirogakatageri.sandbox.ui.main.ParentViewModel
+import dev.hirogakatageri.sandbox.ui.main.feature.FeatureAdapter
+import dev.hirogakatageri.sandbox.ui.main.feature.FeatureManager
 import dev.hirogakatageri.sandbox.ui.oauth.OAuthFragment
 import dev.hirogakatageri.sandbox.ui.oauth.OAuthViewModel
 import dev.hirogakatageri.sandbox.ui.time.TimeFragment
@@ -51,11 +54,16 @@ val securityModule = module {
 
 val mainModule = module {
 
+    single { FeatureManager() }
+
     factory { Clock() }
 
     viewModel { ParentViewModel() }
-    viewModel { (launcher: PermissionLauncher) ->
-        MainViewModel(launcher)
+    viewModel { (state: SavedStateHandle, launcher: PermissionLauncher) ->
+        MainViewModel(
+            state,
+            launcher
+        )
     }
     viewModel { TimeViewModel(get()) }
     viewModel { FcmViewModel() }
@@ -68,7 +76,11 @@ val mainModule = module {
 
     scope<MainFragment> {
         scoped { (pvm: ParentViewModel, vm: MainViewModel) ->
-            MainFragment.RedirectionClickListener(pvm, vm)
+            MainFragment.RedirectionCallback(pvm, vm)
+        }
+        scoped {
+            val featureList = get<FeatureManager>().featureList
+            FeatureAdapter(featureList)
         }
     }
 

@@ -4,6 +4,7 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
     id("org.jlleitschuh.gradle.ktlint")
@@ -105,6 +106,7 @@ dependencies {
 
     // Android Lifecycle Libraries
     implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
+    implementation(Constants.ANDROID_STATE_VIEWMODEL)
 
     // Android Jetpack Navigation
     implementation(Constants.NAVIGATION_FRAGMENT)

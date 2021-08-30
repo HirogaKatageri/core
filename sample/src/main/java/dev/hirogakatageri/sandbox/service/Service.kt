@@ -22,11 +22,11 @@ private const val NOTIFICATION_ID: Int = 0x2a93a245
 class SampleViewService : CoreViewService() {
 
     // Components
-    private val stateModel: ServiceStateModel by inject()
-    private val receiver: ServiceBroadcastReceiver by inject()
+    private val stateModel: ServiceStateModel by scope.inject()
+    private val receiver: ServiceBroadcastReceiver by scope.inject()
 
     // Views
-    private val profileView: ProfileView by inject()
+    private val profileView: ProfileView by scope.inject()
 
     override fun onCreate() {
         super.onCreate()
