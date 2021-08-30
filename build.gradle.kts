@@ -5,11 +5,11 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0")
+        classpath("com.android.tools.build:gradle:7.0.1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Constants.KOTLIN_VERSION}")
         classpath("com.google.gms:google-services:${Constants.GOOGLE_SERVICES_VERSION}")
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Constants.NAVIGATION_VERSION}")
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.4.32")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.5.0")
         classpath("io.insert-koin:koin-gradle-plugin:${Constants.KOIN_VERSION}")
     }
 }

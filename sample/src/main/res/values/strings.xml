@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name">_Sandbox</string>
+    <string name="app_name">Sandbox</string>
 
     <string name="service_view_action_stop_service">Stop Service</string>
+
+    <string name="main_btn_clock">Clock</string>
+    <string name="main_btn_oauth">oAuth</string>
+    <string name="main_btn_view_service">View Service</string>
+    <string name="main_btn_firebase_messaging">Firebase Cloud Messaging</string>
+
+    <string name="fcm_header">FCM Screen</string>
+    <string name="fcm_empty_notification">Message: Notification is empty or null.</string>
+    <string name="fcm_template_message">Message: %1$s</string>
 </resources>

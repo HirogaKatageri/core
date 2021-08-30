@@ -7,27 +7,51 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="dev.hirogakatageri.android.sandbox.ui.main.MainFragment"
+        android:name="dev.hirogakatageri.sandbox.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
+
         <action
             android:id="@+id/main_screen_to_time_screen"
-            app:destination="@id/time_fragment" />
+            app:destination="@id/time_fragment"
+            app:popUpTo="@id/main_fragment" />
+
         <action
             android:id="@+id/main_screen_to_oauth_screen"
-            app:destination="@id/oauth_fragment" />
+            app:destination="@id/oauth_fragment"
+            app:popUpTo="@id/main_fragment" />
+
+        <action
+            android:id="@+id/main_screen_to_fcm_screen"
+            app:destination="@id/fcm_fragment"
+            app:popUpTo="@id/main_fragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/time_fragment"
-        android:name="dev.hirogakatageri.android.sandbox.ui.time.TimeFragment"
+        android:name="dev.hirogakatageri.sandbox.ui.time.TimeFragment"
         android:label="TimeFragment"
         tools:layout="@layout/fragment_time" />
 
     <fragment
         android:id="@+id/oauth_fragment"
-        android:name="dev.hirogakatageri.android.sandbox.ui.oauth.OAuthFragment"
+        android:name="dev.hirogakatageri.sandbox.ui.oauth.OAuthFragment"
         android:label="OAuthFragment"
         tools:layout="@layout/fragment_oauth" />
+
+    <fragment
+        android:id="@+id/fcm_fragment"
+        android:name="dev.hirogakatageri.sandbox.ui.fcm.FcmFragment"
+        android:label="FCMFragment"
+        tools:layout="@layout/fragment_fcm">
+
+        <argument
+            android:name="message"
+            android:defaultValue=""
+            app:argType="string" />
+
+    </fragment>
+
 
 </navigation>

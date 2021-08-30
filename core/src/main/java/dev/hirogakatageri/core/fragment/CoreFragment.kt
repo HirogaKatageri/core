@@ -54,7 +54,7 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
 
     /**
      * Function to easily manipulate ViewBinding used in Fragment.
-     * It runs in the Main thread anf if Lifecycle State is at least [Lifecycle.State.STARTED]
+     * It runs in the Main thread and if Lifecycle State is at least [Lifecycle.State.STARTED]
      * */
     protected fun binding(func: VB.() -> Unit) = lifecycleScope.launchWhenStarted {
         val b = binding

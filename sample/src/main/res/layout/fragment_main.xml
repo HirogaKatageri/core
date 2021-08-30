@@ -14,31 +14,38 @@
         android:text="Main Fragment"
         android:textAlignment="center"
         android:textAppearance="?textAppearanceHeadline5"
-        app:layout_constraintBottom_toTopOf="@id/btn_view_service"
+        app:layout_constraintBottom_toTopOf="@id/btn_show_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="16dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_view_service"
+        android:id="@+id/btn_show_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View Service"
+        android:text="@string/main_btn_clock"
+        app:layout_constraintBottom_toTopOf="@id/btn_fcm" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_fcm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_btn_firebase_messaging"
         app:layout_constraintBottom_toTopOf="@id/btn_oauth" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_oauth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OAuth"
-        app:layout_constraintBottom_toTopOf="@id/btn_show_time" />
+        android:text="@string/main_btn_oauth"
+        app:layout_constraintBottom_toTopOf="@id/btn_view_service" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_show_time"
+        android:id="@+id/btn_view_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Clock"
+        android:text="@string/main_btn_view_service"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

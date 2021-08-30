@@ -10,7 +10,7 @@ object Constants {
     const val SAMPLE_VERSION_NAME = "0.2.1"
 
     //Google
-    const val GOOGLE_SERVICES_VERSION = "4.3.9"
+    const val GOOGLE_SERVICES_VERSION = "4.3.10"
 
     //Kotlin
     const val KOTLIN_VERSION = "1.5.21"
@@ -118,7 +118,6 @@ object Constants {
     const val KOIN_TEST = "io.insert-koin:koin-test:$KOIN_VERSION"
     const val KOIN_TEST_JUNIT4 = "io.insert-koin:koin-test-junit4:$KOIN_VERSION" // Tests
     const val KOIN_ANDROID = "io.insert-koin:koin-android:$KOIN_VERSION"
-    const val KOIN_ANDROID_EXT = "io.insert-koin:koin-android-ext:$KOIN_VERSION"
     const val KOIN_ANDROID_WORKMANAGER = "io.insert-koin:koin-androidx-workmanager:$KOIN_VERSION"
     const val KOIN_ANDROID_COMPOSE = "io.insert-koin:koin-androidx-compose:$KOIN_VERSION"
 
@@ -144,7 +143,9 @@ object Constants {
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.7"
 
     //Firebase
-    const val FIREBASE_AUTH = "com.google.firebase:firebase-auth:19.3.2"
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:28.4.0"
+    const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+    const val FIREBASE_CLOUD_MESSAGING = "com.google.firebase:firebase-messaging-ktx"
 
     //Authentication
     const val APP_AUTH = "net.openid:appauth:0.9.1"
@@ -168,6 +169,9 @@ object Constants {
     const val CHUCK_RELEASE = "com.readystatesoftware.chuck:library-no-op:$CHUCK_VERSION"
 
     //Test
+    const val MOCKK = "io.mockk:mockk:1.12.0"
+    const val MOCKITO_CORE = "org.mockito:mockito-core:3.12.4"
+    const val MOCKITO_INLINE = "org.mockito:mockito-inline:3.12.4"
     const val JUNIT = "junit:junit:4.13.2" // Unit Test available
     const val ANDROIDX_TEST = "androidx.test:core:$ANDROIDX_TEST_VERSION"
     const val ANDROIDX_TEST_RUNNER = "androidx.test:runner:$ANDROIDX_TEST_VERSION"

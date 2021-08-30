@@ -1,10 +1,13 @@
 import java.io.FileInputStream
-import java.util.*
+import java.util.Properties
 
 plugins {
     id("com.android.application")
     kotlin("android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("koin")
 }
 
 val buildPropertiesFile = File("sample/build.properties")
@@ -67,9 +70,9 @@ android {
 
 dependencies {
 
-    implementation(project(":core"))
     implementation(project(":oauth2client"))
-    implementation("com.github.HirogaKatageri:view-service:0.1.1")
+    implementation("com.github.HirogaKatageri.core:core:0.3.5")
+    implementation("com.github.HirogaKatageri:view-service:0.1.2")
 
     // Kotlin
     implementation(Constants.KOTLIN_JDK_8)
@@ -82,6 +85,8 @@ dependencies {
 
     // Koin
     implementation(Constants.KOIN_ANDROID)
+    testImplementation(Constants.KOIN_TEST)
+    testImplementation(Constants.KOIN_TEST_JUNIT4)
 
     // Android
     implementation(Constants.APPCOMPAT)
@@ -92,6 +97,11 @@ dependencies {
     implementation(Constants.ANDROID_KTX_CORE)
     implementation(Constants.ANDROID_KTX_ACTIVITY)
     implementation(Constants.ANDROID_KTX_FRAGMENT)
+
+    // Firebase
+    implementation(platform(Constants.FIREBASE_BOM))
+    implementation(Constants.FIREBASE_ANALYTICS)
+    implementation(Constants.FIREBASE_CLOUD_MESSAGING)
 
     // Android Lifecycle Libraries
     implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
@@ -113,8 +123,13 @@ dependencies {
     implementation(Constants.LEAK_CANARY)
 
     // Testing
+    testImplementation(Constants.MOCKITO_CORE)
+    testImplementation(Constants.MOCKITO_INLINE)
     testImplementation(Constants.JUNIT)
-    testImplementation(Constants.ANDROIDX_TEST)
-    testImplementation(Constants.ANDROIDX_TEST_JUNIT)
     testImplementation(Constants.ROBOLECTRIC)
+    testImplementation(Constants.ANDROIDX_TEST)
+    debugImplementation(Constants.ANDROIDX_TEST_FRAGMENT)
+    testImplementation(Constants.ANDROIDX_TEST_RUNNER)
+    testImplementation(Constants.ANDROIDX_TEST_RULES)
+    testImplementation(Constants.ANDROIDX_TEST_JUNIT)
 }

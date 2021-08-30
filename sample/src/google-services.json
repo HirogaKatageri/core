@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "941135149322",
+    "firebase_url": "https://sandbox-e312b.firebaseio.com",
+    "project_id": "sandbox-e312b",
+    "storage_bucket": "sandbox-e312b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941135149322:android:76e49f62f0f5c5b3a662f3",
+        "android_client_info": {
+          "package_name": "dev.hirogakatageri.sandbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "941135149322-tu08ellrc7mjk3f423eeotvge328fn0o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.hirogakatageri.sandbox",
+            "certificate_hash": "854843d18dc9d36240c932f3b6c65e7251818f01"
+          }
+        },
+        {
+          "client_id": "941135149322-csqd8fpe5jc8dk6d3fglc4clkkj6klfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0Zb7R4FLP0hehobA4z2cSlySa7lSMxM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "941135149322-csqd8fpe5jc8dk6d3fglc4clkkj6klfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
