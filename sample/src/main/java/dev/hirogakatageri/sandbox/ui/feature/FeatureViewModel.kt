@@ -28,6 +28,10 @@ class FeatureViewModel(
         MutableStateFlow(PermissionState.Neutral())
     val permissionState: StateFlow<PermissionState> = _permissionState
 
+    /**
+     * Saved Instance State of Feature List RecyclerView this is saved and retrieved from the
+     * SavedStateHandle of the ViewModel.
+     * */
     var featureListState: Parcelable?
         get() = savedState[FEATURE_LIST_STATE]
         set(value) {

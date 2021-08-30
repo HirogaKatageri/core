@@ -65,6 +65,7 @@ class FeatureFragment : CoreViewModelFragment<FragmentMainBinding, FeatureViewMo
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
 
+        //Retrieve and Restore Saved Instance States of Views
         val featureListState = vm.featureListState
 
         if (featureListState != null) {
@@ -73,6 +74,7 @@ class FeatureFragment : CoreViewModelFragment<FragmentMainBinding, FeatureViewMo
     }
 
     override fun onDestroyView() {
+        //Save Instance States of Views
         vm.featureListState = layoutManager.onSaveInstanceState()
         binding?.listFeatures?.adapter = null
         super.onDestroyView()
