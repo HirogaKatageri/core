@@ -1,11 +1,11 @@
-package dev.hirogakatageri.sandbox.ui.main.feature
+package dev.hirogakatageri.sandbox.ui.feature
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.hirogakatageri.sandbox.databinding.ItemSampleFeatureBinding
-import dev.hirogakatageri.sandbox.ui.main.feature.FeatureAdapter.SampleViewHolder
+import dev.hirogakatageri.sandbox.ui.feature.FeatureAdapter.SampleViewHolder
 
 class FeatureAdapter(
     private val featureList: List<FeatureModel>

@@ -1,4 +1,4 @@
-package dev.hirogakatageri.sandbox.ui.main
+package dev.hirogakatageri.sandbox.ui.feature
 
 import android.Manifest
 import android.app.Activity
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(
+class FeatureViewModel(
     private val savedState: SavedStateHandle,
     private val serviceViewPermissionLauncher: PermissionLauncher
 ) : ViewModel() {

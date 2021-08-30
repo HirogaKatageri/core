@@ -8,6 +8,7 @@ import com.github.ajalt.timberkt.Timber.d
 import dev.hirogakatageri.core.activity.CoreViewModelActivity
 import dev.hirogakatageri.sandbox.databinding.ActivityMainBinding
 import dev.hirogakatageri.sandbox.ui.ScreenState
+import dev.hirogakatageri.sandbox.ui.feature.FeatureFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -42,10 +43,10 @@ class MainActivity : CoreViewModelActivity<ActivityMainBinding, ParentViewModel>
         vm.state.collect { state ->
             when (state) {
                 is ScreenState.MainScreen -> Unit
-                is ScreenState.TimeScreen -> navController.navigate(MainFragmentDirections.mainScreenToTimeScreen())
-                is ScreenState.OAuthScreen -> navController.navigate(MainFragmentDirections.mainScreenToOauthScreen())
+                is ScreenState.TimeScreen -> navController.navigate(FeatureFragmentDirections.mainScreenToTimeScreen())
+                is ScreenState.OAuthScreen -> navController.navigate(FeatureFragmentDirections.mainScreenToOauthScreen())
                 is ScreenState.FCMScreen -> navController.navigate(
-                    MainFragmentDirections.mainScreenToFcmScreen(state.message)
+                    FeatureFragmentDirections.mainScreenToFcmScreen(state.message)
                 )
             }
         }

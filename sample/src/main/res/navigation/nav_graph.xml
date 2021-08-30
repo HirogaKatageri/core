@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="dev.hirogakatageri.sandbox.ui.main.MainFragment"
+        android:name="dev.hirogakatageri.sandbox.ui.feature.FeatureFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
 

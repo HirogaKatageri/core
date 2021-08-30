@@ -1,4 +1,4 @@
-package dev.hirogakatageri.sandbox.ui.main.feature
+package dev.hirogakatageri.sandbox.ui.feature
 
 import dev.hirogakatageri.sandbox.R
 

@@ -1,4 +1,4 @@
-package dev.hirogakatageri.sandbox.ui.main
+package dev.hirogakatageri.sandbox.ui.feature
 
 import android.os.Bundle
 import android.provider.Settings
@@ -12,9 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import dev.hirogakatageri.core.fragment.CoreViewModelFragment
 import dev.hirogakatageri.sandbox.databinding.FragmentMainBinding
 import dev.hirogakatageri.sandbox.ui.PermissionState
-import dev.hirogakatageri.sandbox.ui.main.feature.FeatureAdapter
-import dev.hirogakatageri.sandbox.ui.main.feature.FeatureManager
-import dev.hirogakatageri.sandbox.ui.main.feature.FeatureModel
+import dev.hirogakatageri.sandbox.ui.main.ParentViewModel
 import dev.hirogakatageri.sandbox.util.canDrawOverlays
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -24,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.core.parameter.parametersOf
 
-class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>() {
+class FeatureFragment : CoreViewModelFragment<FragmentMainBinding, FeatureViewModel>() {
 
     private val servicePermissionLauncher =
         registerForActivityResult(RequestMultiplePermissions()) { map ->
@@ -38,7 +36,7 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
 
     private val pvm: ParentViewModel by sharedViewModel()
 
-    override val vm: MainViewModel by stateViewModel {
+    override val vm: FeatureViewModel by stateViewModel {
         parametersOf(servicePermissionLauncher)
     }
 
@@ -131,7 +129,7 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
 
     internal class RedirectionCallback(
         private val pvm: ParentViewModel,
-        private val vm: MainViewModel
+        private val vm: FeatureViewModel
     ) : FeatureAdapter.SampleItemClickCallback() {
 
         override fun onClick(model: FeatureModel) {

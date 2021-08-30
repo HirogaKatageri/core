@@ -13,12 +13,12 @@ import dev.hirogakatageri.sandbox.service.util.ServiceViewFactory
 import dev.hirogakatageri.sandbox.service.util.ServiceViewModelFactory
 import dev.hirogakatageri.sandbox.ui.fcm.FcmFragment
 import dev.hirogakatageri.sandbox.ui.fcm.FcmViewModel
+import dev.hirogakatageri.sandbox.ui.feature.FeatureAdapter
+import dev.hirogakatageri.sandbox.ui.feature.FeatureFragment
+import dev.hirogakatageri.sandbox.ui.feature.FeatureManager
+import dev.hirogakatageri.sandbox.ui.feature.FeatureViewModel
 import dev.hirogakatageri.sandbox.ui.main.MainActivity
-import dev.hirogakatageri.sandbox.ui.main.MainFragment
-import dev.hirogakatageri.sandbox.ui.main.MainViewModel
 import dev.hirogakatageri.sandbox.ui.main.ParentViewModel
-import dev.hirogakatageri.sandbox.ui.main.feature.FeatureAdapter
-import dev.hirogakatageri.sandbox.ui.main.feature.FeatureManager
 import dev.hirogakatageri.sandbox.ui.oauth.OAuthFragment
 import dev.hirogakatageri.sandbox.ui.oauth.OAuthViewModel
 import dev.hirogakatageri.sandbox.ui.time.TimeFragment
@@ -59,7 +59,7 @@ val mainModule = module {
 
     viewModel { ParentViewModel() }
     viewModel { (state: SavedStateHandle, launcher: PermissionLauncher) ->
-        MainViewModel(
+        FeatureViewModel(
             state,
             launcher
         )
@@ -68,14 +68,14 @@ val mainModule = module {
     viewModel { FcmViewModel() }
 
     scope<MainActivity> {
-        fragment { MainFragment() }
+        fragment { FeatureFragment() }
         fragment { TimeFragment() }
         fragment { OAuthFragment() }
     }
 
-    scope<MainFragment> {
-        scoped { (pvm: ParentViewModel, vm: MainViewModel) ->
-            MainFragment.RedirectionCallback(pvm, vm)
+    scope<FeatureFragment> {
+        scoped { (pvm: ParentViewModel, vm: FeatureViewModel) ->
+            FeatureFragment.RedirectionCallback(pvm, vm)
         }
         scoped {
             val featureList = get<FeatureManager>().featureList
