@@ -17,5 +17,4 @@ class FeatureManager {
         FeatureModel(FeatureKey.VIEW_SERVICE, R.string.main_btn_view_service),
         FeatureModel(FeatureKey.FCM, R.string.main_btn_firebase_messaging),
     )
-
 }

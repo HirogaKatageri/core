@@ -143,5 +143,4 @@ class MainFragment : CoreViewModelFragment<FragmentMainBinding, MainViewModel>()
             }
         }
     }
-
 }

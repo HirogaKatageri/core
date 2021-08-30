@@ -48,5 +48,4 @@ class FcmFragment : CoreViewModelFragment<FragmentFcmBinding, FcmViewModel>() {
     private suspend fun onNotificationReceived(message: String) = withContext(Dispatchers.Main) {
         binding?.txtMessage?.text = getString(R.string.fcm_template_message, message)
     }
-
 }

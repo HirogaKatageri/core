@@ -49,7 +49,6 @@ val securityModule = module {
     }
 
     viewModel { OAuthViewModel(get()) }
-
 }
 
 val mainModule = module {
@@ -87,7 +86,6 @@ val mainModule = module {
     scope<TimeFragment> {}
     scope<OAuthFragment> {}
     scope<FcmFragment> {}
-
 }
 
 val viewServiceModule = module {
@@ -101,7 +99,6 @@ val viewServiceModule = module {
         scoped { ServiceBroadcastReceiver() }
         scoped<ProfileView> { serviceViewFactory.create(ServiceViews.PROFILE, get(), get()) }
     }
-
 }
 
 val Scope.serviceViewFactory get() = get<ServiceViewFactory>()

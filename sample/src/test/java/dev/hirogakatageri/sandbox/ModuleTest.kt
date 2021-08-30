@@ -25,5 +25,4 @@ class ModuleTest : AutoCloseKoinTest() {
     fun verifyModules() = checkModules {
         modules(mainModule, viewServiceModule)
     }
-
 }

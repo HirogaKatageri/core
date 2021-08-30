@@ -15,5 +15,4 @@ sealed class FcmFragmentState {
         override val state: Int = 1,
         override val message: String
     ) : FcmFragmentState()
-
 }

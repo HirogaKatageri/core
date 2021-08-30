@@ -16,5 +16,4 @@ class FcmViewModel : ViewModel() {
         else
             _state.value = FcmFragmentState.NotificationReceived(message = args.message)
     }
-
 }

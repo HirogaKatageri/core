@@ -57,11 +57,9 @@ class FeatureAdapter(
             binding?.button?.setText(_model.titleRes)
             binding?.button?.setOnClickListener(this)
         }
-
     }
 
     abstract class SampleItemClickCallback {
         abstract fun onClick(model: FeatureModel)
     }
-
 }

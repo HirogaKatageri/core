@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
-    val savedState: SavedStateHandle,
+    private val savedState: SavedStateHandle,
     private val serviceViewPermissionLauncher: PermissionLauncher
 ) : ViewModel() {
 
