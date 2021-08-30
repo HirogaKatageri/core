@@ -1,19 +1,39 @@
 # What is this Repository?
 
-This is actually a sandbox repository I made in order to develop stuff. It started modular so I could develop libraries for my use cases. It is named "Core" because this is where I started making Wrappers for my Activities, Fragments, Services and Application for MVVM and Koin.
-
-Eventually if a library is too big for this repository I'll make a new repository for it.
+Welcome to my Sandbox. This sandbox contains a template for MVVM Architecture with Koin DI. You can also use the templates for your other projects. I've also made samples on how to implement the template.
 
 ## Features
 
-### Core
+- Core - A template Library for Activities and Fragments using Koin DI.
 
-Wrappers for Activities, Fragments, Services and Applications to use with MVVM and Koin.
+## Extras
 
-### View Service (In Progress)
+- View Binding Template
 
-A library to easily create and display views in a ForegroundService.
+## Installation
 
-### OAuth2.0 Clients
+Root _build.gradle.kts_ script
 
-- Twitch (Usable but still in Development)
+```
+repositories {
+    maven { url = uri("https://www.jitpack.io") }
+}
+```
+
+Module _build.gradle.kts_ script
+
+```
+implementation("com.github.HirogaKatageri.core:core:0.3.5")
+```
+
+## Samples
+
+- oAuth using Twitch.
+- Foreground Service with floating Views.
+- Firebase Cloud Messaging with Custom URI Redirection.
+- Instance State saving and recovery using StateViewModel.
+
+## Future Development
+
+- Android Compose Template
+- Kotlin Multi Platform with Compose Template
