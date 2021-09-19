@@ -17,7 +17,8 @@ class App : CoreApp() {
         securityModule,
         mainModule,
         viewServiceModule,
-        apiModule
+        apiModule,
+        chatModule
     )
 
     override fun onCreate() {

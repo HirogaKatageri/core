@@ -187,6 +187,7 @@ class FeatureFragment : CoreViewModelFragment<FragmentMainBinding, FeatureViewMo
                 FeatureManager.FeatureKey.FIREBASE_AUTH ->
                     vm.signInWithFirebase(authLauncher)
                 FeatureManager.FeatureKey.API_VERIFY_USER -> vm.verifyUser()
+                FeatureManager.FeatureKey.CHAT -> pvm.showChatFragment()
             }
         }
     }

@@ -112,6 +112,7 @@ dependencies {
     implementation(Constants.FIREBASE_CLOUD_MESSAGING)
     implementation(Constants.FIREBASE_AUTH)
     implementation(Constants.FIREBASE_AUTH_UI)
+    implementation(Constants.FIREBASE_FIRESTORE)
 
     // Android Lifecycle Libraries
     implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
@@ -127,6 +128,10 @@ dependencies {
     implementation(Constants.ANDROID_CAMERAX_CAMERA2)
     implementation(Constants.ANDROID_CAMERAX_LIFECYCLE)
     implementation(Constants.ANDROID_CAMERAX_VIEW)
+
+    // RecyclerView
+    implementation(Constants.EPOXY)
+    kapt(Constants.EPOXY_PROCESSOR)
 
     // Core
     implementation(Constants.DATE_TIME)

@@ -6,6 +6,7 @@ import dev.hirogakatageri.oauth2client.twitch.TwitchClient
 import dev.hirogakatageri.oauth2client.util.OAuthPreferences
 import dev.hirogakatageri.sandbox.data.ApiClient
 import dev.hirogakatageri.sandbox.data.FirebaseManager
+import dev.hirogakatageri.sandbox.data.chat.FireChatRepository
 import dev.hirogakatageri.sandbox.data.repository.ApiRepository
 import dev.hirogakatageri.sandbox.service.SampleViewService
 import dev.hirogakatageri.sandbox.service.ServiceStateModel
@@ -14,6 +15,8 @@ import dev.hirogakatageri.sandbox.service.ui.profile.ProfileView
 import dev.hirogakatageri.sandbox.service.util.ServiceBroadcastReceiver
 import dev.hirogakatageri.sandbox.service.util.ServiceViewFactory
 import dev.hirogakatageri.sandbox.service.util.ServiceViewModelFactory
+import dev.hirogakatageri.sandbox.ui.chat.FireChatFragment
+import dev.hirogakatageri.sandbox.ui.chat.FireChatViewModel
 import dev.hirogakatageri.sandbox.ui.fcm.FcmFragment
 import dev.hirogakatageri.sandbox.ui.fcm.FcmViewModel
 import dev.hirogakatageri.sandbox.ui.feature.FeatureAdapter
@@ -35,6 +38,15 @@ import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
 typealias PermissionLauncher = ActivityResultLauncher<Array<out String>>
+
+val chatModule = module {
+
+    factory { FireChatRepository(get()) }
+
+    scope<FireChatFragment> {}
+
+    viewModel { FireChatViewModel(get()) }
+}
 
 val securityModule = module {
 

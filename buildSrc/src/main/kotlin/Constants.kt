@@ -151,7 +151,7 @@ object Constants {
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:28.4.0"
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val FIREBASE_CLOUD_MESSAGING = "com.google.firebase:firebase-messaging-ktx"
-    const val FIREBASE_FIRESTORE = "com.google.firebase.firebase-firestore-ktx"
+    const val FIREBASE_FIRESTORE = "com.google.firebase:firebase-firestore-ktx"
     const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
     const val FIREBASE_AUTH_UI = "com.firebaseui:firebase-ui-auth:8.0.0"
 

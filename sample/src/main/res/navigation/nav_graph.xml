@@ -26,6 +26,11 @@
             app:destination="@id/fcm_fragment"
             app:popUpTo="@id/main_fragment" />
 
+        <action
+            android:id="@+id/main_screen_to_chat_screen"
+            app:destination="@id/chat_fragment"
+            app:popUpTo="@id/main_fragment" />
+
     </fragment>
 
     <fragment
@@ -53,5 +58,10 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/chat_fragment"
+        android:name="dev.hirogakatageri.sandbox.ui.chat.FireChatFragment"
+        android:label="FireChatFragment"
+        tools:layout="@layout/fragment_chat" />
 
 </navigation>
