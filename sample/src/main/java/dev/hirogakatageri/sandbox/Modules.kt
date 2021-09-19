@@ -4,6 +4,9 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.SavedStateHandle
 import dev.hirogakatageri.oauth2client.twitch.TwitchClient
 import dev.hirogakatageri.oauth2client.util.OAuthPreferences
+import dev.hirogakatageri.sandbox.data.ApiClient
+import dev.hirogakatageri.sandbox.data.FirebaseManager
+import dev.hirogakatageri.sandbox.data.repository.ApiRepository
 import dev.hirogakatageri.sandbox.service.SampleViewService
 import dev.hirogakatageri.sandbox.service.ServiceStateModel
 import dev.hirogakatageri.sandbox.service.ui.ServiceViews
@@ -53,17 +56,13 @@ val securityModule = module {
 
 val mainModule = module {
 
+    single { FirebaseManager() }
     single { FeatureManager() }
 
     factory { Clock() }
 
     viewModel { ParentViewModel() }
-    viewModel { (state: SavedStateHandle, launcher: PermissionLauncher) ->
-        FeatureViewModel(
-            state,
-            launcher
-        )
-    }
+    viewModel { (state: SavedStateHandle) -> FeatureViewModel(state, get(), get()) }
     viewModel { TimeViewModel(get()) }
     viewModel { FcmViewModel() }
 
@@ -74,9 +73,6 @@ val mainModule = module {
     }
 
     scope<FeatureFragment> {
-        scoped { (pvm: ParentViewModel, vm: FeatureViewModel) ->
-            FeatureFragment.RedirectionCallback(pvm, vm)
-        }
         scoped {
             val featureList = get<FeatureManager>().featureList
             FeatureAdapter(featureList)
@@ -99,6 +95,15 @@ val viewServiceModule = module {
         scoped { ServiceBroadcastReceiver() }
         scoped<ProfileView> { serviceViewFactory.create(ServiceViews.PROFILE, get(), get()) }
     }
+}
+
+val apiModule = module {
+
+    single { ApiClient(androidContext()) }
+    single { get<ApiClient>().createApiService() }
+
+    factory { ApiRepository(get()) }
+
 }
 
 val Scope.serviceViewFactory get() = get<ServiceViewFactory>()

@@ -4,11 +4,11 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
     id("org.jlleitschuh.gradle.ktlint")
-    id("koin")
 }
 
 val buildPropertiesFile = File("sample/build.properties")
@@ -39,6 +39,8 @@ android {
             "TWITCH_SECRET_KEY",
             buildProperties.getProperty("TWITCH_SECRET_KEY") ?: "null"
         )
+
+        resConfigs("en")
     }
 
     buildTypes {
@@ -84,6 +86,8 @@ dependencies {
     implementation(Constants.COROUTINES_ANDROID)
     testImplementation(Constants.COROUTINES_TEST)
 
+    implementation(Constants.COROUTINES_PLAY_SERVICES)
+
     // Koin
     implementation(Constants.KOIN_ANDROID)
     testImplementation(Constants.KOIN_TEST)
@@ -99,10 +103,15 @@ dependencies {
     implementation(Constants.ANDROID_KTX_ACTIVITY)
     implementation(Constants.ANDROID_KTX_FRAGMENT)
 
+    // Google
+    implementation(Constants.GOOGLE_PLAY_SERVICES)
+
     // Firebase
     implementation(platform(Constants.FIREBASE_BOM))
     implementation(Constants.FIREBASE_ANALYTICS)
     implementation(Constants.FIREBASE_CLOUD_MESSAGING)
+    implementation(Constants.FIREBASE_AUTH)
+    implementation(Constants.FIREBASE_AUTH_UI)
 
     // Android Lifecycle Libraries
     implementation(Constants.ANDROID_LIFECYCLE_SERVICE)
@@ -123,6 +132,17 @@ dependencies {
     implementation(Constants.DATE_TIME)
     implementation(Constants.TIMBERKT)
     implementation(Constants.LEAK_CANARY)
+
+    // JSON Parser
+    implementation(Constants.MOSHI)
+    kapt(Constants.MOSHI_CODEGEN)
+
+    // Http
+    implementation(Constants.RETROFIT)
+    implementation(Constants.RETROFIT_MOSHI)
+    implementation(Constants.OKHTTP)
+    implementation(Constants.OKHTTP_LOG_INTERCEPTOR)
+    implementation(Constants.NETWORK_RESPONSE_ADAPTER)
 
     // Testing
     testImplementation(Constants.MOCKITO_CORE)
