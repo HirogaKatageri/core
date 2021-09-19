@@ -36,7 +36,7 @@ class FireChatViewModel(
         val snapshots = task.await()
         val newMessages = snapshots.toObjects(ChatMessageModel::class.java)
 
-        _messages.value = newMessages
+        _messages.value = newMessages.reversed()
     }
 
     private fun onNewMessage(doc: QueryDocumentSnapshot) = viewModelScope.launch {

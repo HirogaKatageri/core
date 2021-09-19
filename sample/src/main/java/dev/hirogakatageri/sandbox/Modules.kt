@@ -16,6 +16,7 @@ import dev.hirogakatageri.sandbox.service.util.ServiceBroadcastReceiver
 import dev.hirogakatageri.sandbox.service.util.ServiceViewFactory
 import dev.hirogakatageri.sandbox.service.util.ServiceViewModelFactory
 import dev.hirogakatageri.sandbox.ui.chat.FireChatFragment
+import dev.hirogakatageri.sandbox.ui.chat.FireChatMsgController
 import dev.hirogakatageri.sandbox.ui.chat.FireChatViewModel
 import dev.hirogakatageri.sandbox.ui.fcm.FcmFragment
 import dev.hirogakatageri.sandbox.ui.fcm.FcmViewModel
@@ -43,7 +44,9 @@ val chatModule = module {
 
     factory { FireChatRepository(get()) }
 
-    scope<FireChatFragment> {}
+    scope<FireChatFragment> {
+        scoped { FireChatMsgController() }
+    }
 
     viewModel { FireChatViewModel(get()) }
 }

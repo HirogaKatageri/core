@@ -3,6 +3,7 @@ package dev.hirogakatageri.sandbox.data.chat
 import com.github.ajalt.timberkt.e
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import dev.hirogakatageri.sandbox.data.FirebaseManager
@@ -49,10 +50,11 @@ class FireChatRepository(
                 if (isFirstQuery) {
                     // Get initial items
                     val messages = snapshot.query
-                        .orderBy("timeSent")
+                        .orderBy("timeSent", Query.Direction.DESCENDING)
                         .limit(10)
                         .get()
 
+                    isFirstQuery = false
                     onFirstQuery(messages)
                 } else {
                     // Get changes

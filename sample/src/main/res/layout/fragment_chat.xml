@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/chats"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/txl_message_input"
