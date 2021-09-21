@@ -1,5 +1,5 @@
 import java.io.FileInputStream
-import java.util.Properties
+import java.util.*
 
 plugins {
     id("com.android.application")
@@ -8,6 +8,7 @@ plugins {
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("org.jlleitschuh.gradle.ktlint")
 }
 
@@ -43,6 +44,15 @@ android {
         resConfigs("en")
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../signature/core-keystore.jks")
+            storePassword = KeystoreProperties.CORE_KEY_PASSWORD
+            keyAlias = KeystoreProperties.CORE_ALIAS
+            keyPassword = KeystoreProperties.CORE_KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
@@ -52,11 +62,12 @@ android {
             )
         }
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -68,6 +79,24 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "org.jetbrains.kotlin") {
+                when (requested.name) {
+                    "kotlin-reflect" -> useVersion(Constants.KOTLIN_VERSION)
+                }
+            }
+        }
+    }
+
+    applicationVariants.all {
+        outputs.forEach { output ->
+            if (output is com.android.build.gradle.internal.api.BaseVariantOutputImpl) {
+                output.outputFileName = "dev.hirogakatageri.sandbox.apk"
+            }
+        }
     }
 }
 
@@ -109,6 +138,7 @@ dependencies {
     // Firebase
     implementation(platform(Constants.FIREBASE_BOM))
     implementation(Constants.FIREBASE_ANALYTICS)
+    implementation(Constants.FIREBASE_CRASHLYTICS)
     implementation(Constants.FIREBASE_CLOUD_MESSAGING)
     implementation(Constants.FIREBASE_AUTH)
     implementation(Constants.FIREBASE_AUTH_UI)
@@ -136,7 +166,7 @@ dependencies {
     // Core
     implementation(Constants.DATE_TIME)
     implementation(Constants.TIMBERKT)
-    implementation(Constants.LEAK_CANARY)
+    debugImplementation(Constants.LEAK_CANARY)
 
     // JSON Parser
     implementation(Constants.MOSHI)
