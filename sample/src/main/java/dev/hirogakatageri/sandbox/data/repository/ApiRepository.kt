@@ -17,5 +17,4 @@ class ApiRepository(
         val payload = VerifyUserPayload(idToken)
         api.verifyUser(payload)
     }
-
 }

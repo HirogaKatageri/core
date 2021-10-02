@@ -47,5 +47,4 @@ class FireChatViewModel(
 
         _messages.value = newList
     }
-
 }

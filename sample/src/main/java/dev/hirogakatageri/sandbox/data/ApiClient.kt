@@ -50,5 +50,4 @@ class ApiClient(private val context: Context) {
     companion object {
         const val BASE_URL = "https://y25a93i78c.execute-api.ap-southeast-1.amazonaws.com/"
     }
-
 }

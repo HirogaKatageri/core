@@ -49,7 +49,7 @@ class FeatureFragment : CoreViewModelFragment<FragmentMainBinding, FeatureViewMo
 
     private val sampleAdapter: FeatureAdapter by scope.inject()
 
-    private lateinit var layoutManager: LinearLayoutManager
+    private var layoutManager: LinearLayoutManager? = null
 
     override fun createBinding(container: ViewGroup?): FragmentMainBinding =
         FragmentMainBinding.inflate(layoutInflater, container, false)
@@ -69,17 +69,18 @@ class FeatureFragment : CoreViewModelFragment<FragmentMainBinding, FeatureViewMo
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
 
-        //Retrieve and Restore Saved Instance States of Views
+        // Retrieve and Restore Saved Instance States of Views
         val featureListState = vm.featureListState
 
         if (featureListState != null) {
-            layoutManager.onRestoreInstanceState(featureListState)
+            layoutManager?.onRestoreInstanceState(featureListState)
         }
     }
 
     override fun onDestroyView() {
-        //Save Instance States of Views
-        vm.featureListState = layoutManager.onSaveInstanceState()
+        // Save Instance States of Views
+        vm.featureListState = layoutManager?.onSaveInstanceState()
+        layoutManager = null
         binding?.listFeatures?.adapter = null
         super.onDestroyView()
     }

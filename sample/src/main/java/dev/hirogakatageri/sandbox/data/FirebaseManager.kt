@@ -16,5 +16,4 @@ class FirebaseManager {
         get() = db.collection("conversations")
             .document("convo_0")
             .collection("messages")
-
 }

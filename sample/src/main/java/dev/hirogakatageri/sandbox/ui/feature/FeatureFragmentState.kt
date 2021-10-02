@@ -22,5 +22,4 @@ sealed class FeatureFragmentState {
     data class UserSignedOut(
         override val msgResId: Int = R.string.msg_user_signed_out
     ) : FeatureFragmentState()
-
 }

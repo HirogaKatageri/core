@@ -16,5 +16,4 @@ class FireChatMsgController : EpoxyController() {
             }
         }
     }
-
 }

@@ -75,7 +75,5 @@ class FireChatFragment : CoreViewModelFragment<FragmentChatBinding, FireChatView
             super.onItemRangeInserted(positionStart, itemCount)
             binding?.recyclerView?.smoothScrollToPosition(controller.adapter.itemCount)
         }
-
     }
-
 }

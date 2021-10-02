@@ -27,7 +27,7 @@ class FireChatRepository(
     ) = withContext(Dispatchers.IO) {
         val model = ChatMessageModel(
             message = message,
-            email = firebase.currentUser?.email
+            email = firebase.currentUser?.email ?: "Anonymous Onion"
         )
 
         firebase.chats.add(model)
@@ -67,5 +67,4 @@ class FireChatRepository(
             }
         }
     }
-
 }

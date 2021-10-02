@@ -118,7 +118,6 @@ val apiModule = module {
     single { get<ApiClient>().createApiService() }
 
     factory { ApiRepository(get()) }
-
 }
 
 val Scope.serviceViewFactory get() = get<ServiceViewFactory>()

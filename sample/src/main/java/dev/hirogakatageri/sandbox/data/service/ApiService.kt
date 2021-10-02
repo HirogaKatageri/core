@@ -12,5 +12,4 @@ interface ApiService {
     suspend fun verifyUser(
         @Body payload: VerifyUserPayload
     ): NetworkResponse<BaseResponse<Any>, BaseResponse<Any>>
-
 }
