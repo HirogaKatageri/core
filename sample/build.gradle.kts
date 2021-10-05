@@ -14,7 +14,18 @@ plugins {
 
 val buildPropertiesFile = File("sample/build.properties")
 val buildProperties = Properties()
-if (buildPropertiesFile.exists()) buildProperties.load(FileInputStream(buildPropertiesFile))
+if (buildPropertiesFile.exists()) {
+    buildProperties.load(FileInputStream(buildPropertiesFile))
+}
+
+val keystorePropertiesFile = File("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties.setProperty("CORE_KEY_PASSWORD", System.getenv("CORE_KEY_PASSWORD"))
+    keystoreProperties.setProperty("CORE_ALIAS", System.getenv("CORE_ALIAS"))
+}
 
 android {
     compileSdk = Constants.COMPILE_SDK_VERSION
@@ -47,9 +58,9 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("../signature/core-keystore.jks")
-            storePassword = KeystoreProperties.CORE_KEY_PASSWORD
-            keyAlias = KeystoreProperties.CORE_ALIAS
-            keyPassword = KeystoreProperties.CORE_KEY_PASSWORD
+            storePassword = keystoreProperties.getProperty("CORE_KEY_PASSWORD")
+            keyAlias = keystoreProperties.getProperty("CORE_ALIAS")
+            keyPassword = keystoreProperties.getProperty("CORE_KEY_PASSWORD")
         }
     }
 
@@ -94,7 +105,14 @@ android {
     applicationVariants.all {
         outputs.forEach { output ->
             if (output is com.android.build.gradle.internal.api.BaseVariantOutputImpl) {
-                output.outputFileName = "dev.hirogakatageri.sandbox.apk"
+                val packageName = "dev.hirogakatageri.sandbox"
+                val buildName = output.name
+                val versionName = Constants.SAMPLE_VERSION_NAME
+
+                val format = "%s-%s-v%s.apk"
+                val outputFileName = String.format(format, packageName, buildName, versionName)
+
+                output.outputFileName = outputFileName
             }
         }
     }
