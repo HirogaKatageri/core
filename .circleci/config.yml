@@ -68,8 +68,6 @@ jobs:
           id: "core"
       - build-module:
           id: "oauth2client"
-      - build-module:
-          id: "viewservice"
       - android/save-build-cache
       - android/save-gradle-cache
 

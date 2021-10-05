@@ -12,6 +12,8 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
 }
 
+val env: Map<String, String> = System.getenv()
+
 val buildPropertiesFile = File("sample/build.properties")
 val buildProperties = Properties()
 if (buildPropertiesFile.exists()) {
@@ -23,8 +25,8 @@ val keystoreProperties = Properties()
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 } else {
-    keystoreProperties.setProperty("CORE_KEY_PASSWORD", System.getenv("CORE_KEY_PASSWORD"))
-    keystoreProperties.setProperty("CORE_ALIAS", System.getenv("CORE_ALIAS"))
+    keystoreProperties.setProperty("CORE_KEY_PASSWORD", env["CORE_KEY_PASSWORD"])
+    keystoreProperties.setProperty("CORE_ALIAS", env["CORE_ALIAS"])
 }
 
 android {
