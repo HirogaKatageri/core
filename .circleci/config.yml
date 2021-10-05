@@ -66,8 +66,6 @@ jobs:
       - android/restore-gradle-cache
       - build-module:
           id: "core"
-      - build-module:
-          id: "oauth2client"
       - android/save-build-cache
       - android/save-gradle-cache
 
