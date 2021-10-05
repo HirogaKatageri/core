@@ -3,8 +3,12 @@
 
     <application android:theme="@style/Theme.Core">
 
-        <activity android:name=".components.TestActivity" />
-        <activity android:name=".components.TestViewModelActivity" />
+        <activity
+            android:name=".components.TestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".components.TestViewModelActivity"
+            android:exported="false" />
 
     </application>
 

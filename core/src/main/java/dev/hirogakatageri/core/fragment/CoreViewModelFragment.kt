@@ -31,5 +31,5 @@ abstract class CoreViewModelFragment<VB : ViewBinding, out VM : ViewModel> : Cor
     /**
      * Function to easily access the ViewModel.
      * */
-    protected inline fun <T> vm(func: VM.() -> T) = vm.run(func)
+    protected inline fun <T> vm(block: VM.() -> T): T = vm.run(block)
 }

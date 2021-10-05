@@ -18,9 +18,7 @@ package dev.hirogakatageri.core.activity
 
 import android.os.Bundle
 import androidx.annotation.Keep
-import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import kotlinx.coroutines.Job
 import org.koin.androidx.scope.ScopeActivity
 
 @Keep
@@ -45,11 +43,8 @@ abstract class CoreActivity<VB : ViewBinding> : ScopeActivity() {
 
     /**
      * Function to easily manipulate ViewBinding used in Activity.
-     * It runs in the Main thread and if Lifecycle State is at least [Lifecycle.State.STARTED]
      * */
-    protected fun binding(func: VB.() -> Unit): Job = lifecycleScope.launchWhenStarted {
-        binding.run(func)
-    }
+    protected fun <T> binding(block: VB.() -> T): T = binding.run(block)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
