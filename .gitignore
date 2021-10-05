@@ -150,4 +150,4 @@ lint/tmp/
 docs/
 signature/
 sample/build.properties
-KeystoreProperties.kt
+keystore.properties
