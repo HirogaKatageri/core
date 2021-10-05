@@ -25,8 +25,14 @@ val keystoreProperties = Properties()
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 } else {
-    keystoreProperties.setProperty("CORE_KEY_PASSWORD", env["CORE_KEY_PASSWORD"])
-    keystoreProperties.setProperty("CORE_ALIAS", env["CORE_ALIAS"])
+    keystoreProperties.setProperty(
+        "CORE_KEY_PASSWORD",
+        env.getOrDefault("CORE_KEY_PASSWORD", "")
+    )
+    keystoreProperties.setProperty(
+        "CORE_ALIAS",
+        env.getOrDefault("CORE_ALIAS", "")
+    )
 }
 
 android {
