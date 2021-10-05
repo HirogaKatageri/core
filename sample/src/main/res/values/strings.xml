@@ -12,9 +12,19 @@
     <string name="main_btn_oauth">oAuth</string>
     <string name="main_btn_view_service">View Service</string>
     <string name="main_btn_firebase_messaging">Firebase Cloud Messaging</string>
+    <string name="main_btn_firebase_auth">Firebase Auth</string>
+    <string name="main_btn_auth_verification">Verify Authentication</string>
+    <string name="main_btn_chat_firestore">Firestore Chat</string>
 
     <string name="fcm_empty_notification">Message: Notification is empty or null.</string>
     <string name="fcm_template_message">Message: %1$s</string>
 
     <string name="oauth_twitch_state">Twitch oAuth State</string>
+
+    <string name="msg_user_signed_in">%1$s has signed in</string>
+    <string name="msg_user_signed_out">You have signed out</string>
+    <string name="msg_user_sign_in_failed">Sign In failed, try again later</string>
+
+    <string name="msg_api_verify_user_success">User has been verified</string>
+    <string name="msg_api_verify_user_failed">Unable to verify user</string>
 </resources>

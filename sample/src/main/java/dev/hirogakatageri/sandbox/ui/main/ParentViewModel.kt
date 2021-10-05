@@ -31,4 +31,8 @@ class ParentViewModel : ViewModel() {
     fun showFcmFragment(message: String = "") = viewModelScope.launch {
         _state.value = ScreenState.FCMScreen(message = message)
     }
+
+    fun showChatFragment() = viewModelScope.launch {
+        _state.value = ScreenState.ChatScreen()
+    }
 }

@@ -9,16 +9,20 @@ package dev.hirogakatageri.sandbox.ui
  * */
 sealed class ScreenState {
 
-    abstract val state: Int
+    open val state: String?
+        get() = this::class.simpleName
 
-    data class MainScreen(override val state: Int = 0) : ScreenState()
+    data class MainScreen(override val state: String = "MainScreen") : ScreenState()
 
-    data class TimeScreen(override val state: Int = 1) : ScreenState()
+    data class TimeScreen(override val state: String = "TimeScreen") : ScreenState()
 
-    data class OAuthScreen(override val state: Int = 2) : ScreenState()
+    data class OAuthScreen(override val state: String = "OAuthScreen") : ScreenState()
 
     data class FCMScreen(
-        override val state: Int = 3,
         val message: String
+    ) : ScreenState()
+
+    data class ChatScreen(
+        override val state: String = "ChatScreen"
     ) : ScreenState()
 }

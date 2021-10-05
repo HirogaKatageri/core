@@ -147,6 +147,7 @@ lint/tmp/
 
 
 # Custom
-sample/build.properties
-buildSystem/publishing.properties
 docs/
+signature/
+sample/build.properties
+KeystoreProperties.kt

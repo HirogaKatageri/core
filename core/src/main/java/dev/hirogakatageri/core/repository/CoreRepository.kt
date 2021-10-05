@@ -14,22 +14,25 @@
  *    limitations under the License.
  */
 
-package dev.hirogakatageri.core.activity
+package dev.hirogakatageri.core.repository
 
 import androidx.annotation.Keep
-import androidx.lifecycle.ViewModel
-import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
 
 @Keep
-abstract class CoreViewModelActivity<VB : ViewBinding, out VM : ViewModel> : CoreActivity<VB>() {
+abstract class CoreRepository(
+    protected val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
 
     /**
-     * The ViewModel used in the Activity.
+     * By default will use defaultDispatcher injected on Repository.
      * */
-    protected abstract val vm: VM
-
-    /**
-     * Function to easily access the ViewModel.
-     * */
-    protected inline fun <T> vm(block: VM.() -> T): T = vm.run(block)
+    protected suspend fun <T> withRepositoryContext(
+        context: CoroutineContext = defaultDispatcher,
+        block: suspend CoroutineScope.() -> T
+    ) = withContext(context, block)
 }

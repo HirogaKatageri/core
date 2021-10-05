@@ -11,7 +11,7 @@ class FeatureAdapter(
     private val featureList: List<FeatureModel>
 ) : RecyclerView.Adapter<SampleViewHolder>() {
 
-    var clickCallback: SampleItemClickCallback? = null
+    var clickCallback: FeatureItemClickCallback? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -40,7 +40,7 @@ class FeatureAdapter(
 
     class SampleViewHolder(
         itemView: View,
-        private val callback: SampleItemClickCallback?
+        private val callback: FeatureItemClickCallback?
     ) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
@@ -59,7 +59,7 @@ class FeatureAdapter(
         }
     }
 
-    abstract class SampleItemClickCallback {
+    abstract class FeatureItemClickCallback {
         abstract fun onClick(model: FeatureModel)
     }
 }

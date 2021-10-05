@@ -20,7 +20,7 @@ object Constants {
     const val LIFECYCLE_VERSION = "2.3.1"
     const val ARCHITECTURE_VERSION = "2.1.0"
     const val NAVIGATION_VERSION = "2.3.5"
-    const val CAMERAX_VERSION  = "1.0.0"
+    const val CAMERAX_VERSION = "1.0.0"
 
     //Android UI
     const val MATERIAL_VERSION = "1.4.0"
@@ -58,6 +58,8 @@ object Constants {
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
+
+    const val COROUTINES_PLAY_SERVICES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1"
 
     //Android Essentials
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
@@ -142,10 +144,17 @@ object Constants {
     const val DATE_TIME = "com.jakewharton.threetenabp:threetenabp:1.3.0"
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.7"
 
+    //Google
+    const val GOOGLE_PLAY_SERVICES = "com.google.android.gms:play-services-auth:19.2.0"
+
     //Firebase
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:28.4.0"
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+    const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-ktx"
     const val FIREBASE_CLOUD_MESSAGING = "com.google.firebase:firebase-messaging-ktx"
+    const val FIREBASE_FIRESTORE = "com.google.firebase:firebase-firestore-ktx"
+    const val FIREBASE_AUTH = "com.google.firebase:firebase-auth-ktx"
+    const val FIREBASE_AUTH_UI = "com.firebaseui:firebase-ui-auth:8.0.0"
 
     //Authentication
     const val APP_AUTH = "net.openid:appauth:0.9.1"
@@ -157,7 +166,7 @@ object Constants {
     const val RETROFIT_MOSHI = "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"
     const val RETROFIT_MOCK = "com.squareup.retrofit2:retrofit-mock:$RETROFIT_VERSION"
     const val OKHTTP = "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
-    const val OKHTTP_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+    const val OKHTTP_LOG_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     const val OKHTTP_URL_CONNECTION = "com.squareup.okhttp3:okhttp-urlconnection:$OKHTTP_VERSION"
     const val OKHTTP_MOCK_SERVER = "com.squareup.okhttp3:mockwebserver:$OKHTTP_VERSION"
     const val COOKIE_STORE = "net.gotev:cookie-store:1.2.1"

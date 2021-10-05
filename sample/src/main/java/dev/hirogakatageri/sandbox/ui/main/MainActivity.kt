@@ -48,6 +48,9 @@ class MainActivity : CoreViewModelActivity<ActivityMainBinding, ParentViewModel>
                 is ScreenState.FCMScreen -> navController.navigate(
                     FeatureFragmentDirections.mainScreenToFcmScreen(state.message)
                 )
+                is ScreenState.ChatScreen -> navController.navigate(
+                    FeatureFragmentDirections.mainScreenToChatScreen()
+                )
             }
         }
     }

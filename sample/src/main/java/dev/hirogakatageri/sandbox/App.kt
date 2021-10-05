@@ -16,7 +16,9 @@ class App : CoreApp() {
     override val moduleList: List<Module> = listOf(
         securityModule,
         mainModule,
-        viewServiceModule
+        viewServiceModule,
+        apiModule,
+        chatModule
     )
 
     override fun onCreate() {

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "941135149322-lepjnsqfkp05kfj5jf7age6ke6m8l1dl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.hirogakatageri.sandbox",
+            "certificate_hash": "cf636a9b9c0ac4992e99fdf482221179948dc4d7"
+          }
+        },
+        {
           "client_id": "941135149322-tu08ellrc7mjk3f423eeotvge328fn0o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

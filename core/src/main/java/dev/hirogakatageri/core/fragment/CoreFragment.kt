@@ -54,16 +54,18 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
 
     /**
      * Function to easily manipulate ViewBinding used in Fragment.
-     * It runs in the Main thread and if Lifecycle State is at least [Lifecycle.State.STARTED]
      * */
-    protected fun binding(func: VB.() -> Unit) = lifecycleScope.launchWhenStarted {
-        val b = binding
-        if (b == null) Log.e(
-            this@CoreFragment::class.simpleName,
-            "ViewBinding is null, action won't be run.",
-            RuntimeException("ViewBinding is null, action won't be run.")
-        )
-        else b.run(func)
+    protected fun <T> binding(block: VB.() -> T?): T? {
+        val viewBinding = binding
+
+        return if (viewBinding == null) {
+            Log.e(
+                this@CoreFragment::class.simpleName,
+                "ViewBinding is null, block won't be run.",
+                RuntimeException("ViewBinding is null, action won't be run.")
+            )
+            null
+        } else viewBinding.run(block)
     }
 
     override fun onCreateView(
