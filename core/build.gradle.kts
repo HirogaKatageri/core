@@ -122,7 +122,7 @@ afterEvaluate {
 
                 pom {
                     name.set("Core")
-                    description.set("Boilerplate Library for Android using MVVM and Koin DI.")
+                    description.set("Template Library for Android using MVVM and Koin DI.")
 
                     licenses {
                         license {
