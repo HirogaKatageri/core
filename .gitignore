@@ -150,4 +150,5 @@ lint/tmp/
 docs/
 signature/
 sample/build.properties
+secret.properties
 keystore.properties

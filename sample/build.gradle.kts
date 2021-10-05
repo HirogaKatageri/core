@@ -1,6 +1,3 @@
-import java.io.FileInputStream
-import java.util.Properties
-
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -12,28 +9,8 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
 }
 
-val env: Map<String, String> = System.getenv()
-
-val buildPropertiesFile = File("sample/build.properties")
-val buildProperties = Properties()
-if (buildPropertiesFile.exists()) {
-    buildProperties.load(FileInputStream(buildPropertiesFile))
-}
-
-val keystorePropertiesFile = File("keystore.properties")
-val keystoreProperties = Properties()
-if (keystorePropertiesFile.exists()) {
-    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-} else {
-    keystoreProperties.setProperty(
-        "CORE_KEY_PASSWORD",
-        env.getOrDefault("CORE_KEY_PASSWORD", "")
-    )
-    keystoreProperties.setProperty(
-        "CORE_ALIAS",
-        env.getOrDefault("CORE_ALIAS", "")
-    )
-}
+val buildProperties = BuildHelper.getBuildProperties()
+val keyStoreProperties = BuildHelper.getKeyStoreProperties()
 
 android {
     compileSdk = Constants.COMPILE_SDK_VERSION
@@ -51,13 +28,13 @@ android {
         buildConfigField(
             "String",
             "TWITCH_CLIENT_ID",
-            buildProperties.getProperty("TWITCH_CLIENT_ID") ?: "null"
+            buildProperties.getProperty("TWITCH_CLIENT_ID", "")
         )
 
         buildConfigField(
             "String",
             "TWITCH_SECRET_KEY",
-            buildProperties.getProperty("TWITCH_SECRET_KEY") ?: "null"
+            buildProperties.getProperty("TWITCH_SECRET_KEY", "")
         )
 
         resConfigs("en")
@@ -66,9 +43,9 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("../signature/core-keystore.jks")
-            storePassword = keystoreProperties.getProperty("CORE_KEY_PASSWORD")
-            keyAlias = keystoreProperties.getProperty("CORE_ALIAS")
-            keyPassword = keystoreProperties.getProperty("CORE_KEY_PASSWORD")
+            storePassword = keyStoreProperties.getProperty("CORE_KEY_PASSWORD")
+            keyAlias = keyStoreProperties.getProperty("CORE_ALIAS")
+            keyPassword = keyStoreProperties.getProperty("CORE_KEY_PASSWORD")
         }
     }
 

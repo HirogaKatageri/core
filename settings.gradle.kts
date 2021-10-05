@@ -22,6 +22,21 @@ dependencyResolutionManagement {
     }
 }
 
-include(":sample")
 include(":core")
-include(":oauth2client")
+
+if (!isJitpack() && !isCircleCi()) {
+    include(":sample")
+    include(":oauth2client")
+}
+
+fun isJitpack(): Boolean = try {
+    System.getenv("JITPACK").toBoolean()
+} catch (ex: Exception) {
+    false
+}
+
+fun isCircleCi(): Boolean = try {
+    System.getenv("CIRCLECI").toBoolean()
+} catch (ex: Exception) {
+    false
+}
