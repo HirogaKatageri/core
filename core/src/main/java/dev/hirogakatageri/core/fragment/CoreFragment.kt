@@ -55,28 +55,24 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
     /**
      * Function to easily manipulate ViewBinding used in Fragment.
      * */
-    protected fun <T> binding(block: VB.() -> T?): T? {
-        val viewBinding = binding
-
-        return if (viewBinding == null) {
-            Log.e(
-                this@CoreFragment::class.simpleName,
-                "ViewBinding is null, block won't be run.",
-                RuntimeException("ViewBinding is null, action won't be run.")
-            )
-            null
-        } else viewBinding.run(block)
+    protected fun <T> binding(block: VB.() -> T?): T? = binding?.run(block) ?: run {
+        val exception = RuntimeException("ViewBinding is null block won't be run.")
+        Log.e(
+            this@CoreFragment::class.simpleName,
+            "ViewBinding is null block won't be run.",
+            exception
+        )
+        null
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = createBinding(container)
-        binding?.bind()
-        return binding?.root
-    }
+        savedInstanceState: Bundle?,
+    ): View = createBinding(container).also { vb ->
+        binding = vb
+        vb.bind()
+    }.root
 
     override fun onDestroyView() {
         super.onDestroyView()

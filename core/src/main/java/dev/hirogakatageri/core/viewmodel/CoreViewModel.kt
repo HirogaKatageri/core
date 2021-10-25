@@ -14,17 +14,16 @@
  *    limitations under the License.
  */
 
-package dev.hirogakatageri.core.activity
+package dev.hirogakatageri.core.viewmodel
 
 import androidx.annotation.Keep
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.viewbinding.ViewBinding
 
+/**
+ * Includes SavedStateHandle by Default.
+ * */
 @Keep
-abstract class CoreViewModelActivity<VB : ViewBinding, out VM : ViewModel> : CoreActivity<VB>() {
-
-    /**
-     * The ViewModel used in the Activity.
-     * */
-    protected abstract val vm: VM
-}
+class CoreViewModel(
+    protected val stateHandle: SavedStateHandle,
+) : ViewModel()

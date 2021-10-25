@@ -27,9 +27,4 @@ abstract class CoreViewModelFragment<VB : ViewBinding, out VM : ViewModel> : Cor
      * The ViewModel used in the Fragment.
      * */
     protected abstract val vm: VM
-
-    /**
-     * Function to easily access the ViewModel.
-     * */
-    protected inline fun <T> vm(block: VM.() -> T): T = vm.run(block)
 }
