@@ -24,6 +24,6 @@ import androidx.lifecycle.ViewModel
  * Includes SavedStateHandle by Default.
  * */
 @Keep
-class CoreViewModel(
+abstract class CoreViewModel(
     protected val stateHandle: SavedStateHandle,
 ) : ViewModel()

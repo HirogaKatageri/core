@@ -1,8 +1,8 @@
 object Constants {
 
     const val MIN_SDK_VERSION = 23
-    const val COMPILE_SDK_VERSION = 30
-    const val TARGET_SDK_VERSION = 30
+    const val COMPILE_SDK_VERSION = 31
+    const val TARGET_SDK_VERSION = 31
     const val VERSION_CODE : Int = 10000
 
     const val CORE_VERSION_NAME = "0.4.0"
@@ -17,7 +17,7 @@ object Constants {
     const val COROUTINES_VERSION = "1.5.1"
 
     //Android
-    const val LIFECYCLE_VERSION = "2.3.1"
+    const val LIFECYCLE_VERSION = "2.4.0"
     const val ARCHITECTURE_VERSION = "2.1.0"
     const val NAVIGATION_VERSION = "2.3.5"
     const val CAMERAX_VERSION = "1.0.0"

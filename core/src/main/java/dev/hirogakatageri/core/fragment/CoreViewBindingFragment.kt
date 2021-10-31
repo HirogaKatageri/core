@@ -17,53 +17,35 @@
 package dev.hirogakatageri.core.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Keep
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 import org.koin.androidx.scope.ScopeFragment
 
 @Keep
-abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
+abstract class CoreViewBindingFragment<T : ViewBinding> :
+    ScopeFragment(),
+    ViewBindingFragment<T> {
 
-    /**
-     * The ViewBinding property used by the Activity.
-     * This becomes null when onDestroyView is called.
-     * */
-    protected var binding: VB? = null
+    private val viewBindingLifecycleObserver = ViewBindingLifecycleObserver()
 
-    /**
-     * Property to easily access the View's Lifecycle Scope
-     * */
-    protected val lifecycleScope get() = viewLifecycleOwner.lifecycleScope
+    override var binding: T? = null
 
     /**
      * Function to initialize ViewBinding.
      * @return ViewBinding used by the Fragment.
      * */
-    protected abstract fun createBinding(container: ViewGroup?): VB
+    protected abstract fun createBinding(container: ViewGroup?): T
 
     /**
      * Called after [createBinding] in [onCreateView].
      * Initialization of UI is recommended here.
      * */
-    protected abstract fun VB.bind()
-
-    /**
-     * Function to easily manipulate ViewBinding used in Fragment.
-     * */
-    protected fun <T> binding(block: VB.() -> T?): T? = binding?.run(block) ?: run {
-        val exception = RuntimeException("ViewBinding is null block won't be run.")
-        Log.e(
-            this@CoreFragment::class.simpleName,
-            "ViewBinding is null block won't be run.",
-            exception
-        )
-        null
-    }
+    protected abstract fun T.bind()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,10 +54,14 @@ abstract class CoreFragment<VB : ViewBinding> : ScopeFragment() {
     ): View = createBinding(container).also { vb ->
         binding = vb
         vb.bind()
+        viewLifecycleOwner.lifecycle.addObserver(viewBindingLifecycleObserver)
     }.root
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+    private inner class ViewBindingLifecycleObserver : DefaultLifecycleObserver {
+
+        override fun onDestroy(owner: LifecycleOwner) {
+            super.onDestroy(owner)
+            clearBinding()
+        }
     }
 }

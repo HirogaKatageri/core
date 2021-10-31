@@ -17,14 +17,8 @@
 package dev.hirogakatageri.core.fragment
 
 import androidx.annotation.Keep
-import androidx.lifecycle.ViewModel
-import androidx.viewbinding.ViewBinding
+import androidx.lifecycle.lifecycleScope
+import org.koin.androidx.scope.ScopeFragment
 
 @Keep
-abstract class CoreViewModelFragment<VB : ViewBinding, out VM : ViewModel> : CoreFragment<VB>() {
-
-    /**
-     * The ViewModel used in the Fragment.
-     * */
-    protected abstract val vm: VM
-}
+fun ScopeFragment.getViewLifecycleScope() = viewLifecycleOwner.lifecycleScope

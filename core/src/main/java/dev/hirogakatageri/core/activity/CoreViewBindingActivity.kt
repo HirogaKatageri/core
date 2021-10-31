@@ -16,15 +16,34 @@
 
 package dev.hirogakatageri.core.activity
 
+import android.os.Bundle
 import androidx.annotation.Keep
-import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
+import org.koin.androidx.scope.ScopeActivity
 
 @Keep
-abstract class CoreViewModelActivity<VB : ViewBinding, out VM : ViewModel> : CoreActivity<VB>() {
+abstract class CoreViewBindingActivity<VB : ViewBinding> :
+    ScopeActivity(),
+    ViewBindingActivity<VB> {
+
+    override lateinit var binding: VB
 
     /**
-     * The ViewModel used in the Activity.
+     * Function to initialize ViewBinding.
+     * @return ViewBinding used by the Activity.
      * */
-    protected abstract val vm: VM
+    protected abstract fun createBinding(): VB
+
+    /**
+     * Called after [createBinding] and [setContentView] in [onCreate].
+     * Initialization of UI is recommended here.
+     * */
+    protected abstract fun VB.bind()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = createBinding()
+        setContentView(binding.root)
+        binding.bind()
+    }
 }

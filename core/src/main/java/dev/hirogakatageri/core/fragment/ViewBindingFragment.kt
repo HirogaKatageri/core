@@ -14,25 +14,25 @@
  *    limitations under the License.
  */
 
-package dev.hirogakatageri.core.repository
+package dev.hirogakatageri.core.fragment
 
 import androidx.annotation.Keep
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
+import androidx.viewbinding.ViewBinding
 
 @Keep
-abstract class CoreRepository(
-    protected val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO,
-) {
+interface ViewBindingFragment<T : ViewBinding> {
 
     /**
-     * By default will use defaultDispatcher injected on Repository.
+     * The ViewBinding property used by the Fragment.
      * */
-    protected suspend fun <T> withDefaultContext(
-        context: CoroutineContext = defaultDispatcher,
-        block: suspend CoroutineScope.() -> T,
-    ) = withContext(context, block)
+    var binding: T?
+
+    /**
+     * Function to easily manipulate Views.
+     * */
+    fun <R> binding(block: T.() -> R?): R? = binding?.run(block)
+
+    fun clearBinding() {
+        binding = null
+    }
 }

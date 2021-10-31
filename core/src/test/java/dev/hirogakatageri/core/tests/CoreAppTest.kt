@@ -5,12 +5,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import dev.hirogakatageri.core.CoreApp
-import dev.hirogakatageri.core.components.TestActivity
 import dev.hirogakatageri.core.components.TestApp
-import dev.hirogakatageri.core.components.TestFragment
-import dev.hirogakatageri.core.components.TestViewModel
-import dev.hirogakatageri.core.components.TestViewModelActivity
-import dev.hirogakatageri.core.components.TestViewModelFragment
+import dev.hirogakatageri.core.components.ViewBindingTestActivity
+import dev.hirogakatageri.core.components.ViewBindingTestFragment
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -44,12 +41,9 @@ class CoreAppTest : AutoCloseKoinTest() {
     fun test_Scope() {
         val app = _app as TestApp
         val scopes = setOf<Qualifier>(
-            TypeQualifier(TestActivity::class),
-            TypeQualifier(TestViewModelActivity::class),
-            TypeQualifier(TestFragment::class),
-            TypeQualifier(TestViewModelFragment::class)
+            TypeQualifier(ViewBindingTestActivity::class),
+            TypeQualifier(ViewBindingTestFragment::class),
         )
         Assert.assertTrue(getKoin().scopeRegistry.scopeDefinitions.containsAll(scopes))
-        Assert.assertNotNull(getKoin().get<TestViewModel>())
     }
 }
