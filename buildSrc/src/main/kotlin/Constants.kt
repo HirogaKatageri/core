@@ -3,7 +3,7 @@ object Constants {
     const val MIN_SDK_VERSION = 23
     const val COMPILE_SDK_VERSION = 31
     const val TARGET_SDK_VERSION = 31
-    const val VERSION_CODE : Int = 10000
+    const val VERSION_CODE: Int = 10000
 
     const val CORE_VERSION_NAME = "0.5.0"
     const val OAUTH2_CLIENT_VERSION_NAME = "0.2.1"
@@ -13,7 +13,7 @@ object Constants {
     const val GOOGLE_SERVICES_VERSION = "4.3.10"
 
     //Kotlin
-    const val KOTLIN_VERSION = "1.5.21"
+    const val KOTLIN_VERSION = "1.5.31"
     const val COROUTINES_VERSION = "1.5.1"
 
     //Android
@@ -59,10 +59,11 @@ object Constants {
     const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
 
-    const val COROUTINES_PLAY_SERVICES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1"
+    const val COROUTINES_PLAY_SERVICES =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1"
 
     //Android Essentials
-    const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
+    const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.1"
     const val ANDROID_SECURITY = "androidx.security:security-crypto:1.0.0"
 
     //Android UI
@@ -82,9 +83,9 @@ object Constants {
     const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:$NAVIGATION_VERSION"
 
     //Android KTX
-    const val ANDROID_KTX_CORE = "androidx.core:core-ktx:1.6.0"
+    const val ANDROID_KTX_CORE = "androidx.core:core-ktx:1.7.0"
     const val ANDROID_KTX_COLLECTIONS = "androidx.collection:collection-ktx:1.1.0"
-    const val ANDROID_KTX_ACTIVITY = "androidx.activity:activity-ktx:1.3.1"
+    const val ANDROID_KTX_ACTIVITY = "androidx.activity:activity-ktx:1.4.0"
     const val ANDROID_KTX_FRAGMENT = "androidx.fragment:fragment-ktx:1.3.6"
 
     //Android Lifecycle Runtime
