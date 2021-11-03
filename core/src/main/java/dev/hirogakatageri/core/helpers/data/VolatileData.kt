@@ -16,14 +16,16 @@
 
 package dev.hirogakatageri.core.helpers.data
 
+import androidx.annotation.Keep
 import java.lang.ref.WeakReference
 
 /**
  * Helper class to hold a weak reference to a value.
  * It will remove the reference after being read at least once.
  * */
+@Keep
 open class VolatileData<out T>(
-    value: T? = null
+    value: T? = null,
 ) {
     private val reference = WeakReference(value)
 

@@ -16,9 +16,8 @@
 
 package dev.hirogakatageri.core.fragment
 
-import androidx.annotation.Keep
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import org.koin.androidx.scope.ScopeFragment
 
-@Keep
-fun ScopeFragment.getViewLifecycleScope() = viewLifecycleOwner.lifecycleScope
+val Fragment.lifecycleScope
+    get() = viewLifecycleOwner.lifecycleScope
