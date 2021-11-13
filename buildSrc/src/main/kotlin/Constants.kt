@@ -2,7 +2,7 @@ object Constants {
 
     const val MIN_SDK_VERSION = 23
     const val COMPILE_SDK_VERSION = 31
-    const val TARGET_SDK_VERSION = 31
+    const val TARGET_SDK_VERSION = 30
     const val VERSION_CODE: Int = 10000
 
     const val CORE_VERSION_NAME = "0.5.0"
@@ -98,14 +98,14 @@ object Constants {
         "androidx.lifecycle:lifecycle-common-java8:$LIFECYCLE_VERSION" // JDK 8 and above implementation
 
     //Android Lifecycle Modules
-    const val ANDROID_LIFECYCLE_SERVICE = "androidx.lifecycle:lifecycle-service:$LIFECYCLE_VERSION"
     const val ANDROID_LIFECYCLE_APP = "androidx.lifecycle:lifecycle-process:$LIFECYCLE_VERSION"
+    const val ANDROID_LIFECYCLE_SERVICE = "androidx.lifecycle:lifecycle-service:$LIFECYCLE_VERSION"
     const val ANDROID_LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:$LIFECYCLE_VERSION"
     const val ANDROID_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-ktx:$LIFECYCLE_VERSION"
     const val ANDROID_STATE_VIEWMODEL =
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:$LIFECYCLE_VERSION"
     const val ANDROID_COMPOSE_VIEWMODEL =
-        "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha01"
+        "androidx.lifecycle:lifecycle-viewmodel-compose:$LIFECYCLE_VERSION"
 
     //Android Lifecycle Test Helpers
     const val ANDROID_LIFECYCLE_TEST = "androidx.arch.core:core-testing:$ARCHITECTURE_VERSION"
@@ -114,7 +114,7 @@ object Constants {
     const val ANDROID_CAMERAX_CORE = "androidx.camera:camera-core:$CAMERAX_VERSION"
     const val ANDROID_CAMERAX_CAMERA2 = "androidx.camera:camera-camera2:$CAMERAX_VERSION"
     const val ANDROID_CAMERAX_LIFECYCLE = "androidx.camera:camera-lifecycle:$CAMERAX_VERSION"
-    const val ANDROID_CAMERAX_VIEW = "androidx.camera:camera-view:1.0.0-alpha27"
+    const val ANDROID_CAMERAX_VIEW = "androidx.camera:camera-view:1.0.0-alpha30"
 
     //DI
     const val KOIN_CORE = "io.insert-koin:koin-core:$KOIN_VERSION"
@@ -140,9 +140,9 @@ object Constants {
 
     //Image Utils
     const val COIL = "io.coil-kt:coil:1.0.0"
+    const val IMAGE_PICKER = "com.github.Drjacky:ImagePicker:2.1.13"
 
     //Misc. Utils
-    const val DATE_TIME = "com.jakewharton.threetenabp:threetenabp:1.3.0"
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.7"
 
     //Google
