@@ -14,7 +14,7 @@ object Constants {
 
     //Kotlin
     const val KOTLIN_VERSION = "1.5.31"
-    const val COROUTINES_VERSION = "1.5.1"
+    const val COROUTINES_VERSION = "1.5.2"
 
     //Android
     const val LIFECYCLE_VERSION = "2.4.0"
@@ -59,8 +59,7 @@ object Constants {
     const val COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test"
 
-    const val COROUTINES_PLAY_SERVICES =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.1"
+    const val COROUTINES_PLAY_SERVICES = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services"
 
     //Android Essentials
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.1"
@@ -146,10 +145,10 @@ object Constants {
     const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:2.7"
 
     //Google
-    const val GOOGLE_PLAY_SERVICES = "com.google.android.gms:play-services-auth:19.2.0"
+    const val GOOGLE_PLAY_SERVICES = "com.google.android.gms:play-services-auth:20.1.0"
 
     //Firebase
-    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:28.4.0"
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:29.2.0"
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-ktx"
     const val FIREBASE_CLOUD_MESSAGING = "com.google.firebase:firebase-messaging-ktx"

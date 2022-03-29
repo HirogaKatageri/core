@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 ~ Copyright (C) 2019 The Android Open Source Project
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,22 +19,19 @@
     <!--Components-->
 
     <!--Bottom Sheets-->
-    <style name="ThemeOverlay.Core.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+    <style name="ThemeOverlay.Core.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="bottomSheetStyle">@style/Widget.Core.BottomSheet.Modal</item>
+        <item name="bottomSheetStyle">@style/BottomSheetStyle.Core</item>
         <item name="android:navigationBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">@android:color/transparent</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
+            @android:color/transparent
+        </item>
     </style>
 
-    <style name="Widget.Core.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="BottomSheetStyle.Core" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
-    </style>
-
-    <!--Navigation Drawer-->
-    <style name="Widget.Core.NavigationView" parent="Widget.MaterialComponents.NavigationView">
-        <item name="itemTextAppearance">?attr/textAppearanceBody2</item>
     </style>
 
 </resources>

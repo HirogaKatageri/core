@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 ~ Copyright (C) 2019 The Android Open Source Project
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,18 +17,16 @@
     <!--Top level DayNight theme to be used in AndroidManifest.xml-->
     <style name="Theme.Core" parent="Base.Theme.Core">
         <!--Material color attributes (dark theme) -->
-        <item name="colorPrimary">@color/light_black</item>
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="colorSecondary">@color/light_black</item>
-        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/dark_white</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/dark_white</item>
         <item name="android:colorBackground">@color/black</item>
         <item name="colorSurface">@color/light_black</item>
-        <!--<item name="colorError"></item>-->
-        <item name="colorOnPrimary">@color/dark_white</item>
-        <item name="colorOnSecondary">@color/dark_white</item>
-        <item name="colorOnBackground">@color/dark_white</item>
+        <item name="colorOnPrimary">@color/light_black</item>
+        <item name="colorOnSecondary">@color/light_black</item>
+        <item name="colorOnBackground">@color/white</item>
         <item name="colorOnSurface">@color/dark_white</item>
-        <!--<item name="colorOnError"></item>-->
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>
     </style>

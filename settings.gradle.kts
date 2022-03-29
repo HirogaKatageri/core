@@ -23,10 +23,10 @@ dependencyResolutionManagement {
 }
 
 include(":core")
+include(":bom")
 
 if (!isJitpack() && !isCircleCi()) {
     include(":sample")
-    include(":oauth2client")
 }
 
 fun isJitpack(): Boolean = try {

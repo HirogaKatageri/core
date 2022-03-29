@@ -37,7 +37,7 @@
         <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
         <!--on which they appear.-->
         <item name="colorOnPrimary">@color/dark_white</item>
-        <item name="colorOnSecondary">@color/light_black</item>
+        <item name="colorOnSecondary">@color/dark_white</item>
         <item name="colorOnBackground">@color/light_black</item>
         <item name="colorOnSurface">@color/light_black</item>
         <!--<item name="colorOnError"></item>-->
@@ -61,8 +61,7 @@
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Core.LargeComponent</item>
         <!--Component styles-->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Core.BottomSheetDialog</item>
-        <item name="navigationViewStyle">@style/Widget.Core.NavigationView</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.MaterialComponents.BottomSheetDialog</item>
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
     </style>
 
